@@ -1,0 +1,7 @@
+export * from "./HomePage"
+export * from "./CalendarPage"
+export * from "./EventsPage"
+export * from "./DocumentsPage"
+export * from "./AboutusPage"
+export * from "./DonationPage"
+export * from "./OfficesPage"
