@@ -13,7 +13,7 @@ export const CorpoeddehRoute = () => {
       <Route path={routes.ABOUTUS} element={<AboutusPage />}></Route>
       <Route path={routes.DONATION} element={<DonationPage />}></Route>
       <Route path={routes.OFFICE} element={<OfficesPage />}></Route>
-      <Route path={routes.default} element={<Navigate to="/" />} />
+      <Route path={routes.RANDOM} element={<Navigate to="/" />} />
     </Routes>
   );
 };
