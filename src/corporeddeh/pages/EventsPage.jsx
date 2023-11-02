@@ -1,3 +1,5 @@
+import Layout from "./layout/Layout"
+
 export const EventsPage =() =>{
-    return <div>Events Page</div>
+    return <Layout>Events Page</Layout>
 }

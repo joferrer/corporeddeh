@@ -1,3 +1,5 @@
+import Layout from "./layout/Layout"
+
 export const OfficesPage =()=>{
-    return <div>Offices Page</div>
+    return <Layout>Offices Page</Layout>
 }

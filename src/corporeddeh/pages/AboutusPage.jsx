@@ -1,3 +1,5 @@
+import Layout from "./layout/Layout"
+
 export const AboutusPage = ()=>{
-    return <div>Aboutus Page</div>
+    return <Layout>Aboutus Page</Layout>
 }

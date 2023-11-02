@@ -1,3 +1,5 @@
+import Layout from "./layout/Layout"
+
 export const DonationPage = ()=>{
-    return <div>Donations Page</div>
+    return <Layout>Donations Page</Layout>
 }

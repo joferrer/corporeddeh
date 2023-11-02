@@ -1,3 +1,3 @@
 export const CalendarPage = ()=>{
-    return <div>CalendarPage</div>
+    return <Layout>CalendarPage</Layout>
 }
