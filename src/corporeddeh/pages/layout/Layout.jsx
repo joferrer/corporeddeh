@@ -1,34 +1,114 @@
-import { AppBar, Button, Toolbar, Typography } from "@mui/material";
 import React from "react";
+import { AppBar, Box, Button, Toolbar } from "@mui/material";
+import { routes } from "../../routes/routes";
 
-const Layout = () => {
+const Layout = ({ children }) => {
   return (
-    <AppBar position="static">
-      <Toolbar>
-        <Typography variant="h6" style={{ flexGrow: 1 }}>
-          <img
-            src="../../../../public/vite.svg"
-            alt="Logo"
-            style={{ width: "40px", marginRight: "10px" }}
-          />
-        </Typography>
-        <Button color="inherit" href="/">
-          Calendario
-        </Button>
-        <Button color="inherit" href="/Eventos">
-          Eventos
-        </Button>
-        <Button color="inherit" href="/Documentos">
-          Documentos
-        </Button>
-        <Button color="inherit" href="/SobreNostros">
-          Sobre Nosotros
-        </Button>
-        <Button color="inherit" href="/Sedes">
-          Sedes
-        </Button>
-      </Toolbar>
-    </AppBar>
+    <Box
+      sx={{
+        margin: 0,
+        padding: 0,
+        display: "flex",
+        flexDirection: "column",
+        minHeight: "100vh",
+      }}
+    >
+      <Box sx={{ marginBottom: 10 }}>
+        <AppBar
+          position="static"
+          sx={{
+            top: "0",
+            left: "0",
+            position: "fixed",
+            width: "100%",
+            background: "white",
+          }}
+        >
+          <Toolbar sx={{ background: "white" }}>
+            <a href="/">
+              <img
+                src="../../../../public/vite.svg"
+                alt="Logo"
+                style={{ width: "40px" }}
+              />
+            </a>
+
+            <Box sx={{ marginLeft: "auto", color: "#308CD7" }}>
+              <Button
+                sx={{
+                  color: "inherit",
+                  background:
+                    location.pathname === routes.CALENDAR
+                      ? "#EEEEEE"
+                      : "inherit",
+                }}
+                href={routes.CALENDAR}
+              >
+                Calendario
+              </Button>
+              <Button
+                sx={{
+                  color: "inherit",
+                  background:
+                    location.pathname === routes.EVENT ? "#EEEEEE" : "inherit",
+                }}
+                href={routes.EVENT}
+              >
+                Eventos
+              </Button>
+              <Button
+                sx={{
+                  color: "inherit",
+                  background:
+                    location.pathname === routes.DOCUMENTS
+                      ? "#EEEEEE"
+                      : "inherit",
+                }}
+                href={routes.DOCUMENTS}
+              >
+                Documentos
+              </Button>
+              <Button
+                sx={{
+                  color: "inherit",
+                  background:
+                    location.pathname === routes.ABOUTUS
+                      ? "#EEEEEE"
+                      : "inherit",
+                }}
+                href={routes.ABOUTUS}
+              >
+                Sobre Nosotros
+              </Button>
+              <Button
+                sx={{
+                  color: "inherit",
+                  background:
+                    location.pathname === routes.OFFICE ? "#EEEEEE" : "inherit",
+                }}
+                href={routes.OFFICE}
+              >
+                Sedes
+              </Button>
+            </Box>
+          </Toolbar>
+        </AppBar>
+      </Box>
+      <Box
+        sx={{
+          flex: 1,
+        }}
+      >
+        {children}
+      </Box>
+      <Box
+        sx={{
+          height: "150px",
+          background: "#308CD7",
+          padding: "10px",
+        }}
+      ></Box>
+    </Box>
   );
 };
 
