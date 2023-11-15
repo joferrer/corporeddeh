@@ -91,17 +91,17 @@ function Item(props)
 {
     return (
       <Paper
-      sx={{
-        position: 'relative',
-        backgroundColor: 'grey.800',
-        color: '#fff',
-        mb: 4,
-        backgroundSize: 'cover',
-        backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'center',
-        backgroundImage: `url(${props.item.img})`,
-        
-      }}
+        sx={{
+          position: 'relative',
+          backgroundColor: 'grey.800',
+          color: '#fff',
+          mb: 4,
+          backgroundSize: 'cover',
+          backgroundRepeat: 'no-repeat',
+          backgroundPosition: 'center',
+          backgroundImage: `url(${props.item.img})`,
+          
+        }}
     >
       {/* Increase the priority of the hero background image */}
       {<img style={{ display: 'none',  }} src={props.item.img} alt={post.imageText} />}
@@ -136,6 +136,14 @@ function Item(props)
     )
 }
 
+const CounterComponent = ({counter = 1000, mes = "Enero"})=>{
+  return <Grid sx={{backgroundColor:"#E73E2E"}}>
+    <Typography variant="h6">Hechos victimizantes</Typography>
+        <Typography variant="h3">{counter}</Typography>
+        <Typography variant="h5">{mes}</Typography>
+  </Grid>
+}
+
 export const HomePage = () => {
   return <Layout>
     <Grid>
@@ -144,10 +152,7 @@ export const HomePage = () => {
 
       <NavegationComponent />
 
-      //Counter
-      <Grid>
-
-      </Grid>
+      <CounterComponent />
       //Map
       <Grid>
 
