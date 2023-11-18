@@ -154,8 +154,8 @@ const SendMessageForm = ()=>{
   }
 
   return <form onSubmit={handleSubmit(onSubmit)}> 
-    <Grid container>
-    <Paper>
+    <Grid container sx={{justifyContent:"center", flexDirection:"column", padding:"10px",textAlign:"left"}}> 
+    <Paper sx={{padding:"10px"}}>
       <Controller 
         name="username"
         control={control}
