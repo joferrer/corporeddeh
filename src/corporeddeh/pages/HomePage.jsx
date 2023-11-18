@@ -3,6 +3,8 @@ import Layout from "./layout/Layout";
 import { CalendarMonth, DescriptionOutlined, EventAvailable, Place } from "@mui/icons-material";
 import { routes } from "../routes/routes";
 import Carousel from "react-material-ui-carousel";
+import { Controller, useForm } from "react-hook-form";
+import { TextInput } from "../../ui/FormComponents/TextInput";
 
 
 const NavegationCard = ({ children, color, link = "/" }) => {
@@ -144,6 +146,82 @@ const CounterComponent = ({counter = 1000, mes = "Enero"})=>{
   </Grid>
 }
 
+const SendMessageForm = ()=>{
+
+  const {control, handleSubmit} = useForm()
+  const onSubmit = ()=>{
+    console.log("Enviando...")
+  }
+
+  return <form onSubmit={handleSubmit(onSubmit)}> 
+    <Grid container>
+    <Paper>
+      <Controller 
+        name="username"
+        control={control}
+        rules={{required: true}}
+        defaultValue={""}
+        render={({field,fieldState, formState})=> <TextInput
+          value={field.value}
+          label={"Nombre"}
+          onInputChange={field.onChange}
+          error={formState.errors.username}
+        />
+
+      }
+      />
+      <Controller 
+        name="useremail"
+        control={control}
+        rules={{required:true}}
+        defaultValue={""}
+        render={({field,fieldState,formState})=><TextInput 
+          type="email"
+          value={field.value}
+          label={"Correo"}
+          onInputChange={field.onChange}
+          error={formState.errors.useremail}
+        />}
+      />
+
+<Controller 
+        name="emailsubject"
+        control={control}
+        rules={{required: true}}
+        defaultValue={""}
+        render={({field,fieldState, formState})=> <TextInput
+          value={field.value}
+          label={"Asunto"}
+          onInputChange={field.onChange}
+          error={formState.errors.emailsubject}
+        />
+
+      }
+      />
+
+<Controller 
+        name="userrequire"
+        control={control}
+        rules={{required: true}}
+        defaultValue={""}
+        render={({field,fieldState, formState})=> <TextInput
+          value={field.value}
+          label={"Consulta"}
+          onInputChange={field.onChange}
+          error={formState.errors.userrequire}
+          multilinea={true}
+        />
+
+      }
+      />
+      <Button  variant="contained" sx={{mt:"50px" ,float:"right"}} color="secondary" type="submit">Enviar</Button>
+    </Paper>
+  </Grid>
+  </form>
+  
+  
+}
+
 export const HomePage = () => {
   return <Layout>
     <Grid>
@@ -156,16 +234,11 @@ export const HomePage = () => {
       //Map
       <Grid>
         <Paper>
-          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d247.00570176863135!2d-72.50370495430481!3d7.88552384103064!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e66459dcf7092b3%3A0x91d22b46e0eefc76!2sContralor%C3%ADa%20del%20Departamento%20de%20Norte%20de%20Santander!5e0!3m2!1ses-419!2sco!4v1700019636621!5m2!1ses-419!2sco" width="100%" height="450" style={{border:0}} allowFullScreen></iframe>
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d247.00570176863135!2d-72.50370495430481!3d7.88552384103064!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e66459dcf7092b3%3A0x91d22b46e0eefc76!2sContralor%C3%ADa%20del%20Departamento%20de%20Norte%20de%20Santander!5e0!3m2!1ses-419!2sco!4v1700019636621!5m2!1ses-419!2sco" width="100%" height="450" style={{border:0}} allowFullScreen ></iframe>
         </Paper>
       </Grid>
 
-      //from
-      <Grid>
-        <Paper>
-          
-        </Paper>
-      </Grid>
+      <SendMessageForm />
       //Video
       <Grid>
 
