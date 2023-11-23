@@ -39,6 +39,7 @@ const Layout = ({ children }) => {
         minHeight: "100vh",
       }}
     >
+      {/** TOOLBAR */}
       <Box sx={{ marginBottom: 10 }}>
         <AppBar
           position="static"
@@ -315,6 +316,7 @@ const Layout = ({ children }) => {
       >
         {children}
       </Box>
+      {/** FOOTER */}
       <Box
         sx={{
           height: "250px",
