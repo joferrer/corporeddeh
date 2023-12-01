@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Tittle from "../../ui/AloneComponents/Tittle";
 import Layout from "./layout/Layout";
 import Container from "./../../ui/AloneComponents/Container";
-
 import {
   Box,
   Grid,
@@ -11,13 +10,13 @@ import {
   DialogContent,
   Button,
   MobileStepper,
-  useMediaQuery,
   useTheme,
   IconButton,
+  useMediaQuery,
 } from "@mui/material";
 import SwipeableViews from "react-swipeable-views";
 import CloseIcon from "@mui/icons-material/Close";
-import { Mobile } from "../../theme/Config";
+import { MediaQuerys } from "../../theme/config";
 
 const data = [
   {
@@ -35,9 +34,8 @@ export const CalendarPage = () => {
   const [activeStep, setActiveStep] = useState(0);
   const [currentImages, setCurrentImages] = useState([]);
   const theme = useTheme();
-  const isMobile = Mobile;
   const maxSteps = currentImages.length;
-
+  const { Mobile } = MediaQuerys;
   const handleImageClick = (images) => {
     setCurrentImages(images);
     setOpenModal(true);
@@ -92,7 +90,7 @@ export const CalendarPage = () => {
                       marginBottom: "10px",
                       cursor: "pointer",
                       "&:hover": {
-                        transform: isMobile ? "none" : "scale(1.2)",
+                        transform: Mobile ? "none" : "scale(1.2)",
                         transition: "transform 0.3s ease",
                       },
                     }}
@@ -113,9 +111,9 @@ export const CalendarPage = () => {
       </Container>
 
       {/* Modal */}
-      <Dialog open={openModal} onClose={handleCloseModal} fullScreen={isMobile}>
+      <Dialog open={openModal} onClose={handleCloseModal} fullScreen={Mobile}>
         <DialogContent>
-          {isMobile ? (
+          {Mobile ? (
             <Box sx={{ textAlign: "right", paddingTop: "10px" }}>
               <IconButton onClick={handleCloseModal}>
                 <CloseIcon />
@@ -153,7 +151,7 @@ export const CalendarPage = () => {
               </Box>
             ))}
           </SwipeableViews>
-          {!isMobile ? (
+          {!Mobile ? (
             <MobileStepper
               variant="dots"
               steps={maxSteps}
