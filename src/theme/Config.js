@@ -4,4 +4,5 @@ export const MediaQuerys = () => {
   const Mobile = useMediaQuery("maxWidth-642px");
 
   return { Mobile };
+  
 };
