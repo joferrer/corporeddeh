@@ -6,25 +6,10 @@ import { routes } from "../routes/routes";
 import Carousel from "react-material-ui-carousel";
 import { Controller, useForm } from "react-hook-form";
 import { TextInput } from "../../ui/FormComponents/TextInput";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
-const NavegationCard = ({ children, color, link = "/" }) => {
-  const [windowSize, setwindowSize] = useState({
-    width: window.innerWidth,
-    height: window.innerHeight
-  })
+const NavegationCard = ({ children, color, link = "/" , windowSize}) => {
 
-  useEffect(() => {
-    console.log("Effect")
-    const handleResize = () => {
-      const { innerWidth, innerHeight } = window
-      setwindowSize({ width: innerWidth, height: innerHeight })
-    }
-    window.addEventListener('resize', handleResize)
-    handleResize()
-    return ()=> window.removeEventListener('resize',handleResize)
-  }, [])
-  
   return <Grid item xs={windowSize.width>425? 3:6}>
     <a href={link} style={{ textDecoration: "none", color: "inherit" }}>
       <Card sx={{ backgroundColor: color, borderRadius: "13", padding: 1 }}>
@@ -39,26 +24,26 @@ const NavegationCard = ({ children, color, link = "/" }) => {
  * 
  * @returns Navegation component
  */
-const NavegationComponent = () => {
+const NavegationComponent = ({windowSize}) => {
   //TODO Falta el fondo de la img
   return <Grid sx={{
     padding: 1,
   }}>
     <Typography>Corporación Red Departamental de Defensores de DDHHH</Typography>
     <Grid container spacing={1} sx={{ marginTop: 0 ,}}>
-      <NavegationCard link={routes.CALENDAR} color={'rgba(251, 231, 58, 0.5)'}>
+      <NavegationCard windowSize={windowSize} link={routes.CALENDAR} color={'rgba(251, 231, 58, 0.5)'}>
         <CalendarMonth />
         <Typography>Calendario</Typography>
       </NavegationCard>
-      <NavegationCard link={routes.OFFICE} color={'rgba(48, 140, 215, 0.4)'}>
+      <NavegationCard windowSize={windowSize} link={routes.OFFICE} color={'rgba(48, 140, 215, 0.4)'}>
         <Place />
         <Typography>Sedes</Typography>
       </NavegationCard>
-      <NavegationCard link={routes.DOCUMENTS} color={'rgba(225, 67, 47, 0.5)'}>
+      <NavegationCard windowSize={windowSize} link={routes.DOCUMENTS} color={'rgba(225, 67, 47, 0.5)'}>
         <DescriptionOutlined />
         <Typography>Documentos</Typography>
       </NavegationCard>
-      <NavegationCard link={routes.EVENT} color={'rgba(132, 145, 223, 0.5)'}>
+      <NavegationCard windowSize={windowSize} link={routes.EVENT} color={'rgba(132, 145, 223, 0.5)'}>
         <EventAvailable />
         <Typography>Eventos</Typography>
       </NavegationCard>
@@ -158,7 +143,12 @@ function Item(props)
 }
 
 const CounterComponent = ({counter = 1000, mes = "Enero",windowSize})=>{
-  return <Grid sx={{ backgroundColor: "#E73E2E", width:  `${windowSize.width}px` ,maxWidth:"1200px"}}>
+  return <Grid sx={{
+    backgroundColor: "#E73E2E",
+    width: `${windowSize.width}px`,
+    maxWidth: "1200px",
+
+  }}>
     <Typography variant="h6">Hechos victimizantes</Typography>
         <Typography variant="h3">{counter}</Typography>
         <Typography variant="h5">{mes}</Typography>
@@ -272,7 +262,7 @@ export const HomePage = () => {
       
       <PrincipalImgComponent />
 
-      <NavegationComponent />
+      <NavegationComponent windowSize={ windowSize} />
 
       <CounterComponent windowSize={windowSize } />
       
