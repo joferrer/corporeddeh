@@ -6,11 +6,26 @@ import { routes } from "../routes/routes";
 import Carousel from "react-material-ui-carousel";
 import { Controller, useForm } from "react-hook-form";
 import { TextInput } from "../../ui/FormComponents/TextInput";
+import { useEffect, useState } from "react";
 
 const NavegationCard = ({ children, color, link = "/" }) => {
-  return <Grid item xs={6}
-    sx={{
-    }}>
+  const [windowSize, setwindowSize] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight
+  })
+
+  useEffect(() => {
+    console.log("Effect")
+    const handleResize = () => {
+      const { innerWidth, innerHeight } = window
+      setwindowSize({ width: innerWidth, height: innerHeight })
+    }
+    window.addEventListener('resize', handleResize)
+    handleResize()
+    return ()=> window.removeEventListener('resize',handleResize)
+  }, [])
+  
+  return <Grid item xs={windowSize.width>425? 3:6}>
     <a href={link} style={{ textDecoration: "none", color: "inherit" }}>
       <Card sx={{ backgroundColor: color, borderRadius: "13", padding: 1 }}>
         {children}
@@ -26,9 +41,11 @@ const NavegationCard = ({ children, color, link = "/" }) => {
  */
 const NavegationComponent = () => {
   //TODO Falta el fondo de la img
-  return <Grid sx={{ padding: 1 }}>
+  return <Grid sx={{
+    padding: 1,
+  }}>
     <Typography>Corporación Red Departamental de Defensores de DDHHH</Typography>
-    <Grid container spacing={1} sx={{ marginTop: 0 }}>
+    <Grid container spacing={1} sx={{ marginTop: 0 ,}}>
       <NavegationCard link={routes.CALENDAR} color={'rgba(251, 231, 58, 0.5)'}>
         <CalendarMonth />
         <Typography>Calendario</Typography>
@@ -224,7 +241,12 @@ const SendMessageForm = ()=>{
 
 export const HomePage = () => {
   return <Layout>
-    <Grid>
+    <Grid sx={{
+      maxWidth: 1240,
+      display: "flex",
+      flexDirection: "column",
+      justifyContent:"center"
+    }}>
       
       <PrincipalImgComponent />
 
