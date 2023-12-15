@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 import SwipeableViews from "react-swipeable-views";
 import CloseIcon from "@mui/icons-material/Close";
-import { MediaQuerys } from "../../theme/config";
+import { MediaQuerys } from "../../theme/Config";
 
 const data = [
   {
