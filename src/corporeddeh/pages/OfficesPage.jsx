@@ -1,5 +1,9 @@
 import Layout from "./layout/Layout"
 
-export const OfficesPage =()=>{
+const a = "hola"
+console.log(a)
+
+export const OfficesPage = () => {
     return <Layout>Offices Page</Layout>
+
 }

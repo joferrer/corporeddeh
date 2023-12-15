@@ -7,7 +7,6 @@ import Carousel from "react-material-ui-carousel";
 import { Controller, useForm } from "react-hook-form";
 import { TextInput } from "../../ui/FormComponents/TextInput";
 
-
 const NavegationCard = ({ children, color, link = "/" }) => {
   return <Grid item xs={6}
     sx={{
