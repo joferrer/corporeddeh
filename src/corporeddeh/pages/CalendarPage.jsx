@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import Tittle from "../../ui/AloneComponents/Tittle";
 import Layout from "./layout/Layout";
 import Container from "./../../ui/AloneComponents/Container";
@@ -10,9 +10,7 @@ import {
   DialogContent,
   Button,
   MobileStepper,
-  useTheme,
   IconButton,
-  useMediaQuery,
 } from "@mui/material";
 import SwipeableViews from "react-swipeable-views";
 import CloseIcon from "@mui/icons-material/Close";
@@ -33,7 +31,6 @@ export const CalendarPage = () => {
   const [openModal, setOpenModal] = useState(false);
   const [activeStep, setActiveStep] = useState(0);
   const [currentImages, setCurrentImages] = useState([]);
-  const theme = useTheme();
   const maxSteps = currentImages.length;
   const { Mobile } = MediaQuerys;
   const handleImageClick = (images) => {

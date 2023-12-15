@@ -1,4 +1,5 @@
-import { Box, Button, Card, Grid, Link, Paper, Typography } from "@mui/material";
+/* eslint-disable react/prop-types */
+import { Box, Button, Card, Grid, Paper, Typography } from "@mui/material";
 import Layout from "./layout/Layout";
 import { CalendarMonth, DescriptionOutlined, EventAvailable, Place } from "@mui/icons-material";
 import { routes } from "../routes/routes";
@@ -65,7 +66,7 @@ const PrincipalImgComponent = ()=>{
   </Grid>
 }
 
-function Example(props)
+function Example()
 {
     var items = [
         {
@@ -161,7 +162,7 @@ const SendMessageForm = ()=>{
         control={control}
         rules={{required: true}}
         defaultValue={""}
-        render={({field,fieldState, formState})=> <TextInput
+        render={({field, formState})=> <TextInput
           value={field.value}
           label={"Nombre"}
           onInputChange={field.onChange}
@@ -175,7 +176,7 @@ const SendMessageForm = ()=>{
         control={control}
         rules={{required:true}}
         defaultValue={""}
-        render={({field,fieldState,formState})=><TextInput 
+        render={({field,formState})=><TextInput 
           type="email"
           value={field.value}
           label={"Correo"}
@@ -189,7 +190,7 @@ const SendMessageForm = ()=>{
         control={control}
         rules={{required: true}}
         defaultValue={""}
-        render={({field,fieldState, formState})=> <TextInput
+        render={({field, formState})=> <TextInput
           value={field.value}
           label={"Asunto"}
           onInputChange={field.onChange}
@@ -204,7 +205,7 @@ const SendMessageForm = ()=>{
         control={control}
         rules={{required: true}}
         defaultValue={""}
-        render={({field,fieldState, formState})=> <TextInput
+        render={({field, formState})=> <TextInput
           value={field.value}
           label={"Consulta"}
           onInputChange={field.onChange}
@@ -231,7 +232,7 @@ export const HomePage = () => {
       <NavegationComponent />
 
       <CounterComponent />
-      //Map
+      
       <Grid>
         <Paper>
           <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d247.00570176863135!2d-72.50370495430481!3d7.88552384103064!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e66459dcf7092b3%3A0x91d22b46e0eefc76!2sContralor%C3%ADa%20del%20Departamento%20de%20Norte%20de%20Santander!5e0!3m2!1ses-419!2sco!4v1700019636621!5m2!1ses-419!2sco" width="100%" height="450" style={{border:0}} allowFullScreen ></iframe>
@@ -239,7 +240,7 @@ export const HomePage = () => {
       </Grid>
 
       <SendMessageForm />
-      //Video
+
       <Grid>
 
       </Grid>
