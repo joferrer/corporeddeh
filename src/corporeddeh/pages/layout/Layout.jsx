@@ -17,7 +17,8 @@ import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import TwitterIcon from "@mui/icons-material/Twitter";
-import { useMediaQuery } from "@mui/material";
+import loguito from "../../../../public/vite.svg"
+
 
 const AppBarTool = ({ handleDrawerOpen }) => {
   return (
@@ -59,7 +60,7 @@ const AppBarTool = ({ handleDrawerOpen }) => {
           </Typography>
           <a href="/">
             <img
-              src="../../../../public/vite.svg"
+              src={loguito}
               alt="Logo"
               style={{
                 width: "40px",
@@ -71,7 +72,7 @@ const AppBarTool = ({ handleDrawerOpen }) => {
         <Box sx={{ "@media (max-width: 642px)": { display: "none" } }}>
           <a href="/">
             <img
-              src="../../../../public/vite.svg"
+              src={loguito}
               alt="Logo"
               style={{
                 width: "40px",
@@ -185,7 +186,7 @@ const DrawerBar = ({ drawerOpen, handleDrawerClose }) => {
             </Typography>
             <a href="/">
               <img
-                src="../../../../public/vite.svg"
+                src={loguito}
                 alt="Logo"
                 style={{
                   width: "40px",

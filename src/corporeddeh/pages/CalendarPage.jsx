@@ -15,15 +15,15 @@ import {
 import SwipeableViews from "react-swipeable-views";
 import CloseIcon from "@mui/icons-material/Close";
 import { MediaQuerys } from "../../theme/Config";
-
+import loguito from "../../../public/vite.svg"
 const data = [
   {
     mes: "Octubre",
-    images: ["../../../public/vite.svg", "../../../public/vite.svg"],
+    images: [loguito, loguito],
   },
   {
     mes: "Septiembre",
-    images: ["../../../public/vite.svg", "../../../public/vite.svg"],
+    images: [loguito, loguito],
   },
 ];
 
