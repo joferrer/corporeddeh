@@ -72,7 +72,7 @@ function Example()
     var items = [
         {
             name: "Random Name #1",
-            description: "Gira territorial de paz, escenarios de diálogo con organizaciones sociales, liderazgos comunales, campesinos, rurales y procesos de ciudad.",
+            description: "Gira territorial de paz, escenarios de diálogo con organizaciones sociales, liderazgos comunales, campesinos, rurales y procesos de ciudad. Gira territorial de paz, escenarios de diálogo con organizaciones sociales, liderazgos comunales, campesinos, rurales y procesos de ciudad.",
             img: "https://pbs.twimg.com/media/FCVslvrXoAAIzS7.jpg:large"
         },
         {
@@ -104,11 +104,13 @@ function Item(props)
           backgroundRepeat: 'no-repeat',
           backgroundPosition: 'center',
           backgroundImage: `url(${props.item.img})`,
-          height:"80vh"
+          height: "80vh",
+          display: "flex",
+          alignItems: "flex-end",
           
         }}
     >
-      {/* Increase the priority of the hero background image */}
+      {/* Increase the priority of the hero background image 'rgba(0,0,0,.5)' */}
       {<img style={{ display: 'none',  }} src={props.item.img} alt={post.imageText} />}
       <Box
         sx={{
@@ -117,28 +119,23 @@ function Item(props)
           bottom: 0,
           right: 0,
           left: 0,
-          backgroundColor: 'rgba(0,0,0,.3)',
+          background: "linear-gradient(rgba(0,0,0,.2), 70%,black)",
+          display:"flex"
           
         }}
       />
-      <Grid container >
-        <Grid item md={6}
-        style={{textAlign:"left", minHeight:"180px", justifyContent:"flex-end",}}>
-          <Box
-            sx={{
-              position: 'relative',
-              p: { xs: 3,},
-                pr: { md: 0 },
-              
-            }}
-          >
-   
-            <Typography variant="body1" color="inherit" >
+      
+        <Typography
+          variant="body1"
+          color="inherit"
+          position={"relative"}
+          textAlign={"left"}
+          padding={"2%"}
+        >
               {props.item.description}
             </Typography>
-          </Box>
-        </Grid>
-      </Grid>
+          
+
     </Paper>
     )
 }
