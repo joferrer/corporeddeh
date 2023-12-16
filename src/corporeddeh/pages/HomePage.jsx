@@ -83,7 +83,7 @@ function Example()
     ]
 
     return (
-        <Carousel sx={{width:"100%"}}>
+        <Carousel sx={{width:"100%",}}>
             {
                 items.map( (item, i) => <Item key={i} item={item} /> )
             }
@@ -104,6 +104,7 @@ function Item(props)
           backgroundRepeat: 'no-repeat',
           backgroundPosition: 'center',
           backgroundImage: `url(${props.item.img})`,
+          height:"80vh"
           
         }}
     >
@@ -162,7 +163,7 @@ const SendMessageForm = ()=>{
     console.log("Enviando...")
   }
 
-  return <form onSubmit={handleSubmit(onSubmit)} style={{width:"50%",minWidth:"320px"}}> 
+  return <form onSubmit={handleSubmit(onSubmit)} style={{flexGrow:1,minWidth:"320px"}}> 
     <Grid container sx={{justifyContent:"center",flexDirection:"column", padding:"10px"}}> 
       
         <Typography variant="h5" sx={{justifySelf:"center"}}>Escribenos</Typography>
@@ -268,7 +269,7 @@ export const HomePage = () => {
       <CounterComponent windowSize={windowSize } />
       
       <Grid sx={{display:"flex",flexWrap:"wrap",justifyContent:"center", width:"100%"}}>
-        <Paper sx={{width:"50%",minWidth:"320px"}}>
+        <Paper sx={{flexGrow:1,minWidth:"320px"}}>
           <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d247.00570176863135!2d-72.50370495430481!3d7.88552384103064!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e66459dcf7092b3%3A0x91d22b46e0eefc76!2sContralor%C3%ADa%20del%20Departamento%20de%20Norte%20de%20Santander!5e0!3m2!1ses-419!2sco!4v1700019636621!5m2!1ses-419!2sco" width="100%" height="450" style={{border:0,pointerEvents:"none"}} allowFullScreen ></iframe>
         </Paper>
         <SendMessageForm />
