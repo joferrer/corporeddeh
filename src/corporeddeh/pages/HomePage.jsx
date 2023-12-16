@@ -142,11 +142,11 @@ function Item(props)
     )
 }
 
-const CounterComponent = ({counter = 1000, mes = "Enero",windowSize})=>{
+const CounterComponent = ({counter = 1000, mes = "Enero"})=>{
   return <Grid sx={{
     backgroundColor: "#E73E2E",
-    width: `${windowSize.width}px`,
-    maxWidth: "1200px",
+    width: `100%`,
+    maxWidth: "1440px",
 
   }}>
     <Typography variant="h6">Hechos victimizantes</Typography>
@@ -265,7 +265,7 @@ export const HomePage = () => {
 
       <NavegationComponent windowSize={ windowSize} />
 
-      <CounterComponent windowSize={windowSize } />
+      <CounterComponent  />
       
       <Grid sx={{display:"flex",flexWrap:"wrap",justifyContent:"center", width:"100%"}}>
         <Paper sx={{flexGrow:1,minWidth:"320px"}}>
