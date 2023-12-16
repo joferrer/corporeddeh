@@ -107,6 +107,7 @@ function Item(props)
           height: "80vh",
           display: "flex",
           alignItems: "flex-end",
+          "@media (max-width: 332px)": { height: "100%", minHeight:"180px" },
           
         }}
     >
