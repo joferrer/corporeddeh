@@ -1,10 +1,12 @@
-import { Grid, TextField, Typography } from "@mui/material"
+/* eslint-disable react/prop-types */
+import { Grid, TextField } from "@mui/material"
 
 export const TextInput =({label, value, onInputChange,error, type ="text",multilinea = false})=>{
  
     return <Grid sx={{mt: "10px"}} >
-        <Typography>{label}</Typography>
+        
         <TextField
+            label={ label}
             type={type}
             value={value} 
             onChange={ onInputChange}

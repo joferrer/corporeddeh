@@ -368,6 +368,7 @@ const Layout = ({ children }) => {
         display: "flex",
         flexDirection: "column",
         minHeight: "100vh",
+        
       }}
     >
       <Box sx={{ marginBottom: 10 }}>
@@ -380,6 +381,8 @@ const Layout = ({ children }) => {
       <Box
         sx={{
           flex: 1,
+          display:"flex",
+          justifyContent: "center",
         }}
       >
         {children}
