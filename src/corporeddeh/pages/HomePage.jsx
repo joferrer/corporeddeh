@@ -29,9 +29,10 @@ const NavegationComponent = ({windowSize}) => {
   const iconsStyles = {width:"30%",height:"30%"}
   return <Grid sx={{
     padding: 1,
+    
   }}>
     <Typography>Corporación Red Departamental de Defensores de DDHHH</Typography>
-    <Grid container spacing={3} sx={{ marginTop: 0 ,}}>
+    <Grid container spacing={3} sx={{ marginTop: 0 ,justifyContent:"center"}}>
       <NavegationCard windowSize={windowSize} link={routes.CALENDAR} color={'rgba(251, 231, 58, 0.5)'}>
         <CalendarMonth sx={iconsStyles}/>
         <Typography>Calendario</Typography>
@@ -64,11 +65,11 @@ const post = {
 }
 const PrincipalImgComponent = ()=>{
   return <Grid>
-    <Example />
+    <CarouselComponent />
   </Grid>
 }
 
-function Example()
+function CarouselComponent()
 {
     var items = [
         {
@@ -84,7 +85,7 @@ function Example()
     ]
 
     return (
-        <Carousel sx={{width:"100%",}}>
+      <Carousel interval={ 10000} sx={{width:"100%",}}>
             {
                 items.map( (item, i) => <Item key={i} item={item} /> )
             }
@@ -108,7 +109,7 @@ function Item(props)
           height: "80vh",
           display: "flex",
           alignItems: "flex-end",
-          "@media (max-width: 332px)": { height: "100%", minHeight:"180px" },
+          "@media (max-width: 425px)": { height: "100%", minHeight:"180px" },
           
         }}
     >
