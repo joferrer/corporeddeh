@@ -31,7 +31,6 @@ const NavegationComponent = ({windowSize}) => {
     padding: 1,
     
   }}>
-    <Typography>Corporación Red Departamental de Defensores de DDHHH</Typography>
     <Grid container spacing={3} sx={{ marginTop: 0 ,justifyContent:"center"}}>
       <NavegationCard windowSize={windowSize} link={routes.CALENDAR} color={'rgba(251, 231, 58, 0.5)'}>
         <CalendarMonth sx={iconsStyles}/>
@@ -148,9 +147,14 @@ const CounterComponent = ({counter = 1000, mes = "Enero"})=>{
     backgroundColor: "#E73E2E",
     width: `100%`,
     maxWidth: "1440px",
-
+    color: "white",
+    height: "150px",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent:"center"
+    
   }}>
-    <Typography variant="h6">Hechos victimizantes</Typography>
+    <Typography variant="h6" >Hechos victimizantes</Typography>
         <Typography variant="h3">{counter}</Typography>
         <Typography variant="h5">{mes}</Typography>
   </Grid>
@@ -256,11 +260,13 @@ export const HomePage = () => {
 
   return <Layout>
     <Grid sx={{
-      maxWidth: 1240,
+      maxWidth: 1440,
       display: "flex",
       flexDirection: "column",
-      justifyContent:"center"
+      justifyContent: "center"
+      
     }}>
+
       
       <PrincipalImgComponent />
 
@@ -269,7 +275,7 @@ export const HomePage = () => {
       <CounterComponent  />
       
       <Grid sx={{display:"flex",flexWrap:"wrap",justifyContent:"center", width:"100%"}}>
-        <Paper sx={{flexGrow:1,minWidth:"320px"}}>
+        <Paper sx={{flexGrow:1,minWidth:"320px", margin:2}}>
           <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d247.00570176863135!2d-72.50370495430481!3d7.88552384103064!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e66459dcf7092b3%3A0x91d22b46e0eefc76!2sContralor%C3%ADa%20del%20Departamento%20de%20Norte%20de%20Santander!5e0!3m2!1ses-419!2sco!4v1700019636621!5m2!1ses-419!2sco" width="100%" height="450" style={{border:0,pointerEvents:"none"}} allowFullScreen ></iframe>
         </Paper>
         <SendMessageForm />
