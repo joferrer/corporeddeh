@@ -17,8 +17,8 @@ import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import TwitterIcon from "@mui/icons-material/Twitter";
-import loguito from "../../../../public/vite.svg"
-
+import loguito from "../../../../public/vite.svg";
+import { Link } from "react-router-dom";
 
 const AppBarTool = ({ handleDrawerOpen }) => {
   return (
@@ -331,10 +331,15 @@ const Footer = () => {
         >
           <Grid item>
             <Typography> Contatanos +57 30303030</Typography>
-            <Typography> ¿Donde Encontrarnos?</Typography>
+           <Link to={routes.OFFICE} style={{ color: 'inherit', textDecoration: 'none'}}>
+              <Typography>¿Donde Encontrarnos?</Typography>
+            </Link>
           </Grid>
           <Grid item>
-            <Typography> Sobre Nosotros</Typography>
+           <Link to={routes.ABOUTUS} style={{ color: 'inherit', textDecoration: 'none'}}>
+              <Typography> Sobre Nosotros</Typography>
+            </Link>
+
             <Typography> ¿Eres Empleado?</Typography>
           </Grid>
         </Grid>
@@ -368,7 +373,6 @@ const Layout = ({ children }) => {
         display: "flex",
         flexDirection: "column",
         minHeight: "100vh",
-        
       }}
     >
       <Box sx={{ marginBottom: 10 }}>
@@ -381,7 +385,7 @@ const Layout = ({ children }) => {
       <Box
         sx={{
           flex: 1,
-          display:"flex",
+          display: "flex",
           justifyContent: "center",
         }}
       >
