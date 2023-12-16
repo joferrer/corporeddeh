@@ -1,4 +1,4 @@
-import  { useState } from "react";
+import { useState } from "react";
 import Tittle from "../../ui/AloneComponents/Tittle";
 import Layout from "./layout/Layout";
 import Container from "./../../ui/AloneComponents/Container";
@@ -15,15 +15,15 @@ import {
 import SwipeableViews from "react-swipeable-views";
 import CloseIcon from "@mui/icons-material/Close";
 import { MediaQuerys } from "../../theme/Config";
-
+import loguito from "../../../public/vite.svg";
 const data = [
   {
     mes: "Octubre",
-    images: ["../../../public/vite.svg", "../../../public/vite.svg"],
+    images: [loguito, loguito, loguito, loguito, loguito],
   },
   {
     mes: "Septiembre",
-    images: ["../../../public/vite.svg", "../../../public/vite.svg"],
+    images: [loguito, loguito],
   },
 ];
 
@@ -49,8 +49,15 @@ export const CalendarPage = () => {
 
   return (
     <Layout>
-      <Tittle tittle="Calendario"></Tittle>
-      <Container>
+      <Box
+        sx={{
+          padding: 2,
+          marginRight: 2,
+          marginLeft: Mobile ? 0 : 2,
+          width: "100%",
+        }}
+      >
+        <Tittle tittle="Calendario"></Tittle>
         <Grid container spacing={2}>
           {data.map((item) => (
             <Grid
@@ -67,22 +74,13 @@ export const CalendarPage = () => {
               >
                 {item.mes}
               </Typography>
-              <Box
-                display="flex"
-                flexDirection="row"
-                flexWrap="wrap"
-                sx={{
-                  "@media (max-width: 600px)": {
-                    flexDirection: "column",
-                  },
-                }}
-              >
+              <Box display="flex" flexDirection="row" flexWrap="wrap">
                 {item.images.map((image, index) => (
                   <Box
                     key={index}
                     sx={{
-                      width: "60px",
-                      height: "80px",
+                      width: "80px",
+                      height: "90px",
                       marginRight: "10px",
                       marginBottom: "10px",
                       cursor: "pointer",
@@ -105,7 +103,7 @@ export const CalendarPage = () => {
             </Grid>
           ))}
         </Grid>
-      </Container>
+      </Box>
 
       {/* Modal */}
       <Dialog open={openModal} onClose={handleCloseModal} fullScreen={Mobile}>
