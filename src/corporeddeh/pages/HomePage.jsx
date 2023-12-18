@@ -248,7 +248,18 @@ export const HomePage = () => {
     handleResize()
 
     return ()=>window.removeEventListener('resize',handleResize)
-  },[])
+  }, [])
+  
+  const VideosComponent = () => { 
+    const list = ["https://www.youtube.com/embed/APyyYg-rJyE?si=dWHT3wlaKLckSGfl","https://www.youtube.com/embed/6aswzDXxj7U?si=CVJrwJwCRuKJaGHG"]
+    const videoStyle = { borderWidth: 0, flexGrow: 1, padding: "10px", height: "300px" }
+    
+    return <Grid sx={{display:"flex",flexWrap:"wrap",justifyContent:"center", width:"100%"}}>
+      {list.map((video, index) => <iframe key={index} src={video} style={videoStyle} allowFullScreen />)}
+
+      
+    </Grid> 
+  }
 
   return <Layout>
     <Grid sx={{
@@ -285,8 +296,7 @@ export const HomePage = () => {
         justifyContent: "space-around",
         marginBottom: "10px",
       }}>
-        <iframe style={{borderWidth:0,flexGrow:1,padding:"10px",height:"300px"}}  src="https://www.youtube.com/embed/APyyYg-rJyE?si=dWHT3wlaKLckSGfl" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-        <iframe style={{borderWidth:0,flexGrow:1,padding:"10px",height:"300px"}}  src="https://www.youtube.com/embed/6aswzDXxj7U?si=CVJrwJwCRuKJaGHG" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        <VideosComponent />
 
         
       </Grid>
