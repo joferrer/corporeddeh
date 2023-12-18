@@ -1,138 +1,9 @@
 /* eslint-disable react/prop-types */
-import { Box, Button, Card, Grid, Paper, Typography } from "@mui/material";
+import {  Grid, Paper, Typography } from "@mui/material";
 import Layout from "./layout/Layout";
-import { CalendarMonth, DescriptionOutlined, EventAvailable, Place } from "@mui/icons-material";
-import { routes } from "../routes/routes";
-import Carousel from "react-material-ui-carousel";
-import { Controller, useForm } from "react-hook-form";
-import { TextInput } from "../../ui/FormComponents/TextInput";
-import { useEffect, useState } from "react";
+import { PrincipalImgComponent,NavegationComponent, SendMessageForm } from "./components";
+import { useWindowSize } from "../../hooks";
 
-const NavegationCard = ({ children, color, link = "/" , windowSize}) => {
-
-  return <Grid item sx={{maxWidth:"278px"}} xs={windowSize.width>425? 3:6}>
-    <a href={link} style={{ textDecoration: "none", color: "inherit" }}>
-      <Card sx={{ backgroundColor: color, borderRadius: "13", padding: 1 }}>
-        {children}
-      </Card>
-
-    </a>
-  </Grid>
-
-}
-/**
- * 
- * @returns Navegation component
- */
-const NavegationComponent = ({windowSize}) => {
-  //TODO Falta el fondo de la img
-  const iconsStyles = {width:"30%",height:"30%"}
-  return <Grid sx={{
-    padding: 1,
-    
-  }}>
-    <Grid container spacing={3} sx={{ marginTop: 0 ,justifyContent:"center",padding:"10px"}}>
-      <NavegationCard windowSize={windowSize} link={routes.CALENDAR} color={'rgba(251, 231, 58, 0.5)'}>
-        <CalendarMonth sx={iconsStyles}/>
-        <Typography>Calendario</Typography>
-      </NavegationCard>
-      <NavegationCard windowSize={windowSize} link={routes.OFFICE} color={'rgba(48, 140, 215, 0.4)'}>
-        <Place sx={iconsStyles}/>
-        <Typography>Sedes</Typography>
-      </NavegationCard>
-      <NavegationCard windowSize={windowSize} link={routes.DOCUMENTS} color={'rgba(225, 67, 47, 0.5)'}>
-        <DescriptionOutlined  sx={iconsStyles}/>
-        <Typography>Documentos</Typography>
-      </NavegationCard>
-      <NavegationCard windowSize={windowSize} link={routes.EVENT} color={'rgba(132, 145, 223, 0.5)'}>
-        <EventAvailable  sx={iconsStyles}/>
-        <Typography>Eventos</Typography>
-      </NavegationCard>
-
-
-    </Grid>
-  </Grid>
-}
-
-const PrincipalImgComponent = ()=>{
-  return <Grid>
-    <CarouselComponent />
-  </Grid>
-}
-
-function CarouselComponent()
-{
-    var items = [
-        {
-            name: "Random Name #1",
-            description: "Gira territorial de paz, escenarios de diálogo con organizaciones sociales, liderazgos comunales, campesinos, rurales y procesos de ciudad. Gira territorial de paz, escenarios de diálogo con organizaciones sociales, liderazgos comunales, campesinos, rurales y procesos de ciudad.",
-            img: "https://pbs.twimg.com/media/FCVslvrXoAAIzS7.jpg:large"
-        },
-        {
-            name: "Random Name #2",
-            description: "Hello World!",
-            img:"https://pbs.twimg.com/media/FCVslvrXoAAIzS7.jpg:large"
-        }
-    ]
-
-    return (
-      <Carousel interval={ 10000} sx={{width:"100%",}}>
-            {
-                items.map( (item, i) => <Item key={i} item={item} /> )
-            }
-        </Carousel>
-    )
-}
-
-function Item(props)
-{
-    return (
-      <Paper
-        sx={{
-          position: 'relative',
-          backgroundColor: 'grey.800',
-          color: '#fff',
-          mb: 4,
-          backgroundSize: 'cover',
-          backgroundRepeat: 'no-repeat',
-          backgroundPosition: 'center',
-          backgroundImage: `url(${props.item.img})`,
-          height: "80vh",
-          display: "flex",
-          alignItems: "flex-end",
-          "@media (max-width: 425px)": { height: "100%", minHeight:"180px" },
-          
-        }}
-    >
-      {/* Increase the priority of the hero background image 'rgba(0,0,0,.5)' */}
-      {<img style={{ display: 'none',  }} src={props.item.img} alt={props.item.name} />}
-      <Box
-        sx={{
-          position: 'absolute',
-          top: 0,
-          bottom: 0,
-          right: 0,
-          left: 0,
-          background: "linear-gradient(rgba(0,0,0,.2), 70%,black)",
-          display:"flex"
-          
-        }}
-      />
-      
-        <Typography
-          variant="body1"
-          color="inherit"
-          position={"relative"}
-          textAlign={"left"}
-          padding={"2%"}
-        >
-              {props.item.description}
-            </Typography>
-          
-
-    </Paper>
-    )
-}
 
 const CounterComponent = ({counter = 1000, mes = "Enero"})=>{
   return <Grid sx={{
@@ -153,114 +24,20 @@ const CounterComponent = ({counter = 1000, mes = "Enero"})=>{
   </Grid>
 }
 
-const SendMessageForm = ()=>{
-
-  const {control, handleSubmit} = useForm()
-  const onSubmit = ()=>{
-    console.log("Enviando...")
-  }
-
-  return <form onSubmit={handleSubmit(onSubmit)} style={{flexGrow:1,minWidth:"320px"}}> 
-    <Grid container sx={{justifyContent:"center",flexDirection:"column", padding:"10px"}}> 
-      
-        <Typography variant="h5" sx={{justifySelf:"center"}}>Escribenos</Typography>
-      <Controller 
-        name="username"
-        control={control}
-        rules={{required: true}}
-        defaultValue={""}
-        render={({field, formState})=> <TextInput
-          value={field.value}
-          label={"Nombre"}
-          onInputChange={field.onChange}
-          error={formState.errors.username}
-        />
-
-      }
-      />
-      <Controller 
-        name="useremail"
-        control={control}
-        rules={{required:true}}
-        defaultValue={""}
-        render={({field,formState})=><TextInput 
-          type="email"
-          value={field.value}
-          label={"Correo"}
-          onInputChange={field.onChange}
-          error={formState.errors.useremail}
-        />}
-      />
-
-<Controller 
-        name="emailsubject"
-        control={control}
-        rules={{required: true}}
-        defaultValue={""}
-        render={({field, formState})=> <TextInput
-          value={field.value}
-          label={"Asunto"}
-          onInputChange={field.onChange}
-          error={formState.errors.emailsubject}
-        />
-
-      }
-      />
-
-<Controller 
-        name="userrequire"
-        control={control}
-        rules={{required: true}}
-        defaultValue={""}
-        render={({field, formState})=> <TextInput
-          value={field.value}
-          label={"Consulta"}
-          onInputChange={field.onChange}
-          error={formState.errors.userrequire}
-          multilinea={true}
-        />
-
-      }
-      />
-      <Button  variant="contained" sx={{mt:"50px" ,float:"right"}} color="secondary" type="submit">Enviar</Button>
-      
-  </Grid>
-  </form>
+const VideosComponent = () => { 
+  const list = ["https://www.youtube.com/embed/APyyYg-rJyE?si=dWHT3wlaKLckSGfl","https://www.youtube.com/embed/6aswzDXxj7U?si=CVJrwJwCRuKJaGHG"]
+  const videoStyle = { borderWidth: 0, flexGrow: 1, padding: "10px", height: "300px" }
   
-  
+  return <Grid sx={{display:"flex",flexWrap:"wrap",justifyContent:"center", width:"100%"}}>
+    {list.map((video, index) => <iframe key={index} src={video} style={videoStyle} allowFullScreen />)}
+
+    
+  </Grid> 
 }
 
 export const HomePage = () => {
 
-  const [windowSize,setwindowSize] = useState({
-    width: window.innerWidth,
-    height: window.innerHeight
-  })
-
-  useEffect(() => {
-    const handleResize = () => { 
-      const { innerWidth,innerHeight } = window
-      setwindowSize({
-        width: innerWidth,
-        height: innerHeight
-      })
-    }
-    window.addEventListener('resize', handleResize)
-    handleResize()
-
-    return ()=>window.removeEventListener('resize',handleResize)
-  }, [])
-  
-  const VideosComponent = () => { 
-    const list = ["https://www.youtube.com/embed/APyyYg-rJyE?si=dWHT3wlaKLckSGfl","https://www.youtube.com/embed/6aswzDXxj7U?si=CVJrwJwCRuKJaGHG"]
-    const videoStyle = { borderWidth: 0, flexGrow: 1, padding: "10px", height: "300px" }
-    
-    return <Grid sx={{display:"flex",flexWrap:"wrap",justifyContent:"center", width:"100%"}}>
-      {list.map((video, index) => <iframe key={index} src={video} style={videoStyle} allowFullScreen />)}
-
-      
-    </Grid> 
-  }
+  const {windowSize} = useWindowSize()
 
   return <Layout>
     <Grid sx={{
@@ -271,13 +48,9 @@ export const HomePage = () => {
       
     }}>
 
-      
       <PrincipalImgComponent />
-
       <NavegationComponent windowSize={ windowSize} />
-
       <CounterComponent  />
-      
       <Grid sx={{display:"flex",flexWrap:"wrap",justifyContent:"center", width:"100%"}}>
         <Paper sx={{
           flexGrow: 1, minWidth: "320px",
