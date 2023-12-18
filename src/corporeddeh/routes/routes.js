@@ -7,5 +7,12 @@ export const routes = {
     DONATION:"/donaciones",
     OFFICE:"/sedes",
     EEVENTO: "/evento",
-    default:"/*"
+    default: "/*",
+    LOGIN: "/login",
+    RESET_PASWWORD: "/reset",
+    HOME_ADMIN: "/admin",
+    CALENDAR_ADMIN: "/admin/calendario",
+    EVENT_ADMIN: "/admin/eventos",
+    ABOUTUS_ADMIN: "/admin/sobre_nosotros",
+    DOCUMENTS_ADMIN: "/admin/documentos",
 }

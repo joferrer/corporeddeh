@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { AuthRouter } from "../auth/router/AuthRouter";
 import { CheckingAuth } from "../ui/FeedbackComponents";
 import { AppRouterUser } from "../administratorapp/router/AppRouterUser";
@@ -9,6 +9,7 @@ const AUTHENTICATED = "authenticated"
 const NO_AUTHENTICATED = "no-authenticated"
 const status = NO_AUTHENTICATED
 
+const rol = "admin"
 export const AppRouter = () => {
   
   //const {status,rol} = authDispatch();
