@@ -31,7 +31,7 @@ const NavegationComponent = ({windowSize}) => {
     padding: 1,
     
   }}>
-    <Grid container spacing={3} sx={{ marginTop: 0 ,justifyContent:"center"}}>
+    <Grid container spacing={3} sx={{ marginTop: 0 ,justifyContent:"center",padding:"10px"}}>
       <NavegationCard windowSize={windowSize} link={routes.CALENDAR} color={'rgba(251, 231, 58, 0.5)'}>
         <CalendarMonth sx={iconsStyles}/>
         <Typography>Calendario</Typography>
@@ -143,7 +143,8 @@ const CounterComponent = ({counter = 1000, mes = "Enero"})=>{
     height: "150px",
     display: "flex",
     flexDirection: "column",
-    justifyContent:"center"
+    justifyContent: "center",
+    marginTop: "10px",
     
   }}>
     <Typography variant="h6" >Hechos victimizantes</Typography>
