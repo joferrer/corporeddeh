@@ -54,14 +54,6 @@ const NavegationComponent = ({windowSize}) => {
   </Grid>
 }
 
-
-const post = {
-  image: "https://pbs.twimg.com/media/FCVslvrXoAAIzS7.jpg:large",
-  imageText:"Friendly noodels",
-  title: "Noodels",
-  description: "A cute cat",
-  linkText:"/noodels"
-}
 const PrincipalImgComponent = ()=>{
   return <Grid>
     <CarouselComponent />
@@ -113,7 +105,7 @@ function Item(props)
         }}
     >
       {/* Increase the priority of the hero background image 'rgba(0,0,0,.5)' */}
-      {<img style={{ display: 'none',  }} src={props.item.img} alt={post.imageText} />}
+      {<img style={{ display: 'none',  }} src={props.item.img} alt={props.item.name} />}
       <Box
         sx={{
           position: 'absolute',
@@ -285,11 +277,18 @@ export const HomePage = () => {
         </Paper>
         <SendMessageForm />
       </Grid>
+      <Grid sx={{
+        display: "flex",
+        flexWrap: "wrap",
+        width: "100%",
+        alignContent: "space-around",
+        justifyContent: "space-around",
+        marginBottom: "10px",
+      }}>
+        <iframe style={{borderWidth:0,flexGrow:1,padding:"10px",height:"300px"}}  src="https://www.youtube.com/embed/APyyYg-rJyE?si=dWHT3wlaKLckSGfl" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        <iframe style={{borderWidth:0,flexGrow:1,padding:"10px",height:"300px"}}  src="https://www.youtube.com/embed/6aswzDXxj7U?si=CVJrwJwCRuKJaGHG" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
-      
-
-      <Grid>
-
+        
       </Grid>
     </Grid>
   </Layout>;
