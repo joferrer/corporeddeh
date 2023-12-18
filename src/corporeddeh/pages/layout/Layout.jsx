@@ -375,7 +375,7 @@ const Layout = ({ children }) => {
         minHeight: "100vh",
       }}
     >
-      <Box sx={{ marginBottom: 10 }}>
+      <Box sx={{ marginBottom: 10, zIndex: 1 }}>
         <AppBarTool handleDrawerOpen={handleDrawerOpen} />
       </Box>
       <DrawerBar

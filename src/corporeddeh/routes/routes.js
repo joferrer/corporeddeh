@@ -6,5 +6,6 @@ export const routes = {
     ABOUTUS:"/sobre_nosotros",
     DONATION:"/donaciones",
     OFFICE:"/sedes",
+    EEVENTO: "/evento",
     default:"/*"
 }
