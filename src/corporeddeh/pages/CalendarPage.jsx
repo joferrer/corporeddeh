@@ -51,6 +51,7 @@ export const CalendarPage = () => {
     <Layout>
       <Box
         sx={{
+          maxWidth: 1440,
           padding: 2,
           marginRight: 2,
           marginLeft: Mobile ? 0 : 2,
