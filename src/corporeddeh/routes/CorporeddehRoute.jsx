@@ -12,6 +12,7 @@ import {
 } from "../pages";
 
 export const CorpoeddehRoute = () => {
+  console.log("CorpoeddehRoute");
   return (
     <Routes>
       <Route path={routes.HOME} element={<HomePage />}></Route>
@@ -23,6 +24,7 @@ export const CorpoeddehRoute = () => {
       <Route path={routes.OFFICE} element={<OfficesPage />}></Route>
       <Route path={routes.EEVENTO} element={<EeventoPage />} />
       <Route path={routes.RANDOM} element={<Navigate to="/" />} />
+      <Route path="/*" element={<Navigate to={routes.HOME} />} />
     </Routes>
   );
 };

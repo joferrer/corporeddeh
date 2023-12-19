@@ -4,28 +4,28 @@ import { CheckingAuth } from "../ui/FeedbackComponents";
 import { AppRouterUser } from "../administratorapp/router/AppRouterUser";
 
 
-const CHECKING = "checking" 
+const CHECKING = "checking"
 const AUTHENTICATED = "authenticated"
 const NO_AUTHENTICATED = "no-authenticated"
 const status = NO_AUTHENTICATED
 
 const rol = "admin"
 export const AppRouter = () => {
-  
+
   //const {status,rol} = authDispatch();
 
-  if(status === CHECKING){
-   return <CheckingAuth />
+  if (status === CHECKING) {
+    return <CheckingAuth />
   }
-
+  console.log("status", status)
   return (
     <Routes>
       {status === AUTHENTICATED ? (
-          <Route path="/*" element={<AppRouterUser rol={rol} />}></Route>
-        ) : (
-          <Route path="/*" element={<AuthRouter status={status}/>} />
+        <Route path="/*" element={<AppRouterUser rol={rol} />}></Route>
+      ) : (
+        <Route path="/*" element={<AuthRouter status={status} />} />
       )}
-      
+
     </Routes>
   );
 };

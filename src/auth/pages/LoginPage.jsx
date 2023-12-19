@@ -11,8 +11,8 @@ const styleC = {
 
 const LoginComponent = () => {
     const { windowSize } = useWindowSize()
-    const [error, setError] = useState({error:false,message:"Correo o contraseña incorrectos"})    
-    const { register,handleSubmit,formState:{errors}} = useForm({
+    const [error, setError] = useState({ error: false, message: "Correo o contraseña incorrectos" })
+    const { register, handleSubmit, formState: { errors } } = useForm({
         email: "",
         password: ""
     })
@@ -22,19 +22,18 @@ const LoginComponent = () => {
         //e.preventDefault()
         console.log(data)
         //setError({error:true,message:"Correo o contraseña incorrectos"})
-        Window.location = routes.HOME_ADMIN
+        window.location = routes.HOME_ADMIN
     }
-    console.log(errors.email)
     return <form style={{
         display: "flex",
         flexDirection: "column",
         flexWrap: "wrap",
         flexGrow: 1,
-        padding: `${windowSize.width<525? "10":"100"}px`,
+        padding: `${windowSize.width < 525 ? "10" : "100"}px`,
     }}
         onSubmit={handleSubmit(onSubmit)}
-    >   
-        {error.error && <Alert severity="error">{error.message}</Alert>}        
+    >
+        {error.error && <Alert severity="error">{error.message}</Alert>}
         <Typography variant="h4">Iniciar sesión</Typography>
         <TextField variant="standard"
             type="email" sx={styleC}
@@ -53,18 +52,18 @@ const LoginComponent = () => {
         />
         <Button variant="contained" type="submit" sx={styleC}>Ingresar</Button>
         <Button
-              variant="outlined"
-              fullWidth
-              sx={{ mt: 2, pl: 2, pr: 2 }}
-            >
-              <Google />
-              <Typography sx={{ ml: 1 }}>Google</Typography>
+            variant="outlined"
+            fullWidth
+            sx={{ mt: 2, pl: 2, pr: 2 }}
+        >
+            <Google />
+            <Typography sx={{ ml: 1 }}>Google</Typography>
         </Button>
         <a href={routes.RESET_PASWWORD}>¿Olvido su contraseña?</a>
     </form>
 }
 
-export const LoginPage = ()=>{
+export const LoginPage = () => {
     return <Grid sx={{
         display: "flex",
         flexWrap: "wrap",
@@ -72,10 +71,10 @@ export const LoginPage = ()=>{
         alignContent: "center",
         alignItems: "center",
         height: "100vh",
-        padding:"10px"
+        padding: "10px"
     }}>
-        
-        <img style={{flexGrow:1,maxWidth:"80vw", maxHeight:"80vh",objectFit:"cover"}} src="https://pbs.twimg.com/media/FCVslvrXoAAIzS7.jpg:large" alt="imagen"/>
-        <LoginComponent/>
+
+        <img style={{ flexGrow: 1, maxWidth: "80vw", maxHeight: "80vh", objectFit: "cover" }} src="https://pbs.twimg.com/media/FCVslvrXoAAIzS7.jpg:large" alt="imagen" />
+        <LoginComponent />
     </Grid>
 }
