@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
-import { Button, Grid, TextField, Typography } from "@mui/material"
+import { Grid } from "@mui/material"
 import Layout from "../../corporeddeh/pages/layout/Layout"
-import { SocialNetworksComponent } from "./Components"
+import { CounterComponent, HomeMultimediaComponent, SocialNetworksComponent } from "./Components"
 import { useEffect, useState } from "react"
 
 const linksInit = new Promise((resolve) => {
@@ -18,6 +18,7 @@ const linksInit = new Promise((resolve) => {
 
 export const AdminHomePage = () => {
     const [links, setLinks] = useState({
+        counter: 0,
         videosList: [],
         youtube: "",
         facebook: "",
@@ -34,7 +35,7 @@ export const AdminHomePage = () => {
                 setLinks(result[0])
             })
     }, [])
-    console.log(links?.youtube)
+
     return <Layout>
         <Grid
             sx={{
@@ -46,46 +47,15 @@ export const AdminHomePage = () => {
                 width: "100%",
             }}
         >
-            <Grid sx={{ flexGrow: 1, maxWidth: "315px" }}>
-                <Typography variant="h4" sx={{ paddingBottom: "10px" }}>Contador de hechos victimizantes</Typography>
-                <TextField sx={{ width: "100%" }} type="number" variant="standard" label="Dígite un número" />
-
-            </Grid>
-            <Grid sx={{
-                display: "flex", flexDirection: "row", flexWrap: "wrap",
-                flexGrow: 1,
-                maxWidth: "315px",
-            }}>
-                <form >
-                    <Typography variant="h4" sx={{ paddingBottom: "10px" }} >Contenido multimedia</Typography>
-                    <TextField variant="standard" label="Link de vídeo" />
-                    <Button variant="contained" type="submit">Subir</Button>
-                </form>
-                <Grid sx={{
-                    display: "flex",
-                    flexDirection: "row",
-                    flexWrap: "wrap",
-                    width: "100%",
-                }}>
-                    <ul style={{
-                        display: "flex", flexDirection: "column", listStyle: "none",
-                        padding: 0,
-                        width: "100%",
-                    }}>
-                        {
-                            videosList?.map((video, index) => <li
-                                style={{ width: "100%", overflow: "auto" }}
-                                key={index}>
-                                <Grid>
-                                    <Typography variant="body2">{video}</Typography>
-
-                                </Grid>
-                            </li>)
-                        }
-                    </ul>
-                </Grid>
-            </Grid>
-            <SocialNetworksComponent sociallinks={links} />
+            <CounterComponent counter={links?.counter} />
+            <HomeMultimediaComponent videosList={videosList} />
+            <SocialNetworksComponent sociallinks={{
+                youtube: links?.youtube,
+                facebook: links?.facebook,
+                instagram: links?.instagram,
+                twitter: links?.twitter,
+                email: links?.email,
+            }} />
         </Grid>
     </Layout>
 }

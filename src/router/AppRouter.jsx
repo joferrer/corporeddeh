@@ -7,7 +7,7 @@ import { AppRouterUser } from "../administratorapp/router/AppRouterUser";
 const CHECKING = "checking"
 const AUTHENTICATED = "authenticated"
 const NO_AUTHENTICATED = "no-authenticated"
-const status = NO_AUTHENTICATED
+const status = AUTHENTICATED
 
 const rol = "admin"
 export const AppRouter = () => {
@@ -17,7 +17,7 @@ export const AppRouter = () => {
   if (status === CHECKING) {
     return <CheckingAuth />
   }
-  console.log("status", status)
+
   return (
     <Routes>
       {status === AUTHENTICATED ? (

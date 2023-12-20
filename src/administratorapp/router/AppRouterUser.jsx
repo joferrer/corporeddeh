@@ -4,7 +4,6 @@ import { AdminRouter } from "./AdminRouter"
 
 const ROL_ADMINISTRADOR = "admin"
 export const AppRouterUser = ({ rol = ROL_ADMINISTRADOR }) => {
-    console.log("rol AppRouterUser", rol)
     return (
         <Routes>
             {
