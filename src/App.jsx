@@ -5,7 +5,6 @@ import { AppRouter } from './router/AppRouter'
 
 function App() {
 
-  dayjs().locale("es")
   return (
     <AppRouter />
 
