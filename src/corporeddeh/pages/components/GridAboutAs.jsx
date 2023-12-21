@@ -1,7 +1,10 @@
 import React from "react";
 import { Box, Grid, Typography } from "@mui/material";
+import logo from "../../../../public/logo-SinFondo.png";
+import { MediaQuerys } from "../../../theme/Config";
 
 const GridAboutAs = ({ ds1, ds2, ds3 }) => {
+  const { Mobile } = MediaQuerys;
   return (
     <Grid container spacing={5}>
       <Grid
@@ -13,7 +16,6 @@ const GridAboutAs = ({ ds1, ds2, ds3 }) => {
           flexWrap: "wrap",
           justifyContent: "center",
           width: "100%",
-          marginTop: 2,
         }}
       >
         <Box
@@ -21,13 +23,37 @@ const GridAboutAs = ({ ds1, ds2, ds3 }) => {
             width: "60%",
             display: "flex",
             justifyContent: "center",
-            backgroundColor: "yellow",
+            backgroundColor: "#F1D800",
             boxShadow: "0px 6px 6px -6px #888888", // Desplazamiento vertical positivo
             padding: "10px",
+            maxHeight: "52px",
+            "@media (max-width:1100px)": {
+              width: "80%",
+            },
+            "@media (max-width:800px)": {
+              width: "100%",
+            },
           }}
         >
-          <Typography sx={{ width: "100%" }} variant="h5">
+          <Typography sx={{ width: "100%", color: "white" }} variant="h5">
             ¿Quienes Somos?
+          </Typography>
+        </Box>
+        <Box
+          sx={{
+            width: "60%",
+            marginTop: 3,
+            textAlign: "justify",
+            "@media (max-width:1100px)": {
+              width: "80%",
+            },
+            "@media (max-width:800px)": {
+              width: "100%",
+            },
+          }}
+        >
+          <Typography sx={{ width: "100%" }} variant="body">
+            {ds1}
           </Typography>
         </Box>
       </Grid>
@@ -40,12 +66,46 @@ const GridAboutAs = ({ ds1, ds2, ds3 }) => {
           flexWrap: "wrap",
           justifyContent: "center",
           width: "100%",
-          marginTop: 2,
         }}
       >
-        <Typography sx={{ backgroundColor: "red", width: "70%" }}>
-          Misión
-        </Typography>
+        <Box
+          sx={{
+            width: "60%",
+            display: "flex",
+            justifyContent: "center",
+            backgroundColor: "#8491DF",
+            boxShadow: "0px 6px 6px -6px #888888", // Desplazamiento vertical positivo
+            padding: "10px",
+            maxHeight: "52px",
+            "@media (max-width:1100px)": {
+              width: "80%",
+            },
+            "@media (max-width:800px)": {
+              width: "100%",
+            },
+          }}
+        >
+          <Typography sx={{ width: "100%", color: "white" }} variant="h5">
+            Misión
+          </Typography>
+        </Box>
+        <Box
+          sx={{
+            width: "60%",
+            marginTop: 3,
+            textAlign: "justify",
+            "@media (max-width:1100px)": {
+              width: "80%",
+            },
+            "@media (max-width:800px)": {
+              width: "100%",
+            },
+          }}
+        >
+          <Typography sx={{ width: "100%" }} variant="body">
+            {ds2}
+          </Typography>
+        </Box>
       </Grid>
       <Grid
         item
@@ -56,12 +116,46 @@ const GridAboutAs = ({ ds1, ds2, ds3 }) => {
           flexWrap: "wrap",
           justifyContent: "center",
           width: "100%",
-          marginTop: 2,
+          maxHeight: "52px",
         }}
       >
-        <Typography sx={{ backgroundColor: "red", width: "70%" }}>
-          Visión
-        </Typography>
+        <Box
+          sx={{
+            width: "60%",
+            display: "flex",
+            justifyContent: "center",
+            backgroundColor: "#E1432F",
+            boxShadow: "0px 6px 6px -6px #888888", // Desplazamiento vertical positivo
+            padding: "10px",
+            "@media (max-width:1100px)": {
+              width: "80%",
+            },
+            "@media (max-width:800px)": {
+              width: "100%",
+            },
+          }}
+        >
+          <Typography sx={{ width: "100%", color: "white" }} variant="h5">
+            Visión
+          </Typography>
+        </Box>
+        <Box
+          sx={{
+            width: "60%",
+            marginTop: 3,
+            textAlign: "justify",
+            "@media (max-width:1100px)": {
+              width: "80%",
+            },
+            "@media (max-width:800px)": {
+              width: "100%",
+            },
+          }}
+        >
+          <Typography sx={{ width: "100%" }} variant="body">
+            {ds3}
+          </Typography>
+        </Box>
       </Grid>
       <Grid
         item
@@ -72,9 +166,17 @@ const GridAboutAs = ({ ds1, ds2, ds3 }) => {
           flexWrap: "wrap",
           justifyContent: "center",
           width: "100%",
-          marginTop: 2,
         }}
-      ></Grid>
+      >
+        <Box
+          sx={{
+            display: { xs: "none", sm: "none", md: "block" },
+            width: "100%",
+          }}
+        >
+          <img width={"100%"} style={{ maxWidth: "330px" }} src={logo} />
+        </Box>
+      </Grid>
     </Grid>
   );
 };
