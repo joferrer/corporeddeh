@@ -6,45 +6,50 @@ import CardAction from "./../../ui/AloneComponents/CardAction";
 
 const array = [
   {
+    id: "1",
     titulo: "Titulo",
     descripcion: "Una descripcion Larga...........",
     fecha: "20/20/2023",
-    imagen: imagen,
+    imagen: [imagen, imagen, imagen, imagen, imagen],
   },
   {
+    id: "2",
     titulo: "Titulo",
     descripcion: "Una descripcion Larga...........",
     fecha: "20/20/2023",
-    imagen: imagen,
+    imagen: [imagen, imagen, imagen, imagen, imagen],
   },
   {
+    id: "3",
     titulo: "Titulo",
     descripcion: "Una descripcion Larga...........",
     fecha: "20/20/2023",
-    imagen: imagen,
+    imagen: [imagen, imagen, imagen, imagen, imagen],
   },
   {
+    id: "3",
     titulo: "Titulo",
     descripcion: "Una descripcion Larga...........",
     fecha: "20/20/2023",
-    imagen: imagen,
+    imagen: [imagen, imagen, imagen, imagen, imagen],
   },
   {
+    id: "4",
     titulo: "Titulo",
     descripcion: "Una descripcion Larga...........",
     fecha: "20/20/2023",
-    imagen: imagen,
+    imagen: [imagen, imagen, imagen, imagen, imagen],
   },
   {
+    id: "5",
     titulo: "Titulo",
     descripcion: "Una descripcion Larga...........",
     fecha: "20/20/2023",
-    imagen: imagen,
+    imagen: [imagen, imagen, imagen, imagen, imagen],
   },
 ];
 
 import imagen from "../../../public/vite.svg";
-//TODO RECORDAR CAMBIAR EL KEY POR EL ID DE LA BD
 export const EventsPage = () => {
   const { Mobile } = MediaQuerys;
   return (
@@ -73,8 +78,8 @@ export const EventsPage = () => {
                 titulo={card.titulo}
                 descripcion={card.descripcion}
                 fecha={card.fecha}
-                imagen={card.imagen}
-                id={index}
+                imagen={card.imagen[0]}
+                id={card.id}
               />
             </Grid>
           ))}

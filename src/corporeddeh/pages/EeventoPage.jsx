@@ -38,7 +38,7 @@ export const EeventoPage = () => {
 
   const handleCloseModal = () => {
     setOpenModal(false);
-    setSelectedImageIndex(null); // Limpia el índice cuando se cierra el modal
+    setSelectedImageIndex(null);
   };
 
   return (
@@ -103,7 +103,7 @@ export const EeventoPage = () => {
             sx={{ display: "flex", justifyContent: "center", marginTop: 2 }}
           >
             <Carousel
-              interval={10000}
+              interval={4000}
               sx={{
                 maxWidth: "660px",
                 width: "100%",
@@ -134,7 +134,7 @@ export const EeventoPage = () => {
                     style={{
                       maxWidth: "550px",
                       width: "100%",
-                      height: "350px"
+                      height: "350px",
                     }}
                   />
                 </Box>
@@ -206,7 +206,6 @@ export const EeventoPage = () => {
             alignItems: "center",
           }}
         >
-          {/* Botón de cerrar en la parte superior derecha */}
           <IconButton
             sx={{
               position: "absolute",
@@ -227,7 +226,6 @@ export const EeventoPage = () => {
             />
           )}
 
-          {/* Botones de adelante y atrás */}
           <IconButton
             onClick={() =>
               setSelectedImageIndex((prev) =>
