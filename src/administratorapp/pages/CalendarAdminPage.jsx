@@ -1,6 +1,8 @@
-import { Button, Grid, Typography } from "@mui/material"
+import { Alert, Button, Grid, Snackbar, Typography } from "@mui/material"
 import Layout from "../../corporeddeh/pages/layout/Layout"
 import { useEffect, useState } from "react"
+import { Add, Clear } from "@mui/icons-material"
+import styled from "@emotion/styled"
 
 const initListOfEvents = new Promise((resolve) => {
     return resolve({
@@ -23,17 +25,68 @@ const initListOfEvents = new Promise((resolve) => {
         ]
     })
 })
-
+const VisuallyHiddenInput = styled('input')({
+    clip: 'rect(0 0 0 0)',
+    clipPath: 'inset(50%)',
+    height: 1,
+    overflow: 'hidden',
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    whiteSpace: 'nowrap',
+    width: 1,
+});
 export const CalendarAdminPage = () => {
     const [ListOfEvents, setListOfEvents] = useState({
-        events: []
+        events: [],
+        error: false,
     })
-    const { events } = ListOfEvents
+    const { events, error } = ListOfEvents
 
     useEffect(() => {
         Promise.all([initListOfEvents])
             .then((res) => setListOfEvents({ events: res[0].events }))
     }, [])
+
+    const onFileInputClick = (e, index) => {
+
+        const img = e.target.files[0]
+
+        if (img && img.type.substr(0, 5) === "image") {
+            const reader = new FileReader()
+            reader.onload = (e) => {
+                const imageUrl = e.target.result
+                const newEventImages = events[index].imgs
+                newEventImages.push(imageUrl)
+                const newEvent = {
+                    mouth: events[index].mouth,
+                    year: events[index].year,
+                    imgs: newEventImages
+                }
+                let newListOfEvents = events
+                newListOfEvents.splice(index, 1, newEvent)
+                setListOfEvents({ events: newListOfEvents, error: false })
+            }
+
+            reader.readAsDataURL(img)
+        }
+        else {
+            setListOfEvents({ events, error: true })
+        }
+    }
+
+    const onImgDelete = (index, imgIndex) => {
+        const newEventImages = events[index].imgs
+        newEventImages.splice(imgIndex, 1)
+        const newEvent = {
+            mouth: events[index].mouth,
+            year: events[index].year,
+            imgs: newEventImages
+        }
+        let newListOfEvents = events
+        newListOfEvents.splice(index, 1, newEvent)
+        setListOfEvents({ events: newListOfEvents, error: false })
+    }
 
     return <Layout>
         <Grid sx={{
@@ -45,6 +98,16 @@ export const CalendarAdminPage = () => {
             maxWidth: "100vw",
 
         }}>
+
+            <Snackbar
+                open={error}
+                autoHideDuration={6000}
+                onClose={() => setListOfEvents({ events, error: false })}
+                anchorOrigin={{ vertical: "top", horizontal: "left" }}
+            >
+                <Alert severity="error">Error al subir la imagen</Alert>
+            </Snackbar>
+
             <Typography variant="h3">Calendario</Typography>
 
             {
@@ -53,6 +116,8 @@ export const CalendarAdminPage = () => {
                         display: "flex",
                         justifyContent: "center",
                         flexDirection: "column",
+                        textAlign: "left",
+                        marginBottom: "20px",
                     }}>
                         <Typography key={index} variant="h5">
                             {`${event.mouth}, ${event.year}`}
@@ -61,20 +126,44 @@ export const CalendarAdminPage = () => {
                             sx={{
                                 display: "flex",
                                 flexWrap: "wrap",
-                                justifyContent: "center",
+                                alignItems: "center",
 
                             }}
                         >
                             {
-                                event.imgs.map((img, index) => (
-                                    <img style={{
-                                        width: "100px",
-                                        maxHeight: "200px",
-                                        objectFit: "cover"
-                                    }} key={index} src={img} alt="img" />
+                                event.imgs.map((img, i) => (
+                                    <Grid key={i} sx={{
+                                        display: "flex",
+                                        flexDirection: "column",
+                                        marginRight: "10px",
+                                    }}>
+                                        <img style={{
+                                            width: "100px",
+                                            maxHeight: "200px",
+                                            objectFit: "cover",
+
+                                        }} key={i} src={img} alt="img" />
+                                        <Button
+                                            sx={{ position: "relative", top: "-20px" }}
+                                            onClick={() => onImgDelete(index, i)}
+                                        ><Clear color="error" fontSize="large" /></Button>
+                                    </Grid>
                                 ))
                             }
-                            <Button variant="contained">Agregar</Button>
+                            <Button
+                                component="label"
+                                variant="contained"
+                                sx={{
+                                    height: "fit-content",
+                                    width: "fit-content",
+                                    padding: "2px",
+                                    minWidth: "fit-content",
+                                }}
+                                onChange={(e) => onFileInputClick(e, index)}
+                            >
+                                <Add fontSize="large" />
+                                <VisuallyHiddenInput type="file" accept="image/*" />
+                            </Button>
 
                         </Grid>
 
@@ -85,5 +174,5 @@ export const CalendarAdminPage = () => {
         </Grid>
 
 
-    </Layout>
+    </Layout >
 }
