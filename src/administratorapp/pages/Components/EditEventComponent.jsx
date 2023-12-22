@@ -3,9 +3,26 @@
 import { Button, Grid, TextField, } from "@mui/material"
 import { DatePicker } from "@mui/x-date-pickers"
 import { useDate } from "../../../theme/dateConfig"
+import { useState } from "react"
+
+const sendData = async (data) => {
+    return await {
+        status: 200,
+        message: "Evento creado correctamente"
+    }
+}
 
 export const EditEventComponent = ({ event, setOpen, setListOfEvents, listOfEvents }) => {
     const { datejs } = useDate()
+    const [sendStatus, setSendStatus] = useState(false)
+    const onSubmit = async () => {
+        console.log("SUBMIT", event)
+        //setOpen(false)
+        const response = await sendData(event)
+        setSendStatus(response)
+
+    }
+
     return <Grid
         sx={{
             display: "flex",

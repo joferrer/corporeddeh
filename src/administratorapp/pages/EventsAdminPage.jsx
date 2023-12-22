@@ -1,11 +1,12 @@
 /* eslint-disable react/prop-types */
-import { Button, Card, CardActions, CardContent, CardMedia, Grid, IconButton, TextField, Typography } from "@mui/material"
+import { Alert, Button, Card, CardActions, CardContent, CardMedia, Grid, IconButton, Snackbar, TextField, Typography } from "@mui/material"
 import Layout from "../../corporeddeh/pages/layout/Layout"
 import { DatePicker } from "@mui/x-date-pickers"
 import { Clear, Edit } from "@mui/icons-material"
 import { useEffect, useState } from "react"
 import TransitionsModal from "./Components/ModalComponent"
 import { EditEventComponent } from "./Components/EditEventComponent"
+import { useForm } from "react-hook-form"
 
 const initListOfEvents = new Promise((resolve) => {
     return resolve([
@@ -25,6 +26,14 @@ const initListOfEvents = new Promise((resolve) => {
         }
     ])
 })
+
+const sendData = async (data) => {
+    return await {
+        status: 400,
+        message: "Evento creado correctamente"
+    }
+
+}
 
 const CardEventComponent = ({ event, onDelete }) => {
     const [open, setOpen] = useState(false)
@@ -95,6 +104,8 @@ const CardEventComponent = ({ event, onDelete }) => {
 export const EventsAdminPage = () => {
 
     const [listOfEvents, setListOfEvents] = useState([])
+    const [error, setError] = useState(false)
+    const { register, handleSubmit } = useForm()
 
     const getData = async () => {
         return await initListOfEvents
@@ -105,6 +116,17 @@ export const EventsAdminPage = () => {
         setListOfEvents(listOfEvents.filter((event) => event.id !== index))
 
     }
+
+    const onCreateEvent = async (event) => {
+        const response = await sendData(event)
+        console.log(response)
+        if (response.status === 200)
+            return setListOfEvents([...listOfEvents, event])
+        setError(true)
+
+
+    }
+
     useEffect(() => {
         Promise.all([getData()])
             .then((res) => {
@@ -126,14 +148,23 @@ export const EventsAdminPage = () => {
                     sx={{
                         display: "flex",
                         flexDirection: "column",
+                        flexGrow: 1,
+                        padding: "1rem",
                     }}
                 >
+                    <Snackbar open={error} autoHideDuration={6000} onClose={() => setError(false)}>
+                        <Alert onClose={() => setError(false)} severity="error" sx={{ width: '100%' }}>
+                            This is a success message!
+                        </Alert>
+                    </Snackbar>
                     <form
+                        onSubmit={handleSubmit(onCreateEvent)}
                         style={{
                             display: "flex",
                             flexDirection: "column",
                             gap: "10px",
                         }}
+
                     >
                         <TextField
                             label="Nombre del evento"
@@ -149,16 +180,17 @@ export const EventsAdminPage = () => {
                             label="Descripción"
                             variant="standard"
                             multiline={true}
-                            rows={3}
+                            rows={5}
                         />
                         <Button variant="contained">Añadir multimedia</Button>
-                        <Button variant="contained">Crear evento</Button>
+                        <Button variant="contained" type="submit" >Crear evento</Button>
                     </form>
                 </Grid>
                 <Grid
                     sx={{
                         display: "flex",
                         flexDirection: "column",
+                        padding: "1rem",
                     }}
                 >
                     {
