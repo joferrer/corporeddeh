@@ -10,6 +10,8 @@ export const EditEventComponent = ({ event, setOpen, setListOfEvents, listOfEven
         sx={{
             display: "flex",
             gap: "1rem",
+            justifyContent: "space-between",
+            flexWrap: "wrap",
         }}
     >
         <Grid sx={{
@@ -17,6 +19,9 @@ export const EditEventComponent = ({ event, setOpen, setListOfEvents, listOfEven
             flexDirection: "column",
             gap: "1rem",
             minWidth: "300px",
+            flexWrap: "wrap",
+            justifyContent: "space-between",
+            flexGrow: 1,
 
         }}>
             <TextField variant="outlined" label="Titulo" defaultValue={event?.titulo} />
@@ -30,7 +35,8 @@ export const EditEventComponent = ({ event, setOpen, setListOfEvents, listOfEven
         <Grid sx={{
             display: "flex",
             flexDirection: "column",
-            gap: "1rem",
+            gap: "0.5rem",
+
 
         }}>
             <DatePicker defaultValue={datejs(event.fecha)} />

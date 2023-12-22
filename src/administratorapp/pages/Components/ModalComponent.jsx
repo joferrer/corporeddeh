@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 
 const style = {
     position: 'absolute',
+    minWidth: "60vw",
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
@@ -15,6 +16,7 @@ const style = {
     border: '2px solid #000',
     boxShadow: 24,
     p: 4,
+    justifyContent: "space-between",
 };
 
 export default function TransitionsModal({ children, title, state, setState }) {
