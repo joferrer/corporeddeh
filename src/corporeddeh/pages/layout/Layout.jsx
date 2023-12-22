@@ -17,8 +17,9 @@ import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import TwitterIcon from "@mui/icons-material/Twitter";
-import loguito from "../../../../public/vite.svg";
+import loguito from "../../../../public/logo-SinFondo.png";
 import { Link } from "react-router-dom";
+import HomeIcon from "@mui/icons-material/Home";
 
 const AppBarTool = ({ handleDrawerOpen }) => {
   return (
@@ -59,13 +60,11 @@ const AppBarTool = ({ handleDrawerOpen }) => {
             CORPOREDDEH
           </Typography>
           <a href="/">
-            <img
-              src={loguito}
-              alt="Logo"
-              style={{
-                width: "40px",
-              }}
-            />
+            <IconButton>
+              <HomeIcon
+                sx={{ color: "black", width: "30px", height: "30px" }}
+              />
+            </IconButton>
           </a>
         </Box>
 
@@ -75,7 +74,7 @@ const AppBarTool = ({ handleDrawerOpen }) => {
               src={loguito}
               alt="Logo"
               style={{
-                width: "40px",
+                width: "60px",
               }}
             />
           </a>
@@ -185,13 +184,11 @@ const DrawerBar = ({ drawerOpen, handleDrawerClose }) => {
               CORPOREDDEH
             </Typography>
             <a href="/">
-              <img
-                src={loguito}
-                alt="Logo"
-                style={{
-                  width: "40px",
-                }}
-              />
+              <IconButton>
+                <HomeIcon
+                  sx={{ color: "white", width: "30px", height: "30px" }}
+                />
+              </IconButton>
             </a>
           </Box>
         </Toolbar>
@@ -331,12 +328,18 @@ const Footer = () => {
         >
           <Grid item>
             <Typography> Contatanos +57 30303030</Typography>
-           <Link to={routes.OFFICE} style={{ color: 'inherit', textDecoration: 'none'}}>
+            <Link
+              to={routes.OFFICE}
+              style={{ color: "inherit", textDecoration: "none" }}
+            >
               <Typography>¿Donde Encontrarnos?</Typography>
             </Link>
           </Grid>
           <Grid item>
-           <Link to={routes.ABOUTUS} style={{ color: 'inherit', textDecoration: 'none'}}>
+            <Link
+              to={routes.ABOUTUS}
+              style={{ color: "inherit", textDecoration: "none" }}
+            >
               <Typography> Sobre Nosotros</Typography>
             </Link>
 

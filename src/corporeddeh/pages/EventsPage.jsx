@@ -10,42 +10,42 @@ const array = [
     titulo: "Titulo",
     descripcion: "Una descripcion Larga...........",
     fecha: "20/20/2023",
-    imagen: [imagen, imagen, imagen, imagen, imagen],
+    imagen: imagen,
   },
   {
     id: "2",
     titulo: "Titulo",
     descripcion: "Una descripcion Larga...........",
     fecha: "20/20/2023",
-    imagen: [imagen, imagen, imagen, imagen, imagen],
+    imagen: imagen,
   },
   {
     id: "3",
     titulo: "Titulo",
     descripcion: "Una descripcion Larga...........",
     fecha: "20/20/2023",
-    imagen: [imagen, imagen, imagen, imagen, imagen],
+    imagen: imagen,
   },
   {
     id: "3",
     titulo: "Titulo",
     descripcion: "Una descripcion Larga...........",
     fecha: "20/20/2023",
-    imagen: [imagen, imagen, imagen, imagen, imagen],
+    imagen: imagen,
   },
   {
     id: "4",
     titulo: "Titulo",
     descripcion: "Una descripcion Larga...........",
     fecha: "20/20/2023",
-    imagen: [imagen, imagen, imagen, imagen, imagen],
+    imagen: imagen,
   },
   {
     id: "5",
     titulo: "Titulo",
     descripcion: "Una descripcion Larga...........",
     fecha: "20/20/2023",
-    imagen: [imagen, imagen, imagen, imagen, imagen],
+    imagen: imagen,
   },
 ];
 
@@ -78,7 +78,7 @@ export const EventsPage = () => {
                 titulo={card.titulo}
                 descripcion={card.descripcion}
                 fecha={card.fecha}
-                imagen={card.imagen[0]}
+                imagen={card.imagen}
                 id={card.id}
               />
             </Grid>
