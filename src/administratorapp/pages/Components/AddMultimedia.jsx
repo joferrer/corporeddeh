@@ -1,11 +1,14 @@
+/* eslint-disable react/prop-types */
 import { Button, Grid, TextField, Typography } from "@mui/material"
 import { ImagesAdminComponent } from "./ImagesAdminComponent"
 import { useState } from "react"
+import { HomeMultimediaComponent } from "./HomeMultimediaComponent"
 
 const images = []
 
-export const AddMultimediaComponent = () => {
-    const [listOfImages, setListOfImages] = useState({ images: [], error: false })
+export const AddMultimediaComponent = ({ videos, imagesList }) => {
+    const [listOfImages, setListOfImages] = useState({ images: imagesList || [], error: false })
+    const [videosList, setVideosList] = useState(videos || [])
 
     const { images } = listOfImages
     console.log(images)
@@ -39,12 +42,9 @@ export const AddMultimediaComponent = () => {
     }
 
     return <Grid>
-        <Grid>
-            <TextField variant="outlined" label="Titulo" defaultValue={event?.titulo} />
-            <Button variant="contained">Subir</Button>
-        </Grid>
-        <Grid>
 
+        <Grid>
+            <HomeMultimediaComponent videosList={videosList} />
         </Grid>
         <Grid>
             <Typography variant="h4">Imagenes</Typography>

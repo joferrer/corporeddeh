@@ -17,6 +17,8 @@ const style = {
     boxShadow: 24,
     p: 4,
     justifyContent: "space-between",
+    overflow: "scroll",
+    maxHeight: "80vh",
 };
 
 export default function TransitionsModal({ children, title, state, setState }) {
@@ -41,8 +43,11 @@ export default function TransitionsModal({ children, title, state, setState }) {
                         timeout: 500,
                     },
                 }}
+                sx={{
+                    overflow: "scroll",
+                }}
             >
-                <Fade in={open}>
+                <Fade in={open} style={{ overflow: "scroll" }}>
                     <Box sx={style}>
                         <Typography id="transition-modal-title" variant="h6" component="h2">
                             {title}

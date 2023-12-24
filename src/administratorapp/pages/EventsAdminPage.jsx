@@ -77,18 +77,14 @@ const CardEventComponent = ({ event, onDelete }) => {
                 }}
                     onClick={() => setOpen(true)}
                 >
-                    <IconButton color="inherit" sx={{ padding: 0 }}>
-                        <Edit />
-                    </IconButton>
+                    <Edit />
                 </Button>
                 <Button variant="contained" color="error" sx={{
                     flexGrow: 1,
                 }}
                     onClick={() => onDelete(event?.id)}
                 >
-                    <IconButton color="inherit" sx={{ padding: 0 }}>
-                        <Clear />
-                    </IconButton>
+                    <Clear />
                 </Button>
             </CardActions>
 

@@ -32,7 +32,6 @@ export const HomeMultimediaComponent = ({ videosList }) => {
     }}>
         <form onSubmit={onSubmit}>
             <Typography variant="h4" sx={{ paddingBottom: "10px" }} >Contenido multimedia</Typography>
-            <Typography variant="subtitle1" sx={{ paddingBottom: "10px" }} >Estos videos se mostrarán en al página principal. Solo es posible subir dos vídeos</Typography>
             <TextField variant="standard" label="Link de vídeo" />
             <Button variant="contained" type="submit">Subir</Button>
         </form>
