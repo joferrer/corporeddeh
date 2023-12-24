@@ -1,8 +1,7 @@
-import { Alert, Button, Grid, Snackbar, Typography } from "@mui/material"
+import { Alert, Grid, Snackbar, Typography } from "@mui/material"
 import Layout from "../../corporeddeh/pages/layout/Layout"
 import { useEffect, useState } from "react"
-import { Add, Clear } from "@mui/icons-material"
-import styled from "@emotion/styled"
+import { ImagesAdminComponent } from "./Components/ImagesAdminComponent"
 
 const initListOfEvents = new Promise((resolve) => {
     return resolve({
@@ -25,17 +24,7 @@ const initListOfEvents = new Promise((resolve) => {
         ]
     })
 })
-const VisuallyHiddenInput = styled('input')({
-    clip: 'rect(0 0 0 0)',
-    clipPath: 'inset(50%)',
-    height: 1,
-    overflow: 'hidden',
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    whiteSpace: 'nowrap',
-    width: 1,
-});
+
 export const CalendarAdminPage = () => {
     const [ListOfEvents, setListOfEvents] = useState({
         events: [],
@@ -122,50 +111,7 @@ export const CalendarAdminPage = () => {
                         <Typography key={index} variant="h5">
                             {`${event.mouth}, ${event.year}`}
                         </Typography>
-                        <Grid
-                            sx={{
-                                display: "flex",
-                                flexWrap: "wrap",
-                                alignItems: "center",
-
-                            }}
-                        >
-                            {
-                                event.imgs.map((img, i) => (
-                                    <Grid key={i} sx={{
-                                        display: "flex",
-                                        flexDirection: "column",
-                                        marginRight: "10px",
-                                    }}>
-                                        <img style={{
-                                            width: "100px",
-                                            maxHeight: "200px",
-                                            objectFit: "cover",
-
-                                        }} key={i} src={img} alt="img" />
-                                        <Button
-                                            sx={{ position: "relative", top: "-20px" }}
-                                            onClick={() => onImgDelete(index, i)}
-                                        ><Clear color="error" fontSize="large" /></Button>
-                                    </Grid>
-                                ))
-                            }
-                            <Button
-                                component="label"
-                                variant="contained"
-                                sx={{
-                                    height: "fit-content",
-                                    width: "fit-content",
-                                    padding: "2px",
-                                    minWidth: "fit-content",
-                                }}
-                                onChange={(e) => onFileInputClick(e, index)}
-                            >
-                                <Add fontSize="large" />
-                                <VisuallyHiddenInput type="file" accept="image/*" />
-                            </Button>
-
-                        </Grid>
+                        <ImagesAdminComponent images={event.imgs} onFileInputClick={onFileInputClick} index={index} onImgDelete={onImgDelete} />
 
                     </Grid>
 

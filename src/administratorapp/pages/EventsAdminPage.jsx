@@ -7,6 +7,7 @@ import { useEffect, useState } from "react"
 import TransitionsModal from "./Components/ModalComponent"
 import { EditEventComponent } from "./Components/EditEventComponent"
 import { useForm } from "react-hook-form"
+import { AddMultimediaComponent } from "./Components/AddMultimedia"
 
 const initListOfEvents = new Promise((resolve) => {
     return resolve([
@@ -48,6 +49,8 @@ const CardEventComponent = ({ event, onDelete }) => {
         <TransitionsModal title="Editar evento" state={open} setState={setOpen}>
             <EditEventComponent event={event} />
         </TransitionsModal>
+
+
         <Grid
             sx={{
                 display: "flex",
@@ -105,6 +108,7 @@ export const EventsAdminPage = () => {
 
     const [listOfEvents, setListOfEvents] = useState([])
     const [error, setError] = useState(false)
+    const [addMultimedia, setAddMultimedia] = useState(false)
     const { register, handleSubmit } = useForm()
 
     const getData = async () => {
@@ -143,6 +147,9 @@ export const EventsAdminPage = () => {
                 width: "100%",
                 flexWrap: "wrap",
             }}>
+                <TransitionsModal title="Añadir multimedia" state={addMultimedia} setState={setAddMultimedia}>
+                    <AddMultimediaComponent event={event} />
+                </TransitionsModal>
                 <Typography variant="h4" sx={{ flexGrow: 1, width: "100%", textAlign: "left", paddingLeft: "50px", marginBottom: "10px" }}>Eventos</Typography>
                 <Grid
                     sx={{
@@ -182,7 +189,7 @@ export const EventsAdminPage = () => {
                             multiline={true}
                             rows={5}
                         />
-                        <Button variant="contained">Añadir multimedia</Button>
+                        <Button variant="contained" onClick={() => setAddMultimedia(true)}>Añadir multimedia</Button>
                         <Button variant="contained" type="submit" >Crear evento</Button>
                     </form>
                 </Grid>
