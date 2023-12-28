@@ -49,14 +49,7 @@ export const CalendarPage = () => {
 
   return (
     <Layout>
-      <Box
-        sx={{
-          maxWidth: 1440,
-          padding: 2,
-          marginRight: 2,
-          marginLeft: Mobile ? 0 : 2,
-          width: "100%",
-        }}
+      <Container
       >
         <Tittle tittle="Calendario"></Tittle>
         <Grid container spacing={2}>
@@ -104,7 +97,7 @@ export const CalendarPage = () => {
             </Grid>
           ))}
         </Grid>
-      </Box>
+      </Container>
 
       {/* Modal */}
       <Dialog open={openModal} onClose={handleCloseModal} fullScreen={Mobile}>

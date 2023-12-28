@@ -1,4 +1,5 @@
 export * from './AdminHomePage'
 export * from './CalendarAdminPage'
 export * from './EventsAdminPage'
+export * from './DocumentAdminPage'
 //export * from './AdminHomePage'

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   AppBar,
   Box,
@@ -20,22 +20,52 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 import loguito from "../../../../public/logo-SinFondo.png";
 import { Link } from "react-router-dom";
 import HomeIcon from "@mui/icons-material/Home";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import EventIcon from "@mui/icons-material/Event";
+import DescriptionIcon from "@mui/icons-material/Description";
+import PlaceIcon from "@mui/icons-material/Place";
+import InfoIcon from "@mui/icons-material/Info";
+import { ButtonNavBar } from "./../../../ui/AloneComponents/ButtonNavBar";
+import { ButtonDrawer } from "./../../../ui/AloneComponents/ButtonDrawer";
 
 const AppBarTool = ({ handleDrawerOpen }) => {
+  const [scrolling, setScrolling] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setScrolling(true);
+      } else {
+        setScrolling(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
     <AppBar
-      position="static"
       sx={{
         top: "0",
         left: "0",
         position: "fixed",
         width: "100%",
         background: "white",
+        alignItems: "center",
       }}
     >
       <Toolbar
         sx={{
           background: "white",
+          width: "100%",
+          maxWidth: 1440,
+          backgroundColor: "white",
+          padding: scrolling ? "5px" : "10px",
+          transition: "all 0.3s ease",
         }}
       >
         <Box
@@ -43,7 +73,8 @@ const AppBarTool = ({ handleDrawerOpen }) => {
             display: "flex",
             justifyContent: "space-between",
             width: "100%",
-            "@media (min-width: 642px)": { display: "none" },
+            marginBottom: 0,
+            "@media (min-width: 901px)": { display: "none" },
           }}
         >
           {/* Icono de menú para el Drawer */}
@@ -68,13 +99,24 @@ const AppBarTool = ({ handleDrawerOpen }) => {
           </a>
         </Box>
 
-        <Box sx={{ "@media (max-width: 642px)": { display: "none" } }}>
+        <Box
+          sx={{
+            marginLeft: 2,
+            ":hover": {
+              transform: "scale(1.1)",
+            },
+            transition: "transform 0.3s ease-in-out",
+            "@media (max-width: 900px)": { display: "none" },
+          }}
+        >
           <a href="/">
             <img
               src={loguito}
               alt="Logo"
               style={{
-                width: "60px",
+                width: scrolling ? "50px" : "90px",
+                height: "auto",
+                transition: "all 0.3s ease",
               }}
             />
           </a>
@@ -83,59 +125,74 @@ const AppBarTool = ({ handleDrawerOpen }) => {
           sx={{
             marginLeft: "auto",
             color: "#308CD7",
-            "@media (max-width: 642px)": { display: "none" },
+            paddingLeft: "2px",
+            "@media (max-width: 900px)": { display: "none" },
           }}
         >
-          <Button
-            sx={{
-              color: "inherit",
-              background:
-                location.pathname === routes.CALENDAR ? "#EEEEEE" : "inherit",
-            }}
-            href={routes.CALENDAR}
-          >
-            Calendario
-          </Button>
-          <Button
-            sx={{
-              color: "inherit",
-              background:
-                location.pathname === routes.EVENT ? "#EEEEEE" : "inherit",
-            }}
-            href={routes.EVENT}
-          >
-            Eventos
-          </Button>
-          <Button
-            sx={{
-              color: "inherit",
-              background:
-                location.pathname === routes.DOCUMENTS ? "#EEEEEE" : "inherit",
-            }}
-            href={routes.DOCUMENTS}
-          >
-            Documentos
-          </Button>
-          <Button
-            sx={{
-              color: "inherit",
-              background:
-                location.pathname === routes.ABOUTUS ? "#EEEEEE" : "inherit",
-            }}
-            href={routes.ABOUTUS}
-          >
-            Sobre Nosotros
-          </Button>
-          <Button
-            sx={{
-              color: "inherit",
-              background:
-                location.pathname === routes.OFFICE ? "#EEEEEE" : "inherit",
-            }}
-            href={routes.OFFICE}
-          >
-            Sedes
-          </Button>
+          <ButtonNavBar
+            icono={
+              <CalendarMonthIcon
+                sx={{
+                  color:
+                    location.pathname === routes.CALENDAR ? "white" : "purple",
+                  marginRight: "5px",
+                }}
+              />
+            }
+            ruta={routes.CALENDAR}
+            texto={"Calendario"}
+          />
+
+          <ButtonNavBar
+            icono={
+              <EventIcon
+                sx={{
+                  color: location.pathname === routes.EVENT ? "white" : "green",
+                  marginRight: "5px",
+                }}
+              />
+            }
+            ruta={routes.EVENT}
+            texto={"Eventos"}
+          />
+          <ButtonNavBar
+            icono={
+              <DescriptionIcon
+                sx={{
+                  color:
+                    location.pathname === routes.DOCUMENTS ? "white" : "orange",
+                  marginRight: "5px",
+                }}
+              />
+            }
+            ruta={routes.DOCUMENTS}
+            texto={"Documentos"}
+          />
+          <ButtonNavBar
+            icono={
+              <InfoIcon
+                sx={{
+                  color:
+                    location.pathname === routes.ABOUTUS ? "white" : "#308CD7",
+                  marginRight: "5px",
+                }}
+              />
+            }
+            ruta={routes.ABOUTUS}
+            texto={"Sobre Nosotros"}
+          />
+          <ButtonNavBar
+            icono={
+              <PlaceIcon
+                sx={{
+                  color: location.pathname === routes.OFFICE ? "white" : "red",
+                  marginRight: "5px",
+                }}
+              />
+            }
+            ruta={routes.OFFICE}
+            texto={"Sedes"}
+          />
         </Box>
       </Toolbar>
     </AppBar>
@@ -146,7 +203,7 @@ const DrawerBar = ({ drawerOpen, handleDrawerClose }) => {
   return (
     <Drawer
       sx={{
-        "@media (min-width: 642px)": { display: "none" },
+        "@media (min-width: 901px)": { display: "none" },
       }}
       anchor="left"
       open={drawerOpen}
@@ -204,62 +261,68 @@ const DrawerBar = ({ drawerOpen, handleDrawerClose }) => {
           marginTop: 7,
         }}
       >
-        <Button
-          sx={{
-            color: "white",
-            marginTop: 3,
-            fontSize: "13pt",
-            fontWeight:
-              window.location.pathname === routes.CALENDAR ? "bold" : "normal",
-          }}
-          href={routes.CALENDAR}
-        >
-          Calendario
-        </Button>
-        <Button
-          sx={{
-            color: "white",
-            fontSize: "13pt",
-            fontWeight:
-              window.location.pathname === routes.EVENT ? "bold" : "normal",
-          }}
-          href={routes.EVENT}
-        >
-          Eventos
-        </Button>
-        <Button
-          sx={{
-            color: "white",
-            fontSize: "13pt",
-            fontWeight:
-              window.location.pathname === routes.DOCUMENTS ? "bold" : "normal",
-          }}
-          href={routes.DOCUMENTS}
-        >
-          Documentos
-        </Button>
-        <Button
-          sx={{
-            color: "white",
-            fontSize: "13pt",
-            fontWeight:
-              window.location.pathname === routes.ABOUTUS ? "bold" : "normal",
-          }}
-          href={routes.ABOUTUS}
-        >
-          Sobre Nosotros
-        </Button>
-        <Button
-          sx={{
-            color: "white",
-            fontSize: "13pt",
-            fontWeight:
-              window.location.pathname === routes.OFFICE ? "bold" : "normal",
-          }}
-          href={routes.OFFICE}
-        >
-          Sedes
-        </Button>
+        <ButtonDrawer
+          icono={
+            <CalendarMonthIcon
+              sx={{
+                color: "white",
+                marginRight: "5px",
+              }}
+            />
+          }
+          ruta={routes.CALENDAR}
+          first={true}
+          texto={"Calendario"}
+        />
+        <ButtonDrawer
+          icono={
+            <EventIcon
+              sx={{
+                color: "white",
+                marginRight: "5px",
+              }}
+            />
+          }
+          ruta={routes.EVENT}
+          texto={"Eventos"}
+        />
+        <ButtonDrawer
+          icono={
+            <DescriptionIcon
+              sx={{
+                color: "white",
+                marginRight: "5px",
+              }}
+            />
+          }
+          ruta={routes.DOCUMENTS}
+          texto={"Documentos"}
+        />
+        <ButtonDrawer
+          icono={
+            <InfoIcon
+              sx={{
+                color: "white",
+                marginRight: "5px",
+              }}
+            />
+          }
+          ruta={routes.ABOUTUS}
+          texto={"Sobre Nosotros"}
+        />
+        <ButtonDrawer
+          icono={
+            <PlaceIcon
+              sx={{
+                color: "white",
+                marginRight: "5px",
+              }}
+            />
+          }
+          ruta={routes.OFFICE}
+          texto={"Sedes"}
+        />
+
         <Box
           sx={{
             height: "75px",
@@ -378,7 +441,7 @@ const Layout = ({ children }) => {
         minHeight: "100vh",
       }}
     >
-      <Box sx={{ marginBottom: 10, zIndex: 1 }}>
+      <Box sx={{ marginTop: 9, zIndex: 3 }}>
         <AppBarTool handleDrawerOpen={handleDrawerOpen} />
       </Box>
       <DrawerBar

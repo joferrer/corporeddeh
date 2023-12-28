@@ -2,6 +2,7 @@ import { Box, Grid, Paper, Typography } from "@mui/material";
 import Layout from "./layout/Layout";
 import Tittle from "./../../ui/AloneComponents/Tittle";
 import { MediaQuerys } from "./../../theme/Config";
+import Container from "../../ui/AloneComponents/Container";
 
 //TODO : ACOMODAR LAS DIRECCIONES Y LOS MAPS
 
@@ -10,14 +11,7 @@ export const OfficesPage = () => {
 
   return (
     <Layout>
-      <Box
-        sx={{
-          maxWidth: 1440,
-          padding: 2,
-          marginRight: 2,
-          marginLeft: Mobile ? 0 : 2,
-          width: "100%",
-        }}
+      <Container
       >
         <Grid container spacing={5}>
           <Grid
@@ -115,7 +109,7 @@ export const OfficesPage = () => {
             </Box>
           </Grid>
         </Grid>
-      </Box>
+      </Container>
     </Layout>
   );
 };

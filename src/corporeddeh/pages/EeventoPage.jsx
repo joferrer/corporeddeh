@@ -16,6 +16,7 @@ import {
   ArrowForward,
   Close as CloseIcon,
 } from "@mui/icons-material";
+import Container from "../../ui/AloneComponents/Container";
 
 export const EeventoPage = () => {
   const { Mobile } = MediaQuerys;
@@ -43,14 +44,7 @@ export const EeventoPage = () => {
 
   return (
     <Layout>
-      <Box
-        sx={{
-          maxWidth: 1440,
-          padding: 2,
-          marginRight: 2,
-          marginLeft: Mobile ? 0 : 2,
-          width: "100%",
-        }}
+      <Container
       >
         <Box sx={{ marginBottom: 4 }}>
           <Typography display="flex" justifyContent="start" variant="h4">
@@ -180,7 +174,7 @@ export const EeventoPage = () => {
         ) : (
           <></>
         )}
-      </Box>
+      </Container>
 
       <Modal
         open={openModal}

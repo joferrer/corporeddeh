@@ -3,6 +3,7 @@ import Layout from "./layout/Layout";
 import Tittle from "../../ui/AloneComponents/Tittle";
 import { MediaQuerys } from "../../theme/Config";
 import iconPdf from "../.././../public/PDF_file_icon.svg.png";
+import Container from "../../ui/AloneComponents/Container";
 const array = [
   {
     id: "1",
@@ -28,14 +29,7 @@ export const DocumentsPage = () => {
   const { Mobile } = MediaQuerys;
   return (
     <Layout>
-      <Box
-        sx={{
-          maxWidth: 1440,
-          padding: 2,
-          marginRight: 2,
-          marginLeft: Mobile ? 0 : 2,
-          width: "100%",
-        }}
+      <Container
       >
         <Tittle tittle="Documentos" />
         <Grid container spacing={2}>
@@ -52,17 +46,19 @@ export const DocumentsPage = () => {
                 <img src={iconPdf} style={{ maxWidth: "70px" }} />
               </Box>
               <Box>
-                <Typography textAlign={"start"}>
-                  {card.titulo}
-                </Typography>
-                <Typography textAlign={"justify"} fontSize={"10pt"} maxWidth={"318.45px"}>
+                <Typography textAlign={"start"}>{card.titulo}</Typography>
+                <Typography
+                  textAlign={"justify"}
+                  fontSize={"10pt"}
+                  maxWidth={"318.45px"}
+                >
                   {card.descripcion}
                 </Typography>
               </Box>
             </Grid>
           ))}
         </Grid>
-      </Box>
+      </Container>
     </Layout>
   );
 };

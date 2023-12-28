@@ -15,22 +15,33 @@ import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import loguito from "../../../../public/logo-SinFondo.png";
 import HomeIcon from "@mui/icons-material/Home";
 import LogoutIcon from "@mui/icons-material/Logout";
+import { ButtonNavBar } from "../../../ui/AloneComponents/ButtonNavBar";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import EventIcon from "@mui/icons-material/Event";
+import DescriptionIcon from "@mui/icons-material/Description";
+import InfoIcon from "@mui/icons-material/Info";
+import { ButtonDrawer } from "../../../ui/AloneComponents/ButtonDrawer";
 
 const AppBarTool = ({ handleDrawerOpen }) => {
   return (
     <AppBar
-      position="static"
       sx={{
         top: "0",
         left: "0",
         position: "fixed",
         width: "100%",
         background: "white",
+        alignItems: "center",
       }}
     >
       <Toolbar
         sx={{
           background: "white",
+          width: "100%",
+          maxWidth: 1440,
+          backgroundColor: "white",
+          padding: "10px",
+          transition: "all 0.3s ease",
         }}
       >
         <Box
@@ -38,7 +49,7 @@ const AppBarTool = ({ handleDrawerOpen }) => {
             display: "flex",
             justifyContent: "space-between",
             width: "100%",
-            "@media (min-width: 642px)": { display: "none" },
+            "@media (min-width: 901px)": { display: "none" },
           }}
         >
           {/* Icono de menú para el Drawer */}
@@ -63,7 +74,16 @@ const AppBarTool = ({ handleDrawerOpen }) => {
           </a>
         </Box>
 
-        <Box sx={{ "@media (max-width: 642px)": { display: "none" } }}>
+        <Box
+          sx={{
+            marginLeft: 2,
+            ":hover": {
+              transform: "scale(1.1)",
+            },
+            transition: "transform 0.3s ease-in-out",
+            "@media (max-width: 900px)": { display: "none" },
+          }}
+        >
           <a href={routes.HOME_ADMIN}>
             <img
               src={loguito}
@@ -78,57 +98,69 @@ const AppBarTool = ({ handleDrawerOpen }) => {
           sx={{
             marginLeft: "auto",
             color: "#308CD7",
-            "@media (max-width: 642px)": { display: "none" },
+            "@media (max-width: 900px)": { display: "none" },
           }}
         >
-          <Button
-            sx={{
-              color: "inherit",
-              background:
-                location.pathname === routes.CALENDAR_ADMIN
-                  ? "#EEEEEE"
-                  : "inherit",
-            }}
-            href={routes.CALENDAR_ADMIN}
-          >
-            Calendario
-          </Button>
-          <Button
-            sx={{
-              color: "inherit",
-              background:
-                location.pathname === routes.EVENT_ADMIN
-                  ? "#EEEEEE"
-                  : "inherit",
-            }}
-            href={routes.EVENT_ADMIN}
-          >
-            Eventos
-          </Button>
-          <Button
-            sx={{
-              color: "inherit",
-              background:
-                location.pathname === routes.DOCUMENTS_ADMIN
-                  ? "#EEEEEE"
-                  : "inherit",
-            }}
-            href={routes.DOCUMENTS_ADMIN}
-          >
-            Documentos
-          </Button>
-          <Button
-            sx={{
-              color: "inherit",
-              background:
-                location.pathname === routes.ABOUTUS_ADMIN
-                  ? "#EEEEEE"
-                  : "inherit",
-            }}
-            href={routes.ABOUTUS_ADMIN}
-          >
-            Sobre Nosotros
-          </Button>
+          <ButtonNavBar
+            icono={
+              <CalendarMonthIcon
+                sx={{
+                  color:
+                    location.pathname === routes.CALENDAR_ADMIN
+                      ? "white"
+                      : "purple",
+                  marginRight: "5px",
+                }}
+              />
+            }
+            ruta={routes.CALENDAR_ADMIN}
+            texto={"Calendario"}
+          />
+          <ButtonNavBar
+            icono={
+              <EventIcon
+                sx={{
+                  color:
+                    location.pathname === routes.EVENT_ADMIN
+                      ? "white"
+                      : "green",
+                  marginRight: "5px",
+                }}
+              />
+            }
+            ruta={routes.EVENT_ADMIN}
+            texto={"Eventos"}
+          />
+          <ButtonNavBar
+            icono={
+              <DescriptionIcon
+                sx={{
+                  color:
+                    location.pathname === routes.DOCUMENTS_ADMIN
+                      ? "white"
+                      : "orange",
+                  marginRight: "5px",
+                }}
+              />
+            }
+            ruta={routes.DOCUMENTS_ADMIN}
+            texto={"Documentos"}
+          />
+          <ButtonNavBar
+            icono={
+              <InfoIcon
+                sx={{
+                  color:
+                    location.pathname === routes.ABOUTUS_ADMIN
+                      ? "white"
+                      : "#308CD7",
+                  marginRight: "5px",
+                }}
+              />
+            }
+            ruta={routes.ABOUTUS_ADMIN}
+            texto={"Sobre Nosotros"}
+          />
           <a href={routes.HOME_ADMIN}>
             <IconButton>
               <LogoutIcon
@@ -146,7 +178,7 @@ const DrawerBar = ({ drawerOpen, handleDrawerClose }) => {
   return (
     <Drawer
       sx={{
-        "@media (min-width: 642px)": { display: "none" },
+        "@media (min-width: 901px)": { display: "none" },
       }}
       anchor="left"
       open={drawerOpen}
@@ -204,60 +236,56 @@ const DrawerBar = ({ drawerOpen, handleDrawerClose }) => {
           marginTop: 7,
         }}
       >
-        <Button
-          sx={{
-            color: "white",
-            marginTop: 3,
-            fontSize: "13pt",
-            fontWeight:
-              window.location.pathname === routes.CALENDAR_ADMIN
-                ? "bold"
-                : "normal",
-          }}
-          href={routes.CALENDAR_ADMIN}
-        >
-          Calendario
-        </Button>
-        <Button
-          sx={{
-            color: "white",
-            fontSize: "13pt",
-            fontWeight:
-              window.location.pathname === routes.EVENT_ADMIN
-                ? "bold"
-                : "normal",
-          }}
-          href={routes.EVENT_ADMIN}
-        >
-          Eventos
-        </Button>
-        <Button
-          sx={{
-            color: "white",
-            fontSize: "13pt",
-            fontWeight:
-              window.location.pathname === routes.DOCUMENTS_ADMIN
-                ? "bold"
-                : "normal",
-          }}
-          href={routes.DOCUMENTS_ADMIN}
-        >
-          Documentos
-        </Button>
-        <Button
-          sx={{
-            color: "white",
-            fontSize: "13pt",
-            fontWeight:
-              window.location.pathname === routes.ABOUTUS_ADMIN
-                ? "bold"
-                : "normal",
-          }}
-          href={routes.ABOUTUS_ADMIN}
-        >
-          Sobre Nosotros
-        </Button>
-        <Button href={routes.HOME}>
+        <ButtonDrawer
+          icono={
+            <CalendarMonthIcon
+              sx={{
+                color: "white",
+                marginRight: "5px",
+              }}
+            />
+          }
+          ruta={routes.CALENDAR_ADMIN}
+          first={true}
+          texto={"Calendario"}
+        />
+        <ButtonDrawer
+          icono={
+            <EventIcon
+              sx={{
+                color: "white",
+                marginRight: "5px",
+              }}
+            />
+          }
+          ruta={routes.EVENT_ADMIN}
+          texto={"Eventos"}
+        />
+        <ButtonDrawer
+          icono={
+            <DescriptionIcon
+              sx={{
+                color: "white",
+                marginRight: "5px",
+              }}
+            />
+          }
+          ruta={routes.DOCUMENTS_ADMIN}
+          texto={"Documentos"}
+        />
+        <ButtonDrawer
+          icono={
+            <InfoIcon
+              sx={{
+                color: "white",
+                marginRight: "5px",
+              }}
+            />
+          }
+          ruta={routes.ABOUTUS_ADMIN}
+          texto={"Sobre Nosotros"}
+        />
+        <Button href={routes.HOME_ADMIN}>
           <IconButton>
             <LogoutIcon
               sx={{ color: "white", width: "30px", height: "30px" }}
@@ -306,7 +334,7 @@ const LayoutAdmin = ({ children }) => {
         minHeight: "100vh",
       }}
     >
-      <Box sx={{ marginBottom: 10, zIndex: 1 }}>
+      <Box sx={{ marginBottom: 9, zIndex: 3 }}>
         <AppBarTool handleDrawerOpen={handleDrawerOpen} />
       </Box>
       <DrawerBar

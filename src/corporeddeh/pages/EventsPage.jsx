@@ -50,18 +50,12 @@ const array = [
 ];
 
 import imagen from "../../../public/vite.svg";
+import Container from "../../ui/AloneComponents/Container";
 export const EventsPage = () => {
   const { Mobile } = MediaQuerys;
   return (
     <Layout>
-      <Box
-        sx={{
-          maxWidth: 1440,
-          padding: 2,
-          marginRight: 2,
-          marginLeft: Mobile ? 0 : 2,
-          width: "100%",
-        }}
+      <Container
       >
         <Tittle tittle="Eventos" />
         <Grid container spacing={2}>
@@ -84,7 +78,7 @@ export const EventsPage = () => {
             </Grid>
           ))}
         </Grid>
-      </Box>
+      </Container>
     </Layout>
   );
 };
