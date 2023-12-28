@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { Alert, Button, Card, CardActions, CardContent, CardMedia, Grid, IconButton, Snackbar, TextField, Typography } from "@mui/material"
-import Layout from "../../corporeddeh/pages/layout/Layout"
+
 import { DatePicker } from "@mui/x-date-pickers"
 import { Clear, Edit } from "@mui/icons-material"
 import { useEffect, useState } from "react"
@@ -8,6 +8,7 @@ import TransitionsModal from "./Components/ModalComponent"
 import { EditEventComponent } from "./Components/EditEventComponent"
 import { useForm } from "react-hook-form"
 import { AddMultimediaComponent } from "./Components/AddMultimedia"
+import LayoutAdmin from "./Layout/LayoutAdmin"
 
 const initListOfEvents = new Promise((resolve) => {
     return resolve([
@@ -135,7 +136,7 @@ export const EventsAdminPage = () => {
     }, [])
 
     return (
-        <Layout>
+        <LayoutAdmin>
 
             <Grid sx={{
                 display: "flex",
@@ -209,6 +210,6 @@ export const EventsAdminPage = () => {
                 </Grid>
 
             </Grid>
-        </Layout>
+        </LayoutAdmin>
     )
 }

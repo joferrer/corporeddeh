@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 import { Grid } from "@mui/material"
-import Layout from "../../corporeddeh/pages/layout/Layout"
 import { CounterComponent, HomeMultimediaComponent, SocialNetworksComponent } from "./Components"
 import { useEffect, useState } from "react"
+import LayoutAdmin from './Layout/LayoutAdmin';
 
 const linksInit = new Promise((resolve) => {
     return resolve({
@@ -36,7 +36,7 @@ export const AdminHomePage = () => {
             })
     }, [])
 
-    return <Layout>
+    return <LayoutAdmin>
         <Grid
             sx={{
                 display: "flex",
@@ -57,5 +57,5 @@ export const AdminHomePage = () => {
                 email: links?.email,
             }} />
         </Grid>
-    </Layout>
+    </LayoutAdmin>
 }

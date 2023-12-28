@@ -1,7 +1,8 @@
 import { Alert, Grid, Snackbar, Typography } from "@mui/material"
-import Layout from "../../corporeddeh/pages/layout/Layout"
+
 import { useEffect, useState } from "react"
 import { ImagesAdminComponent } from "./Components/ImagesAdminComponent"
+import LayoutAdmin from "./Layout/LayoutAdmin"
 
 const initListOfEvents = new Promise((resolve) => {
     return resolve({
@@ -77,7 +78,7 @@ export const CalendarAdminPage = () => {
         setListOfEvents({ events: newListOfEvents, error: false })
     }
 
-    return <Layout>
+    return <LayoutAdmin>
         <Grid sx={{
             display: "flex",
             flexDirection: "column",
@@ -120,5 +121,5 @@ export const CalendarAdminPage = () => {
         </Grid>
 
 
-    </Layout >
+    </LayoutAdmin >
 }
