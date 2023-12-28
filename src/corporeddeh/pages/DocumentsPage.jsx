@@ -6,22 +6,19 @@ import iconPdf from "../.././../public/PDF_file_icon.svg.png";
 const array = [
   {
     id: "1",
-    titulo: "Titulo",
-    fecha: "20/11/2023",
+    titulo: "Titulo 20/11/2023",
     descripcion: "Una descripcion corta, y mas cositas para ver como queda",
     url: "url",
   },
   {
     id: "2",
-    titulo: "Titulo",
-    fecha: "20/11/2023",
+    titulo: "Titulo 20/11/2023",
     descripcion: "Una descripcion corta, y mas cositas para ver como queda",
     url: "url",
   },
   {
     id: "3",
-    titulo: "Titulo",
-    fecha: "20/11/2023",
+    titulo: "Titulo 20/11/2023",
     descripcion: "Una descripcion corta, y mas cositas para ver como queda",
     url: "url",
   },
@@ -56,7 +53,7 @@ export const DocumentsPage = () => {
               </Box>
               <Box>
                 <Typography textAlign={"start"}>
-                  {card.titulo} + {card.fecha}
+                  {card.titulo}
                 </Typography>
                 <Typography textAlign={"justify"} fontSize={"10pt"} maxWidth={"318.45px"}>
                   {card.descripcion}
