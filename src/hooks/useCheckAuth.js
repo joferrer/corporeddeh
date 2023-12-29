@@ -5,9 +5,9 @@ import { FireBaseAuth } from '../backend/firebase/firebaseConfig'
 import { login, logout } from '../backend/auth'
 
 export const useCheckAuth = () => {
-  const { status } = useSelector(state => state.auth)
+  const { status, uid, displayName, email, photoURL, errorMessage } = useSelector(state => state.auth)
   const dispatch = useDispatch()
-  console.log(status)
+  console.log('useCheckAuth', status, uid, displayName, email, photoURL, errorMessage)
   useEffect(() => {
     onAuthStateChanged(FireBaseAuth, async (user) => {
       if (!user) return dispatch(logout())
@@ -17,5 +17,5 @@ export const useCheckAuth = () => {
     })
   }, [])
 
-  return { status }
+  return { status, uid, displayName, email, photoURL, errorMessage }
 }
