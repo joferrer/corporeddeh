@@ -1,2 +1,2 @@
 export * from './AuthSlice'
-export * from './AuthThunk'
+export * from './AuthThunks'
