@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react'
 import {
   AppBar,
   Box,
@@ -7,93 +7,93 @@ import {
   Grid,
   IconButton,
   Toolbar,
-  Typography,
-} from "@mui/material";
-import { routes } from "../../routes/routes";
-import MenuIcon from "@mui/icons-material/Menu";
-import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
-import YouTubeIcon from "@mui/icons-material/YouTube";
-import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
-import WhatsAppIcon from "@mui/icons-material/WhatsApp";
-import MailOutlineIcon from "@mui/icons-material/MailOutline";
-import TwitterIcon from "@mui/icons-material/Twitter";
-import loguito from "../../../../public/logo-SinFondo.png";
-import { Link } from "react-router-dom";
-import HomeIcon from "@mui/icons-material/Home";
-import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
-import EventIcon from "@mui/icons-material/Event";
-import DescriptionIcon from "@mui/icons-material/Description";
-import PlaceIcon from "@mui/icons-material/Place";
-import InfoIcon from "@mui/icons-material/Info";
-import { ButtonNavBar } from "./../../../ui/AloneComponents/ButtonNavBar";
-import { ButtonDrawer } from "./../../../ui/AloneComponents/ButtonDrawer";
+  Typography
+} from '@mui/material'
+import { routes } from '../../routes/routes'
+import MenuIcon from '@mui/icons-material/Menu'
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
+import YouTubeIcon from '@mui/icons-material/YouTube'
+import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined'
+import WhatsAppIcon from '@mui/icons-material/WhatsApp'
+import MailOutlineIcon from '@mui/icons-material/MailOutline'
+import TwitterIcon from '@mui/icons-material/Twitter'
+import loguito from '../../../../public/logo-SinFondo.png'
+import { Link } from 'react-router-dom'
+import HomeIcon from '@mui/icons-material/Home'
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth'
+import EventIcon from '@mui/icons-material/Event'
+import DescriptionIcon from '@mui/icons-material/Description'
+import PlaceIcon from '@mui/icons-material/Place'
+import InfoIcon from '@mui/icons-material/Info'
+import { ButtonNavBar } from './../../../ui/AloneComponents/ButtonNavBar'
+import { ButtonDrawer } from './../../../ui/AloneComponents/ButtonDrawer'
 
 const AppBarTool = ({ handleDrawerOpen }) => {
-  const [scrolling, setScrolling] = useState(false);
+  const [scrolling, setScrolling] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 50) {
-        setScrolling(true);
+        setScrolling(true)
       } else {
-        setScrolling(false);
+        setScrolling(false)
       }
-    };
+    }
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll)
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
 
   return (
     <AppBar
       sx={{
-        top: "0",
-        left: "0",
-        position: "fixed",
-        width: "100%",
-        background: "white",
-        alignItems: "center",
+        top: '0',
+        left: '0',
+        position: 'fixed',
+        width: '100%',
+        background: 'white',
+        alignItems: 'center'
       }}
     >
       <Toolbar
         sx={{
-          background: "white",
-          width: "100%",
+          background: 'white',
+          width: '100%',
           maxWidth: 1440,
-          backgroundColor: "white",
-          padding: scrolling ? "5px" : "10px",
-          transition: "all 0.3s ease",
+          backgroundColor: 'white',
+          padding: scrolling ? '5px' : '10px',
+          transition: 'all 0.3s ease'
         }}
       >
         <Box
           sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            width: "100%",
+            display: 'flex',
+            justifyContent: 'space-between',
+            width: '100%',
             marginBottom: 0,
-            "@media (min-width: 901px)": { display: "none" },
+            '@media (min-width: 901px)': { display: 'none' }
           }}
         >
           {/* Icono de menú para el Drawer */}
           <IconButton onClick={handleDrawerOpen}>
-            <MenuIcon sx={{ color: "black", width: 30, height: 30 }} />
+            <MenuIcon sx={{ color: 'black', width: 30, height: 30 }} />
           </IconButton>
           <Typography
             sx={{
-              color: "black",
-              width: "200px",
-              marginTop: 1.5,
+              color: 'black',
+              width: '200px',
+              marginTop: 1.5
             }}
           >
             CORPOREDDEH
           </Typography>
-          <a href="/">
+          <a href='/'>
             <IconButton>
               <HomeIcon
-                sx={{ color: "black", width: "30px", height: "30px" }}
+                sx={{ color: 'black', width: '30px', height: '30px' }}
               />
             </IconButton>
           </a>
@@ -102,31 +102,31 @@ const AppBarTool = ({ handleDrawerOpen }) => {
         <Box
           sx={{
             marginLeft: 2,
-            ":hover": {
-              transform: "scale(1.1)",
+            ':hover': {
+              transform: 'scale(1.1)'
             },
-            transition: "transform 0.3s ease-in-out",
-            "@media (max-width: 900px)": { display: "none" },
+            transition: 'transform 0.3s ease-in-out',
+            '@media (max-width: 900px)': { display: 'none' }
           }}
         >
-          <a href="/">
+          <a href='/'>
             <img
               src={loguito}
-              alt="Logo"
+              alt='Logo'
               style={{
-                width: scrolling ? "50px" : "90px",
-                height: "auto",
-                transition: "all 0.3s ease",
+                width: scrolling ? '50px' : '90px',
+                height: 'auto',
+                transition: 'all 0.3s ease'
               }}
             />
           </a>
         </Box>
         <Box
           sx={{
-            marginLeft: "auto",
-            color: "#308CD7",
-            paddingLeft: "2px",
-            "@media (max-width: 900px)": { display: "none" },
+            marginLeft: 'auto',
+            color: '#308CD7',
+            paddingLeft: '2px',
+            '@media (max-width: 900px)': { display: 'none' }
           }}
         >
           <ButtonNavBar
@@ -134,116 +134,116 @@ const AppBarTool = ({ handleDrawerOpen }) => {
               <CalendarMonthIcon
                 sx={{
                   color:
-                    location.pathname === routes.CALENDAR ? "white" : "purple",
-                  marginRight: "5px",
+                    location.pathname === routes.CALENDAR ? 'white' : 'purple',
+                  marginRight: '5px'
                 }}
               />
             }
             ruta={routes.CALENDAR}
-            texto={"Calendario"}
+            texto='Calendario'
           />
 
           <ButtonNavBar
             icono={
               <EventIcon
                 sx={{
-                  color: location.pathname === routes.EVENT ? "white" : "green",
-                  marginRight: "5px",
+                  color: location.pathname === routes.EVENT ? 'white' : 'green',
+                  marginRight: '5px'
                 }}
               />
             }
             ruta={routes.EVENT}
-            texto={"Eventos"}
+            texto='Eventos'
           />
           <ButtonNavBar
             icono={
               <DescriptionIcon
                 sx={{
                   color:
-                    location.pathname === routes.DOCUMENTS ? "white" : "orange",
-                  marginRight: "5px",
+                    location.pathname === routes.DOCUMENTS ? 'white' : 'orange',
+                  marginRight: '5px'
                 }}
               />
             }
             ruta={routes.DOCUMENTS}
-            texto={"Documentos"}
+            texto='Documentos'
           />
           <ButtonNavBar
             icono={
               <InfoIcon
                 sx={{
                   color:
-                    location.pathname === routes.ABOUTUS ? "white" : "#308CD7",
-                  marginRight: "5px",
+                    location.pathname === routes.ABOUTUS ? 'white' : '#308CD7',
+                  marginRight: '5px'
                 }}
               />
             }
             ruta={routes.ABOUTUS}
-            texto={"Sobre Nosotros"}
+            texto='Sobre Nosotros'
           />
           <ButtonNavBar
             icono={
               <PlaceIcon
                 sx={{
-                  color: location.pathname === routes.OFFICE ? "white" : "red",
-                  marginRight: "5px",
+                  color: location.pathname === routes.OFFICE ? 'white' : 'red',
+                  marginRight: '5px'
                 }}
               />
             }
             ruta={routes.OFFICE}
-            texto={"Sedes"}
+            texto='Sedes'
           />
         </Box>
       </Toolbar>
     </AppBar>
-  );
-};
+  )
+}
 
 const DrawerBar = ({ drawerOpen, handleDrawerClose }) => {
   return (
     <Drawer
       sx={{
-        "@media (min-width: 901px)": { display: "none" },
+        '@media (min-width: 901px)': { display: 'none' }
       }}
-      anchor="left"
+      anchor='left'
       open={drawerOpen}
       onClose={handleDrawerClose}
     >
       <AppBar
-        position="static"
+        position='static'
         sx={{
-          top: "0",
-          left: "0",
-          position: "fixed",
-          width: "100%",
-          background: "#308CD7",
+          top: '0',
+          left: '0',
+          position: 'fixed',
+          width: '100%',
+          background: '#308CD7'
         }}
       >
         <Toolbar>
           <Box
             sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              width: "100%",
+              display: 'flex',
+              justifyContent: 'space-between',
+              width: '100%'
             }}
           >
             <IconButton onClick={handleDrawerClose}>
-              <ArrowBackIosNewIcon sx={{ color: "white" }} />
+              <ArrowBackIosNewIcon sx={{ color: 'white' }} />
             </IconButton>
             <Typography
               sx={{
-                color: "white",
-                width: "100%",
+                color: 'white',
+                width: '100%',
                 marginTop: 1.5,
-                textAlign: "center",
+                textAlign: 'center'
               }}
             >
               CORPOREDDEH
             </Typography>
-            <a href="/">
+            <a href='/'>
               <IconButton>
                 <HomeIcon
-                  sx={{ color: "white", width: "30px", height: "30px" }}
+                  sx={{ color: 'white', width: '30px', height: '30px' }}
                 />
               </IconButton>
             </a>
@@ -253,147 +253,146 @@ const DrawerBar = ({ drawerOpen, handleDrawerClose }) => {
 
       <Box
         sx={{
-          width: "100vw",
-          height: "100%",
-          display: "flex",
-          backgroundColor: "#308CD7",
-          flexDirection: "column",
-          marginTop: 7,
+          width: '100vw',
+          height: '100%',
+          display: 'flex',
+          backgroundColor: '#308CD7',
+          flexDirection: 'column',
+          marginTop: 7
         }}
       >
         <ButtonDrawer
           icono={
             <CalendarMonthIcon
               sx={{
-                color: "white",
-                marginRight: "5px",
+                color: 'white',
+                marginRight: '5px'
               }}
             />
           }
           ruta={routes.CALENDAR}
-          first={true}
-          texto={"Calendario"}
+          first
+          texto='Calendario'
         />
         <ButtonDrawer
           icono={
             <EventIcon
               sx={{
-                color: "white",
-                marginRight: "5px",
+                color: 'white',
+                marginRight: '5px'
               }}
             />
           }
           ruta={routes.EVENT}
-          texto={"Eventos"}
+          texto='Eventos'
         />
         <ButtonDrawer
           icono={
             <DescriptionIcon
               sx={{
-                color: "white",
-                marginRight: "5px",
+                color: 'white',
+                marginRight: '5px'
               }}
             />
           }
           ruta={routes.DOCUMENTS}
-          texto={"Documentos"}
+          texto='Documentos'
         />
         <ButtonDrawer
           icono={
             <InfoIcon
               sx={{
-                color: "white",
-                marginRight: "5px",
+                color: 'white',
+                marginRight: '5px'
               }}
             />
           }
           ruta={routes.ABOUTUS}
-          texto={"Sobre Nosotros"}
+          texto='Sobre Nosotros'
         />
         <ButtonDrawer
           icono={
             <PlaceIcon
               sx={{
-                color: "white",
-                marginRight: "5px",
+                color: 'white',
+                marginRight: '5px'
               }}
             />
           }
           ruta={routes.OFFICE}
-          texto={"Sedes"}
+          texto='Sedes'
         />
 
         <Box
           sx={{
-            height: "75px",
-            marginTop: "auto",
-            textAlign: "center",
-            color: "white",
+            height: '75px',
+            marginTop: 'auto',
+            textAlign: 'center',
+            color: 'white'
           }}
         >
-          <Typography fontSize={"14pt"} fontWeight={"bold"}>
-            {" "}
+          <Typography fontSize='14pt' fontWeight='bold'>
+            {' '}
             CORPOREDDEH
           </Typography>
           <Typography> 2023 © All Rights Reserved</Typography>
-          <Typography fontSize={"9pt"}>
+          <Typography fontSize='9pt'>
             Desarrollado por: @JeisonFort - @GuillermoGu
           </Typography>
         </Box>
       </Box>
     </Drawer>
-  );
-};
+  )
+}
 
 const Footer = () => {
   return (
     <Box
       sx={{
-        height: "250px",
-        background: "#308CD7",
+        height: '250px',
+        background: '#308CD7',
         padding: 0,
-        "@media (max-width: 332px)": { height: "300px" },
+        '@media (max-width: 332px)': { height: '300px' }
       }}
     >
       <Box
         sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "60px",
-          width: "100%",
-          marginTop: 2,
-          justifyContent: "space-between",
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '60px',
+          width: '100%',
+          marginTop: 2
         }}
       >
-        <Box sx={{ height: "2px", background: "white", width: "100%" }}></Box>
-        <Box sx={{ display: "flex" }}>
-          <YouTubeIcon sx={{ color: "white", width: 40, height: 40 }} />
+        <Box sx={{ height: '2px', background: 'white', width: '100%' }} />
+        <Box sx={{ display: 'flex' }}>
+          <YouTubeIcon sx={{ color: 'white', width: 40, height: 40 }} />
           <FacebookOutlinedIcon
-            sx={{ color: "white", width: 40, height: 40 }}
+            sx={{ color: 'white', width: 40, height: 40 }}
           />
-          <WhatsAppIcon sx={{ color: "white", width: 40, height: 40 }} />
-          <MailOutlineIcon sx={{ color: "white", width: 40, height: 40 }} />
-          <TwitterIcon sx={{ color: "white", width: 40, height: 40 }} />
+          <WhatsAppIcon sx={{ color: 'white', width: 40, height: 40 }} />
+          <MailOutlineIcon sx={{ color: 'white', width: 40, height: 40 }} />
+          <TwitterIcon sx={{ color: 'white', width: 40, height: 40 }} />
         </Box>
-        <Box sx={{ height: "2px", background: "white", width: "100%" }}></Box>
+        <Box sx={{ height: '2px', background: 'white', width: '100%' }} />
       </Box>
-      <Box sx={{ textAlign: "center", color: "white" }}>
-        <Typography fontSize={"15pt"} sx={{ marginTop: 1 }}>
+      <Box sx={{ textAlign: 'center', color: 'white' }}>
+        <Typography fontSize='15pt' sx={{ marginTop: 1 }}>
           CORPOREDDEH
         </Typography>
 
         <Grid
           container
           columnSpacing={{ xs: 1, sm: 2 }}
-          justifyContent={"center"}
+          justifyContent='center'
           sx={{ marginBottom: 2 }}
         >
           <Grid item>
             <Typography> Contatanos +57 30303030</Typography>
             <Link
               to={routes.OFFICE}
-              style={{ color: "inherit", textDecoration: "none" }}
+              style={{ color: 'inherit', textDecoration: 'none' }}
             >
               <Typography>¿Donde Encontrarnos?</Typography>
             </Link>
@@ -401,44 +400,48 @@ const Footer = () => {
           <Grid item>
             <Link
               to={routes.ABOUTUS}
-              style={{ color: "inherit", textDecoration: "none" }}
+              style={{ color: 'inherit', textDecoration: 'none' }}
             >
               <Typography> Sobre Nosotros</Typography>
             </Link>
 
-            <Typography> ¿Eres Empleado?</Typography>
+            <Link
+              to={routes.LOGIN}
+              style={{ color: 'inherit', textDecoration: 'none' }}
+            ><Typography> ¿Eres Empleado?</Typography>
+            </Link>
           </Grid>
         </Grid>
       </Box>
-      <Box sx={{ height: "2px", background: "white", width: "100%" }}></Box>
-      <Typography sx={{ marginTop: 1, color: "white" }}>
+      <Box sx={{ height: '2px', background: 'white', width: '100%' }} />
+      <Typography sx={{ marginTop: 1, color: 'white' }}>
         2023 © All Rights Reserved
       </Typography>
-      <Typography fontSize={"10pt"} color={"white"}>
+      <Typography fontSize='10pt' color='white'>
         Desarrollado por: @jeison fort - @guillermo gu
       </Typography>
     </Box>
-  );
-};
+  )
+}
 
 const Layout = ({ children }) => {
-  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(false)
   const handleDrawerOpen = () => {
-    setDrawerOpen(true);
-  };
+    setDrawerOpen(true)
+  }
 
   const handleDrawerClose = () => {
-    setDrawerOpen(false);
-  };
+    setDrawerOpen(false)
+  }
 
   return (
     <Box
       sx={{
         margin: 0,
         padding: 0,
-        display: "flex",
-        flexDirection: "column",
-        minHeight: "100vh",
+        display: 'flex',
+        flexDirection: 'column',
+        minHeight: '100vh'
       }}
     >
       <Box sx={{ marginTop: 9, zIndex: 3 }}>
@@ -451,8 +454,8 @@ const Layout = ({ children }) => {
       <Box
         sx={{
           flex: 1,
-          display: "flex",
-          justifyContent: "center",
+          display: 'flex',
+          justifyContent: 'center'
         }}
       >
         {children}
@@ -460,7 +463,7 @@ const Layout = ({ children }) => {
       {/** FOOTER */}
       <Footer />
     </Box>
-  );
-};
+  )
+}
 
-export default Layout;
+export default Layout

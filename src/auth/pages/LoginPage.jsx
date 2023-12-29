@@ -1,6 +1,6 @@
 import { Alert, Button, Grid, TextField, Typography } from '@mui/material'
 import { useCheckAuth, useWindowSize } from '../../hooks'
-import { ErrorOutline, Google } from '@mui/icons-material'
+import { Google } from '@mui/icons-material'
 import { useForm } from 'react-hook-form'
 import { useState } from 'react'
 import { routes } from '../../corporeddeh/routes/routes'
@@ -13,7 +13,7 @@ const styleC = {
 
 const LoginComponent = () => {
   const { windowSize } = useWindowSize()
-  const { status, errorMessage } = useCheckAuth()
+  const { errorMessage } = useCheckAuth()
   const dispatch = useDispatch()
 
   const [error, setError] = useState({ error: false, message: 'Correo o contraseña incorrectos' })
