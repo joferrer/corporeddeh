@@ -1,10 +1,8 @@
 import React from "react";
 import { Box, Grid, Typography } from "@mui/material";
 import logo from "../../../../public/logo-SinFondo.png";
-import { MediaQuerys } from "../../../theme/Config";
 
 const GridAboutAs = ({ ds1, ds2, ds3 }) => {
-  const { Mobile } = MediaQuerys;
   return (
     <Grid container spacing={5}>
       <Grid

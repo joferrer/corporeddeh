@@ -1,7 +1,15 @@
 import React, { useEffect, useState } from "react";
 import LayoutAdmin from "./Layout/LayoutAdmin";
 import Container from "./../../ui/AloneComponents/Container";
-import { Box, Button, Grid, TextField, Typography } from "@mui/material";
+import {
+  Alert,
+  Box,
+  Button,
+  Grid,
+  Snackbar,
+  TextField,
+  Typography,
+} from "@mui/material";
 import Tittle from "./../../ui/AloneComponents/Tittle";
 import ButtonFile from "../../ui/AloneComponents/ButtonFile";
 import iconPdf from "../.././../public/PDF_file_icon.svg.png";
@@ -33,7 +41,45 @@ export const DocumentAdminPage = () => {
     events: [],
     error: false,
   });
+  const [formData, setFormData] = useState({
+    nombre: "",
+    descripcion: "",
+    documento: null,
+  });
   const { events, error } = ListOfEvents;
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleFileSelect = (file) => {
+    setFormData({
+      ...formData,
+      documento: file,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const dataToSend = new FormData();
+    dataToSend.append("nombre", formData.nombre);
+    dataToSend.append("descripcion", formData.descripcion);
+    dataToSend.append("documento", formData.documento);
+    console.log("Datos del formulario:", {
+      nombre: formData.nombre,
+      descripcion: formData.descripcion,
+      documento: formData.documento,
+    });
+    setFormData({
+      nombre: "",
+      descripcion: "",
+      documento: null,
+    });
+  };
 
   useEffect(() => {
     Promise.all([initListOfEvents]).then((res) =>
@@ -44,24 +90,44 @@ export const DocumentAdminPage = () => {
   return (
     <LayoutAdmin>
       <Container>
+        <Snackbar
+          open={error}
+          autoHideDuration={6000}
+          onClose={() => setListOfEvents({ events, error: false })}
+          anchorOrigin={{ vertical: "top", horizontal: "left" }}
+        >
+          <Alert severity="error">Error al subir archivo</Alert>
+        </Snackbar>
+
         <Grid container spacing={2}>
           <Grid item md={6} xs={12}>
             <Tittle tittle={"Documentos"} />
             <form
+              onSubmit={handleSubmit}
+              encType="multipart/form-data" // Necesario para enviar archivos
               style={{
                 display: "flex",
                 flexDirection: "column",
                 gap: "10px",
               }}
             >
-              <TextField label="Nombre de Documento" variant="standard" />
               <TextField
+                name="nombre"
+                value={formData.nombre}
+                onChange={handleInputChange}
+                label="Nombre de Documento"
+                variant="standard"
+              />
+              <TextField
+                name="descripcion"
+                value={formData.descripcion}
+                onChange={handleInputChange}
                 label="Descripción"
                 variant="standard"
                 multiline={true}
                 rows={5}
               />
-              <ButtonFile />
+              <ButtonFile onFileSelect={handleFileSelect} />
               <Button variant="contained" type="submit">
                 Confirmar
               </Button>
@@ -83,16 +149,20 @@ export const DocumentAdminPage = () => {
                   }}
                 >
                   <Box sx={{ marginRight: 2 }}>
-                    <img src={iconPdf} style={{ maxWidth: "70px" }} />
+                    <img
+                      src={iconPdf}
+                      style={{ maxWidth: "70px" }}
+                      alt="PDF Icon"
+                    />
                   </Box>
                   <Box>
-                    <Typography textAlign={"start"}>{event.nombre}</Typography>
+                    <Typography textAlign={"start"}>{event?.nombre}</Typography>
                     <Typography
                       textAlign={"justify"}
                       fontSize={"10pt"}
                       maxWidth={"318.45px"}
                     >
-                      {event.descripcion}
+                      {event?.descripcion}
                     </Typography>
                   </Box>
                 </Grid>

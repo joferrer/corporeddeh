@@ -3,12 +3,15 @@ import Button from "@mui/material/Button";
 import Input from "@mui/material/Input";
 import { Box, Typography } from "@mui/material";
 
-const ButtonFile = () => {
+const ButtonFile = ({ onFileSelect }) => {
   const [selectedFile, setSelectedFile] = useState(null);
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     setSelectedFile(file);
+    if (onFileSelect) {
+      onFileSelect(file);
+    }
   };
 
   return (
