@@ -29,39 +29,42 @@ const initListOfEvents = new Promise((resolve) => {
     ]
   })
 })
-
+const mouths = {
+  ENERO: 0,
+  FEBRERO: 1,
+  MARZO: 2,
+  ABRIL: 3,
+  MAYO: 4,
+  JUNIO: 5,
+  JULIO: 6,
+  AGOSTO: 7,
+  SEPTIEMBRE: 8,
+  OCTUBRE: 9,
+  NOVIEMBRE: 10,
+  DICIEMBRE: 11
+}
 const sortEventsByDate = (events) => {
-  const mouth = {
-    ENERO: 0,
-    FEBRERO: 1,
-    MARZO: 2,
-    ABRIL: 3,
-    MAYO: 4,
-    JUNIO: 5,
-    JULIO: 6,
-    AGOSTO: 7,
-    SEPTIEMBRE: 8,
-    OCTUBRE: 9,
-    NOVIEMBRE: 10,
-    DICIEMBRE: 11
-  }
   events.sort((a, b) => {
-    const dateA = new Date(Number(a.year), mouth[a.mouth.toUpperCase()])
-    const dateB = new Date(Number(b.year), mouth[b.mouth.toUpperCase()])
+    const dateA = new Date(Number(a.year), mouths[a.mouth.toUpperCase()])
+    const dateB = new Date(Number(b.year), mouths[b.mouth.toUpperCase()])
     return dateB - dateA
   })
-  console.log(events)
   return events
+}
+
+const mouthAlreadyExist = (mouth, year, events) => {
+  const event = events.find((e) => e.mouth.toUpperCase() === mouth.toUpperCase() && e.year === year)
+  return event
 }
 
 const CreateNewEventComponent = ({ open, setOpen, events, setListOfEvents }) => {
   const { datejs, month } = useDate()
-
-  const [newEvent, setNewEvent] = useState({
+  const initNewEvent = {
     mouth: month(),
     year: datejs().format('YYYY'),
     imgs: []
-  })
+  }
+  const [newEvent, setNewEvent] = useState({ ...initNewEvent })
 
   const onAddMouth = (newMouth) => {
     const newAddEvent = {
@@ -69,20 +72,23 @@ const CreateNewEventComponent = ({ open, setOpen, events, setListOfEvents }) => 
       year: newMouth.year,
       imgs: []
     }
+    if (mouthAlreadyExist(newMouth.mouth, newMouth.year, events)) {
+      return setListOfEvents({ events, error: true, errorMessage: 'El mes ya existe' })
+    }
     const newListOfEvents = events
     newListOfEvents.push(newAddEvent)
 
     const newListOfEventsSorted = sortEventsByDate(newListOfEvents)
     setListOfEvents({ events: newListOfEventsSorted, error: false })
-    setNewEvent({ mouth: '', year: '', imgs: [] })
+    setNewEvent({ ...initNewEvent })
+
+    // TODO: manege error
   }
   const onChangeMouth = (e) => {
-    console.log(e)
     setNewEvent({ ...newEvent, mouth: e })
   }
 
   const onChangeYear = (e) => {
-    console.log(e)
     setNewEvent({ ...newEvent, year: e })
   }
   const onConfirm = () => {
@@ -120,11 +126,12 @@ const CreateNewEventComponent = ({ open, setOpen, events, setListOfEvents }) => 
 export const CalendarAdminPage = () => {
   const [ListOfEvents, setListOfEvents] = useState({
     events: [],
-    error: false
+    error: false,
+    errorMessage: ''
   })
 
   const [open, setOpen] = useState(false)
-  const { events, error } = ListOfEvents
+  const { events, error, errorMessage } = ListOfEvents
 
   useEffect(() => {
     Promise.all([initListOfEvents])
@@ -150,7 +157,7 @@ export const CalendarAdminPage = () => {
         }
         const newListOfEvents = events
         newListOfEvents.splice(index, 1, newEvent)
-        setListOfEvents({ events: newListOfEvents, error: false })
+        setListOfEvents({ events: newListOfEvents, error: false, errorMessage: 'Error al subir la imagen' })
       }
 
       reader.readAsDataURL(img)
@@ -193,10 +200,10 @@ export const CalendarAdminPage = () => {
         <Snackbar
           open={error}
           autoHideDuration={6000}
-          onClose={() => setListOfEvents({ events, error: false })}
+          onClose={() => setListOfEvents({ events, error: false, errorMessage: '' })}
           anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
         >
-          <Alert severity='error'>Error al subir la imagen</Alert>
+          <Alert severity='error'>{errorMessage}</Alert>
         </Snackbar>
 
         <Typography variant='h3'>Calendario</Typography>
@@ -217,7 +224,7 @@ export const CalendarAdminPage = () => {
                 {`${event.mouth}, ${event.year}`}
               </Typography>
               <ImagesAdminComponent images={event.imgs} onFileInputClick={onFileInputClick} index={index} onImgDelete={onImgDelete} />
-
+              <Button sx={{ width: 'fit-content' }} variant='contained' color='error' onClick={() => onDeleteMonth(index)}>Eliminar mes</Button>
             </Grid>
 
           ))
