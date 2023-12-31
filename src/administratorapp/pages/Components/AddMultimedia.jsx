@@ -1,54 +1,56 @@
 /* eslint-disable react/prop-types */
-import { Grid, Typography } from "@mui/material"
-import { ImagesAdminComponent } from "./ImagesAdminComponent"
-import { useState } from "react"
-import { HomeMultimediaComponent } from "./HomeMultimediaComponent"
+import { Grid, Typography } from '@mui/material'
+import { ImagesAdminComponent } from './ImagesAdminComponent'
+import { useEffect, useState } from 'react'
+import { HomeMultimediaComponent } from './HomeMultimediaComponent'
+import ResponsiveDialog from './DialogMuiComponent'
 
-const images = []
+export const AddMultimediaComponent = ({ videos, imagesList, addMultimedia, setAddMultimedia }) => {
+  const [listOfImages, setListOfImages] = useState({ images: imagesList || [], error: false })
+  const [videosList, setVideosList] = useState(videos || [])
+  const [open, setOpen] = useState(false)
+  const { images } = listOfImages
 
-export const AddMultimediaComponent = ({ videos, imagesList }) => {
-    const [listOfImages, setListOfImages] = useState({ images: imagesList || [], error: false })
-    const [videosList, setVideosList] = useState(videos || [])
+  const onImgDelete = (index, imgIndex) => {
+    const newListOfImages = images
+    newListOfImages.splice(imgIndex, 1)
 
-    const { images } = listOfImages
-    console.log(images)
+    setListOfImages({ images: newListOfImages, error: false })
+  }
 
-    const onImgDelete = (index, imgIndex) => {
-        const newListOfImages = images
-        newListOfImages.splice(imgIndex, 1)
+  const onFileInputClick = (e, index) => {
+    const img = e.target.files[0]
+
+    if (img && img.type.substr(0, 5) === 'image') {
+      const reader = new FileReader()
+      reader.onload = (e) => {
+        const imageUrl = e.target.result
+        const newListOfImages = listOfImages.images
+        newListOfImages.push(imageUrl)
 
         setListOfImages({ images: newListOfImages, error: false })
+      }
+
+      reader.readAsDataURL(img)
+    } else {
+      setListOfImages({ images, error: true })
     }
+  }
 
-    const onFileInputClick = (e, index) => {
+  useEffect(() => setOpen(addMultimedia), [addMultimedia])
 
-        const img = e.target.files[0]
-
-        if (img && img.type.substr(0, 5) === "image") {
-            const reader = new FileReader()
-            reader.onload = (e) => {
-                const imageUrl = e.target.result
-                const newListOfImages = listOfImages.images
-                newListOfImages.push(imageUrl)
-
-                setListOfImages({ images: newListOfImages, error: false })
-            }
-
-            reader.readAsDataURL(img)
-        }
-        else {
-            setListOfImages({ images, error: true })
-        }
-    }
-
-    return <Grid>
+  return (
+    <ResponsiveDialog title='Añadir multimedia' state={open} setState={setAddMultimedia}>
+      <Grid>
 
         <Grid>
-            <HomeMultimediaComponent videosList={videosList} />
+          <HomeMultimediaComponent videosList={videosList} />
         </Grid>
         <Grid>
-            <Typography variant="h4">Imagenes</Typography>
-            <ImagesAdminComponent images={listOfImages?.images} index={0} onImgDelete={onImgDelete} onFileInputClick={onFileInputClick} />
+          <Typography variant='h4'>Imagenes</Typography>
+          <ImagesAdminComponent images={listOfImages?.images} index={0} onImgDelete={onImgDelete} onFileInputClick={onFileInputClick} />
         </Grid>
-    </Grid>
+      </Grid>
+    </ResponsiveDialog>
+  )
 }

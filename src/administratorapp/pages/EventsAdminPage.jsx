@@ -1,14 +1,11 @@
 /* eslint-disable react/prop-types */
-import { Alert, Button, Card, CardActions, CardContent, CardMedia, Grid, Snackbar, TextField, Typography } from '@mui/material'
-
+import { Alert, Button, Grid, Snackbar, TextField, Typography } from '@mui/material'
 import { DatePicker } from '@mui/x-date-pickers'
-import { Clear, Edit } from '@mui/icons-material'
 import { useEffect, useState } from 'react'
-import TransitionsModal from './Components/ModalComponent'
-import { EditEventComponent } from './Components/EditEventComponent'
 import { useForm } from 'react-hook-form'
 import { AddMultimediaComponent } from './Components/AddMultimedia'
 import LayoutAdmin from './Layout/LayoutAdmin'
+import { CardEventComponent } from './Components'
 
 const initListOfEvents = new Promise((resolve) => {
   return resolve([
@@ -34,77 +31,6 @@ const sendData = async (data) => {
     status: 400,
     message: 'Evento creado correctamente'
   }
-}
-
-const CardEventComponent = ({ event, onDelete }) => {
-  const [open, setOpen] = useState(false)
-  return (
-    <Card sx={{
-      width: '100%',
-      display: 'flex',
-      flexDirection: 'row',
-      minWidth: '300px',
-      marginTop: '10px',
-      maxWidth: '500px'
-    }}
-    >
-      <TransitionsModal title='Editar evento' state={open} setState={setOpen}>
-        <EditEventComponent event={event} />
-      </TransitionsModal>
-
-      <Grid
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          flexWrap: 'wrap'
-        }}
-      >
-        <CardMedia
-          component='img'
-          sx={{
-            width: '100px',
-            maxHeight: '200px',
-            objectFit: 'cover'
-
-          }}
-          image={event?.imagen}
-          alt='Image description'
-        />
-        <CardActions sx={{
-          display: 'flex'
-
-        }}
-        >
-          <Button
-            variant='contained' sx={{
-              flexGrow: 1
-            }}
-            onClick={() => setOpen(true)}
-          >
-            <Edit />
-          </Button>
-          <Button
-            variant='contained' color='error' sx={{
-              flexGrow: 1
-            }}
-            onClick={() => onDelete(event?.id)}
-          >
-            <Clear />
-          </Button>
-        </CardActions>
-
-      </Grid>
-      <CardContent sx={{
-        textAlign: 'left'
-      }}
-      >
-        <Typography variant='h4'>{event?.titulo}</Typography>
-        <Typography variant='h6'>{event?.fecha}</Typography>
-        <Typography variant='body1'>{event?.descripcion}</Typography>
-
-      </CardContent>
-    </Card>
-  )
 }
 
 export const EventsAdminPage = () => {
@@ -145,9 +71,7 @@ export const EventsAdminPage = () => {
         flexWrap: 'wrap'
       }}
       >
-        <TransitionsModal title='Añadir multimedia' state={addMultimedia} setState={setAddMultimedia}>
-          <AddMultimediaComponent event={event} />
-        </TransitionsModal>
+        <AddMultimediaComponent event={event} title='Añadir multimedia' addMultimedia={addMultimedia} setAddMultimedia={setAddMultimedia} />
         <Typography variant='h4' sx={{ flexGrow: 1, width: '100%', textAlign: 'left', paddingLeft: '50px', marginBottom: '10px' }}>Eventos</Typography>
         <Grid
           sx={{
@@ -157,6 +81,7 @@ export const EventsAdminPage = () => {
             padding: '1rem'
           }}
         >
+          {/** //TODO: Add a correct success message */}
           <Snackbar open={error} autoHideDuration={6000} onClose={() => setError(false)}>
             <Alert onClose={() => setError(false)} severity='error' sx={{ width: '100%' }}>
               This is a success message!
