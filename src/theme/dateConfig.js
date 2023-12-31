@@ -9,6 +9,5 @@ export const useDate = () => {
   const month = () => {
     return datejs().format('MMMM')
   }
-
   return { datejs, month }
 }

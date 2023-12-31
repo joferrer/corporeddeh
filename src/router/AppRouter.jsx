@@ -12,7 +12,6 @@ const AUTHENTICATED = 'authenticated'
 const rol = 'admin'
 export const AppRouter = () => {
   const { status } = useCheckAuth()
-  console.log('router', status)
   if (status === CHECKING) {
     return <CheckingAuth />
   }
