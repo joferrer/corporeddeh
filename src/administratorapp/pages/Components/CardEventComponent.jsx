@@ -17,6 +17,7 @@ export const CardEventComponent = ({ event, onDelete }) => {
       maxWidth: '500px'
     }}
     >
+      {/* //TODO Replace the transitionsModal with the ResponsiveDialog */}
       <TransitionsModal title='Editar evento' state={open} setState={setOpen}>
         <EditEventComponent event={event} />
       </TransitionsModal>
