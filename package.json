@@ -39,6 +39,10 @@
     "vite": "4.4.5"
   },
   "eslintConfig": {
-    "extends": "./node_modules/standard/eslintrc.json"
+    "extends": "./node_modules/standard/eslintrc.json",
+    "env": {
+      "browser": true,
+      "es2021": true
+    }
   }
 }

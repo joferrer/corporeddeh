@@ -1,13 +1,10 @@
 /* eslint-disable react/prop-types */
 import { Alert, Button, Grid, Snackbar, Typography } from '@mui/material'
-
 import { useEffect, useState } from 'react'
 import { ImagesAdminComponent } from './Components/ImagesAdminComponent'
 import LayoutAdmin from './Layout/LayoutAdmin'
-import ResponsiveDialog from './Components/DialogMuiComponent'
-import { DatePicker } from '@mui/x-date-pickers'
-import { useDate } from '../../theme'
-
+import { sortEventsByDate } from '../../helpers'
+import { CreateNewEventComponent } from './Components'
 const initListOfEvents = new Promise((resolve) => {
   return resolve({
     events: [
@@ -29,99 +26,6 @@ const initListOfEvents = new Promise((resolve) => {
     ]
   })
 })
-const mouths = {
-  ENERO: 0,
-  FEBRERO: 1,
-  MARZO: 2,
-  ABRIL: 3,
-  MAYO: 4,
-  JUNIO: 5,
-  JULIO: 6,
-  AGOSTO: 7,
-  SEPTIEMBRE: 8,
-  OCTUBRE: 9,
-  NOVIEMBRE: 10,
-  DICIEMBRE: 11
-}
-const sortEventsByDate = (events) => {
-  events.sort((a, b) => {
-    const dateA = new Date(Number(a.year), mouths[a.mouth.toUpperCase()])
-    const dateB = new Date(Number(b.year), mouths[b.mouth.toUpperCase()])
-    return dateB - dateA
-  })
-  return events
-}
-
-const mouthAlreadyExist = (mouth, year, events) => {
-  const event = events.find((e) => e.mouth.toUpperCase() === mouth.toUpperCase() && e.year === year)
-  return event
-}
-
-const CreateNewEventComponent = ({ open, setOpen, events, setListOfEvents }) => {
-  const { datejs, month } = useDate()
-  const initNewEvent = {
-    mouth: month(),
-    year: datejs().format('YYYY'),
-    imgs: []
-  }
-  const [newEvent, setNewEvent] = useState({ ...initNewEvent })
-
-  const onAddMouth = (newMouth) => {
-    const newAddEvent = {
-      mouth: newMouth.mouth,
-      year: newMouth.year,
-      imgs: []
-    }
-    if (mouthAlreadyExist(newMouth.mouth, newMouth.year, events)) {
-      return setListOfEvents({ events, error: true, errorMessage: 'El mes ya existe' })
-    }
-    const newListOfEvents = events
-    newListOfEvents.push(newAddEvent)
-
-    const newListOfEventsSorted = sortEventsByDate(newListOfEvents)
-    setListOfEvents({ events: newListOfEventsSorted, error: false })
-    setNewEvent({ ...initNewEvent })
-
-    // TODO: manege error
-  }
-  const onChangeMouth = (e) => {
-    setNewEvent({ ...newEvent, mouth: e })
-  }
-
-  const onChangeYear = (e) => {
-    setNewEvent({ ...newEvent, year: e })
-  }
-  const onConfirm = () => {
-    onAddMouth(newEvent)
-    setOpen(false)
-  }
-
-  return (
-    <ResponsiveDialog state={open} setState={setOpen} title='Agregar nuevo més' onConfirm={onConfirm}>
-      <Grid
-        sx={{
-          display: 'flex',
-          flexWrap: 'wrap'
-        }}
-      >
-
-        <DatePicker
-          label='Año' openTo='year'
-          views={['year']}
-          defaultValue={datejs()}
-          onChange={(e) => onChangeYear(e.format('YYYY'))}
-        />
-        <DatePicker
-          defaultValue={datejs()}
-          label='Mes'
-          openTo='month'
-          views={['month']}
-          onChange={(e) => onChangeMouth(e.format('MMMM'))}
-        />
-      </Grid>
-    </ResponsiveDialog>
-  )
-}
 
 export const CalendarAdminPage = () => {
   const [ListOfEvents, setListOfEvents] = useState({
