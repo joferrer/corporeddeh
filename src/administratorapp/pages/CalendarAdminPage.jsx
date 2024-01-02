@@ -57,15 +57,12 @@ export const CalendarAdminPage = () => {
       reader.onload = (e) => {
         const imageUrl = e.target.result
 
-        console.log()
         Promise.all([saveImageByMonth(
           imageUrl,
           events[index].mouth.toUpperCase(),
           events[index].year)])
           .then((res) => {
-            console.log(res)
             const imageUrl = res[0].url
-            console.log(imageUrl)
             if (!imageUrl) return setListOfEvents({ events, error: false, errorMessage: 'Error al subir la imagen' })
 
             const newEventImages = events[index].imgs

@@ -33,9 +33,7 @@ export const saveImageByMonth = async (image, mouth, year) => {
 
   const fileRef = ref(imagesCalendarRef, `${mouth}-${year}/${UID}.jpg`)
   return uploadBytes(fileRef, image, metadata).then(async (snapshot) => {
-    console.log('Uploaded a blob or file!', snapshot)
     const url = await getDownloadURL(snapshot.ref)
-    console.log(url, snapshot.ref)
     return {
       url
     }
