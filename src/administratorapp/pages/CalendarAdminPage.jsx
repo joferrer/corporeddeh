@@ -1,12 +1,12 @@
 /* eslint-disable react/prop-types */
 import { Alert, Button, Grid, Snackbar, Typography } from '@mui/material'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { ImagesAdminComponent } from './Components/ImagesAdminComponent'
 import LayoutAdmin from './Layout/LayoutAdmin'
-import { sortEventsByDate } from '../../helpers'
 import { CreateNewEventComponent } from './Components'
 import swal from 'sweetalert'
 import { saveImageByMonth } from '../../backend/firebase/StorageFirebaseProvider'
+import { useCalendarData } from '../../hooks/useCalendarData'
 
 const initListOfEvents = new Promise((resolve) => {
   return resolve({
@@ -32,21 +32,11 @@ const initListOfEvents = new Promise((resolve) => {
 })
 
 export const CalendarAdminPage = () => {
-  const [ListOfEvents, setListOfEvents] = useState({
-    events: [],
-    error: false,
-    errorMessage: ''
-  })
-
+  const data = useCalendarData()
   const [open, setOpen] = useState(false)
-  const { events, error, errorMessage } = ListOfEvents
-  useEffect(() => {
-    Promise.all([initListOfEvents])
-      .then((res) => {
-        const eventsList = sortEventsByDate(res[0].events)
-        setListOfEvents({ events: eventsList, error: false })
-      })
-  }, [])
+  const { events, error, errorMessage, setData: setListOfEvents } = data
+
+  console.log(events)
 
   const onFileInputClick = (e, index) => {
     const img = e.target.files[0]
