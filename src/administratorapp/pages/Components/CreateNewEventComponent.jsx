@@ -1,12 +1,11 @@
 /* eslint-disable react/prop-types */
+import { useState } from 'react'
 import { DatePicker } from '@mui/x-date-pickers'
 import ResponsiveDialog from './DialogMuiComponent'
 import { Grid } from '@mui/material'
-import { mouthAlreadyExist, sortEventsByDate } from '../../../helpers'
-import { useState } from 'react'
 import { useDate } from '../../../theme'
 
-export const CreateNewEventComponent = ({ open, setOpen, events, setListOfEvents }) => {
+export const CreateNewEventComponent = ({ open, setOpen, setListOfEvents }) => {
   const { datejs, month } = useDate()
   const initNewEvent = {
     mouth: month(),
@@ -16,19 +15,7 @@ export const CreateNewEventComponent = ({ open, setOpen, events, setListOfEvents
   const [newEvent, setNewEvent] = useState({ ...initNewEvent })
 
   const onAddMouth = (newMouth) => {
-    const newAddEvent = {
-      mouth: newMouth.mouth,
-      year: newMouth.year,
-      imgs: []
-    }
-    if (mouthAlreadyExist(newMouth.mouth, newMouth.year, events)) {
-      return setListOfEvents({ events, error: true, errorMessage: 'El mes ya existe' })
-    }
-    const newListOfEvents = events
-    newListOfEvents.push(newAddEvent)
-
-    const newListOfEventsSorted = sortEventsByDate(newListOfEvents)
-    setListOfEvents({ events: newListOfEventsSorted, error: false })
+    setListOfEvents(newMouth)
     setNewEvent({ ...initNewEvent })
 
     // TODO: manege error

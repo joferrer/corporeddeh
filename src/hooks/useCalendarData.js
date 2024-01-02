@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
-import { startLoadingCalendarEvents, startSetAImgsToCalendarEvent } from '../backend/Calendar/CalendarThunks'
+import { startLoadingCalendarEvents, startSaveCalendarEvent, startSetAImgsToCalendarEvent } from '../backend/Calendar/CalendarThunks'
 import { saveImageByMonth } from '../backend/firebase/StorageFirebaseProvider'
+import { mouthAlreadyExist, sortEventsByDate } from '../helpers'
 
 export const useCalendarData = () => {
   const [data, setData] = useState({
@@ -41,6 +42,26 @@ export const useCalendarData = () => {
     }
   }
 
+  const addNewMouth = async (newMouth) => {
+    const newAddEvent = {
+      mouth: newMouth.mouth,
+      year: newMouth.year,
+      imgs: []
+    }
+    if (mouthAlreadyExist(newMouth.mouth, newMouth.year, events)) {
+      return setData({ events, error: true, errorMessage: 'El mes ya existe' })
+    }
+    const { status, error } = await startSaveCalendarEvent(newAddEvent)
+    if (status === 'error') {
+      return setData({ events, error: true, errorMessage: error, status })
+    }
+    const newListOfEvents = events
+    newListOfEvents.push(newAddEvent)
+
+    const newListOfEventsSorted = sortEventsByDate(newListOfEvents)
+    setData({ events: newListOfEventsSorted, error: false })
+  }
+
   useEffect(() => {
     const getData = async () => {
       const { status, events: eventsList, error } = await startLoadingCalendarEvents()
@@ -64,6 +85,6 @@ export const useCalendarData = () => {
   }, [])
 
   return {
-    events, status, errorMessage, setData, saveEventCalendarImg
+    events, status, errorMessage, setData, saveEventCalendarImg, addNewMouth
   }
 }

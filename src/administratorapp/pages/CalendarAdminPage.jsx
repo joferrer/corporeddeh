@@ -10,7 +10,14 @@ import { useCalendarData } from '../../hooks/useCalendarData'
 export const CalendarAdminPage = () => {
   const data = useCalendarData()
   const [open, setOpen] = useState(false)
-  const { events, error, errorMessage, setData: setListOfEvents, saveEventCalendarImg } = data
+  const {
+    events,
+    error,
+    errorMessage,
+    setData: setListOfEvents,
+    saveEventCalendarImg,
+    addNewMouth
+  } = data
 
   console.log(events)
 
@@ -88,7 +95,7 @@ export const CalendarAdminPage = () => {
 
         <Typography variant='h3'>Calendario</Typography>
         <Button variant='contained' color='primary' onClick={() => setOpen(true)}>Agregar un nuevo mes</Button>
-        <CreateNewEventComponent open={open} setOpen={setOpen} events={events} setListOfEvents={setListOfEvents} />
+        <CreateNewEventComponent open={open} setOpen={setOpen} events={events} setListOfEvents={addNewMouth} />
         {
           events.map((event, index) => (
             <Grid
