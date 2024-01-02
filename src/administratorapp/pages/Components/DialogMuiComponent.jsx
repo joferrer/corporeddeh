@@ -10,6 +10,11 @@ import { useTheme } from '@mui/material/styles'
 import { useEffect } from 'react'
 
 /* eslint-disable space-before-function-paren */
+/**
+ * Mui responsive dialog component.
+ * @props {title, state, setState, onConfirm}
+ * @returns ReactComponent
+ */
 export default function ResponsiveDialog({ children, title, state, setState, onConfirm }) {
   const [open, setOpen] = React.useState(false)
   const theme = useTheme()

@@ -5,6 +5,8 @@ import { ImagesAdminComponent } from './Components/ImagesAdminComponent'
 import LayoutAdmin from './Layout/LayoutAdmin'
 import { sortEventsByDate } from '../../helpers'
 import { CreateNewEventComponent } from './Components'
+import swal from 'sweetalert'
+
 const initListOfEvents = new Promise((resolve) => {
   return resolve({
     events: [
@@ -21,7 +23,8 @@ const initListOfEvents = new Promise((resolve) => {
       {
         mouth: 'Diciembre',
         year: '2023',
-        imgs: []
+        imgs: ['https://firebasestorage.googleapis.com/v0/b/coporeddeh.appspot.com/o/Captura%20de%20pantalla%202023-12-20%20173302.png?alt=media&token=78172ca2-46bb-42e6-9ab5-e7c30d1f8e8b'
+        ]
       }
     ]
   })
@@ -36,7 +39,6 @@ export const CalendarAdminPage = () => {
 
   const [open, setOpen] = useState(false)
   const { events, error, errorMessage } = ListOfEvents
-
   useEffect(() => {
     Promise.all([initListOfEvents])
       .then((res) => {
@@ -49,6 +51,7 @@ export const CalendarAdminPage = () => {
     const img = e.target.files[0]
 
     if (img && img.type.substr(0, 5) === 'image') {
+      /* eslint-disable-next-line no-undef */
       const reader = new FileReader()
       reader.onload = (e) => {
         const imageUrl = e.target.result
@@ -71,9 +74,24 @@ export const CalendarAdminPage = () => {
   }
 
   const onDeleteMonth = (index) => {
-    const newListOfEvents = events
-    newListOfEvents.splice(index, 1)
-    setListOfEvents({ events: newListOfEvents, error: false })
+    swal({
+      title: '¿Estas seguro de eliminar este mes?',
+      text: 'Una vez eliminado no se podra recuperar',
+      icon: 'warning',
+      buttons: ['Cancelar', 'Eliminar'],
+      dangerMode: true
+    })
+      .then((willDelete) => {
+        if (willDelete) {
+          const newListOfEvents = events
+          newListOfEvents.splice(index, 1)
+          setListOfEvents({ events: newListOfEvents, error: false })
+          swal('El mes ha sido eliminado del calendario', {
+            icon: 'success'
+          })
+        }
+      }
+      )
   }
 
   const onImgDelete = (index, imgIndex) => {

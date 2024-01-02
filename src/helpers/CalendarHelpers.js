@@ -33,6 +33,7 @@ export const sortEventsByDate = (events) => {
  * @returns event if the mouth already exist in the events array.
  */
 export const mouthAlreadyExist = (mouth, year, events) => {
+  console.log(mouth, year, events)
   const event = events.find((e) => e.mouth.toUpperCase() === mouth.toUpperCase() && e.year === year)
   return event
 }
