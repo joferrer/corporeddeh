@@ -13,6 +13,7 @@ import {
 import Tittle from "./../../ui/AloneComponents/Tittle";
 import ButtonFile from "../../ui/AloneComponents/ButtonFile";
 import iconPdf from "../.././../public/PDF_file_icon.svg.png";
+import { saveDocs } from "../../backend/firebase/StorageFirebaseProvider";
 
 const initListOfEvents = new Promise((resolve) => {
   return resolve({
@@ -21,16 +22,19 @@ const initListOfEvents = new Promise((resolve) => {
         nombre: "Archivos God a nache tu sabe",
         descripcion:
           "Este articulo es God a nashe y su contenido es necesario para la liv",
+        url: "",
       },
       {
         nombre: "Archivos 2 God a nache tu sabe",
         descripcion:
           "Este articulo es 2 God a nashe y su contenido es necesario para la liv",
+        url: "",
       },
       {
         nombre: "Archivos 3 God a nache tu sabe",
         descripcion:
           "Este articulo es 3 God a nashe y su contenido es necesario para la liv",
+        url: "",
       },
     ],
   });
@@ -41,6 +45,7 @@ export const DocumentAdminPage = () => {
     events: [],
     error: false,
   });
+
   const [formData, setFormData] = useState({
     nombre: "",
     descripcion: "",
@@ -65,14 +70,9 @@ export const DocumentAdminPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const dataToSend = new FormData();
-    dataToSend.append("nombre", formData.nombre);
-    dataToSend.append("descripcion", formData.descripcion);
-    dataToSend.append("documento", formData.documento);
-    console.log("Datos del formulario:", {
-      nombre: formData.nombre,
-      descripcion: formData.descripcion,
-      documento: formData.documento,
+
+    saveDocs(formData.documento).then((mensaje) => {
+      console.log(mensaje);
     });
     setFormData({
       nombre: "",
@@ -104,7 +104,7 @@ export const DocumentAdminPage = () => {
             <Tittle tittle={"Documentos"} />
             <form
               onSubmit={handleSubmit}
-              encType="multipart/form-data" // Necesario para enviar archivos
+              encType="multipart/form-data" 
               style={{
                 display: "flex",
                 flexDirection: "column",
