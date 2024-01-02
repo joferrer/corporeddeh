@@ -1,25 +1,35 @@
-import { addDoc, collection, getDocs } from 'firebase/firestore/lite'
+import { addDoc, arrayUnion, collection, doc, getDocs, updateDoc } from 'firebase/firestore/lite'
 import { setError, setEvents, setLoading } from './CalendarSlice'
 import { FireBaseDB } from '../firebase/firebaseConfig'
 import { sortEventsByDate } from '../../helpers'
 
 const db = FireBaseDB
 
-export const startLoadingCalendarEvents = () => {
-  return async (dispatch) => {
-    try {
-      dispatch(setLoading())
-      const calendarEvents = await getDocs(collection(db, 'calendario'))
-      const calendarEventsList = calendarEvents.docs.map(doc => {
-        return { id: doc.id, ...doc.data() }
-      })
-      console.log('thunks', calendarEventsList)
-      const calendarEventsListSorted = sortEventsByDate(calendarEventsList)
-      dispatch(setEvents(calendarEventsListSorted))
-      return calendarEventsListSorted
-    } catch (error) {
-      console.log(error)
-      dispatch(setError(`Ha ocurrido un error: ${error}`))
+/**
+ * Return all calendar events from the database.
+ * @returns {
+ * status: string, // loading, loaded, error
+ * events?: []
+ * error?: string
+ * }
+ */
+export const startLoadingCalendarEvents = async () => {
+  try {
+    const calendarEvents = await getDocs(collection(db, 'calendario'))
+    const calendarEventsList = calendarEvents.docs.map(doc => {
+      return { id: doc.id, ...doc.data() }
+    })
+    console.log('thunks', calendarEventsList)
+    const calendarEventsListSorted = sortEventsByDate(calendarEventsList)
+    return {
+      status: 'loaded',
+      events: calendarEventsListSorted
+    }
+  } catch (error) {
+    console.log(error)
+    return {
+      status: 'error',
+      error
     }
   }
 }
@@ -31,18 +41,51 @@ export const startLoadingCalendarEvents = () => {
  * year: string,
  * imgs:[string]
  * }} calendarEvent
- * @returns
+ * @returns {
+ * status: string,
+ * id?: string ,
+ * error?: string} //suscess, error
  */
-export const startSaveCalendarEvent = (calendarEvent) => {
-  return async (dispatch) => {
-    try {
-      dispatch(setLoading())
-      const saveCalendarEvents = await addDoc(collection(db, 'calendar'), calendarEvent)
-      console.log(saveCalendarEvents)
-      dispatch(setEvents(calendarEvent))
-    } catch (error) {
-      console.log(error)
-      dispatch(setError(error))
+export const startSaveCalendarEvent = async (calendarEvent) => {
+  try {
+    const saveCalendarEvents = await addDoc(collection(db, 'calendario'), calendarEvent)
+    console.log(saveCalendarEvents)
+    return {
+      status: 'success',
+      id: saveCalendarEvents.id
+    }
+  } catch (error) {
+    console.log(error)
+    return {
+      status: 'error',
+      error: error.code
+    }
+  }
+}
+/**
+ * Add a url of an image to a calendar event in the database.
+ * @param {*} id id of the calendar event
+ * @param {*} img url of the image
+ * @returns {
+ * status: string,
+ * error?: string
+ * }
+ */
+export const startSetAImgsToCalendarEvent = async (id, img) => {
+  try {
+    console.log(id, img)
+    const calendarEventRef = doc(db, 'calendario', id)
+    await updateDoc(calendarEventRef, {
+      imgs: arrayUnion(...[img])
+    })
+    return {
+      status: 'success'
+    }
+  } catch (error) {
+    console.log(error)
+    return {
+      status: 'error',
+      error
     }
   }
 }

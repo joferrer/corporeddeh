@@ -18,7 +18,6 @@ const mouths = {
  * @returns {[]} events sorted by date
  */
 export const sortEventsByDate = (events) => {
-  console.log(events)
   events.sort((a, b) => {
     const dateA = new Date(Number(a.year), mouths[a.mouth.toUpperCase()])
     const dateB = new Date(Number(b.year), mouths[b.mouth.toUpperCase()])
