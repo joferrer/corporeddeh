@@ -1,11 +1,14 @@
-import { getStorage, ref, listAll, getDownloadURL } from 'firebase/storage'
-import { FireBaseStorage } from './firebaseConfig'
+import { getStorage, ref, listAll, getDownloadURL, uploadBytes } from 'firebase/storage'
 
 const storage = getStorage()
 const storageRef = ref(storage)
 
-const imagesRef = ref(storage, 'images')
+// const imagesRef = ref(storage, 'images')
 const imagesCalendarRef = ref(storage, 'images/calendar')
+
+const metadata = {
+  contentType: 'image/jpeg'
+}
 
 export const test = () => {
   return getImagesByRef(storageRef)
@@ -17,17 +20,29 @@ export const getRef = (path = '') => {
   return { storageRef, fullPath, name }
 }
 
-export const listAllP = async (path = '') => {
-  listAll(storageRef).then((res) => {
-    res.items.forEach((itemRef) => {
-      const { fullPath, name } = itemRef
-      getDownloadURL(itemRef).then((url) => {
-        console.log(url)
-      }).catch((error) => { })
-      console.log(fullPath, name)
-    })
+/**
+ * Save an image in the images folder according to the mouth and year.
+ * @param {*} image image to save.
+ * @param {string} mouth
+ * @param {string} year
+ * @param {string} UID name of the image.
+ * @returns {Promise<{}>} A promise with the url of the image or an error.
+ */
+export const saveImageByMonth = async (image, mouth, year) => {
+  const UID = Math.floor(Math.random() * 999999999)
+
+  const fileRef = ref(imagesCalendarRef, `${mouth}-${year}/${UID}.jpg`)
+  return uploadBytes(fileRef, image, metadata).then(async (snapshot) => {
+    console.log('Uploaded a blob or file!', snapshot)
+    const url = await getDownloadURL(snapshot.ref)
+    console.log(url, snapshot.ref)
+    return {
+      url
+    }
   }).catch((error) => {
-    console.log(error)
+    return {
+      error: error.code
+    }
   })
 }
 

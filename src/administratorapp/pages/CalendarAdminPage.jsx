@@ -6,6 +6,7 @@ import LayoutAdmin from './Layout/LayoutAdmin'
 import { sortEventsByDate } from '../../helpers'
 import { CreateNewEventComponent } from './Components'
 import swal from 'sweetalert'
+import { saveImageByMonth } from '../../backend/firebase/StorageFirebaseProvider'
 
 const initListOfEvents = new Promise((resolve) => {
   return resolve({
@@ -55,19 +56,32 @@ export const CalendarAdminPage = () => {
       const reader = new FileReader()
       reader.onload = (e) => {
         const imageUrl = e.target.result
-        const newEventImages = events[index].imgs
-        newEventImages.push(imageUrl)
-        const newEvent = {
-          mouth: events[index].mouth,
-          year: events[index].year,
-          imgs: newEventImages
-        }
-        const newListOfEvents = events
-        newListOfEvents.splice(index, 1, newEvent)
-        setListOfEvents({ events: newListOfEvents, error: false, errorMessage: 'Error al subir la imagen' })
+
+        console.log()
+        Promise.all([saveImageByMonth(
+          imageUrl,
+          events[index].mouth.toUpperCase(),
+          events[index].year)])
+          .then((res) => {
+            console.log(res)
+            const imageUrl = res[0].url
+            console.log(imageUrl)
+            if (!imageUrl) return setListOfEvents({ events, error: false, errorMessage: 'Error al subir la imagen' })
+
+            const newEventImages = events[index].imgs
+            newEventImages.push(imageUrl)
+            const newEvent = {
+              mouth: events[index].mouth,
+              year: events[index].year,
+              imgs: newEventImages
+            }
+            const newListOfEvents = events
+            newListOfEvents.splice(index, 1, newEvent)
+            setListOfEvents({ events: newListOfEvents, error: false, errorMessage: 'Error al subir la imagen' })
+          }).catch((err) => { console.log(err) })
       }
 
-      reader.readAsDataURL(img)
+      return reader.readAsArrayBuffer(img)
     } else {
       setListOfEvents({ events, error: true })
     }
