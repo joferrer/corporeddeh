@@ -67,7 +67,11 @@ export const getImagesByRef = async (ref) => {
   const urls = await Promise.all(images.map((image) => getDownloadURL(image)))
   return urls
 }
-
+/**
+ * Asynchronous function to save documents to Firebase Storage.
+ * @param {File} file - A File object representing the document to be saved.
+ * @returns {Promise<{url?: string, error?: string}>} - Returns a promise that resolves to an object with the URL of the saved document or an error message.
+ */
 export const saveDocs = async (file) => {
   const fileRef = ref(docsRef, `${file.name}`)
   return uploadBytes(fileRef, file)
@@ -82,4 +86,5 @@ export const saveDocs = async (file) => {
         error: error.code
       }
     })
-}
+};
+

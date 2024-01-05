@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import Input from "@mui/material/Input";
 import { Box, Typography } from "@mui/material";
 
-const ButtonFile = ({ onFileSelect }) => {
+const ButtonFile = ({ onFileSelect, refreshButtonFile }) => {
   const [selectedFile, setSelectedFile] = useState(null);
 
   const handleFileChange = (event) => {
@@ -14,6 +14,7 @@ const ButtonFile = ({ onFileSelect }) => {
     }
   };
 
+  useEffect(() => {setSelectedFile(null)}, [refreshButtonFile]);
   return (
     <Box>
       <Input

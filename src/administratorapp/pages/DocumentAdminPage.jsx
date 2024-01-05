@@ -6,6 +6,7 @@ import {
   Box,
   Button,
   Grid,
+  IconButton,
   Snackbar,
   TextField,
   Typography,
@@ -14,44 +15,25 @@ import Tittle from "./../../ui/AloneComponents/Tittle";
 import ButtonFile from "../../ui/AloneComponents/ButtonFile";
 import iconPdf from "../.././../public/PDF_file_icon.svg.png";
 import { saveDocs } from "../../backend/firebase/StorageFirebaseProvider";
-
-const initListOfEvents = new Promise((resolve) => {
-  return resolve({
-    events: [
-      {
-        nombre: "Archivos God a nache tu sabe",
-        descripcion:
-          "Este articulo es God a nashe y su contenido es necesario para la liv",
-        url: "",
-      },
-      {
-        nombre: "Archivos 2 God a nache tu sabe",
-        descripcion:
-          "Este articulo es 2 God a nashe y su contenido es necesario para la liv",
-        url: "",
-      },
-      {
-        nombre: "Archivos 3 God a nache tu sabe",
-        descripcion:
-          "Este articulo es 3 God a nashe y su contenido es necesario para la liv",
-        url: "",
-      },
-    ],
-  });
-});
+import CloseIcon from "@mui/icons-material/Close";
+import { useDocumentData } from "./../../hooks/useDocumentData";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 export const DocumentAdminPage = () => {
-  const [ListOfEvents, setListOfEvents] = useState({
-    events: [],
-    error: false,
-  });
-
+  const data = useDocumentData();
+  const {
+    events,
+    error,
+    errorMessage,
+    setData: setListOfEvents,
+    saveEventDocument,
+  } = data;
+  const [refreshButtonFile, setRefreshButtonFile] = useState(false);
   const [formData, setFormData] = useState({
     nombre: "",
     descripcion: "",
     documento: null,
   });
-  const { events, error } = ListOfEvents;
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -70,23 +52,28 @@ export const DocumentAdminPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log("1" + refreshButtonFile);
+    saveEventDocument(
+      formData.documento,
+      formData.nombre,
+      formData.descripcion
+    ).then((status) => {
+      if (status.status === "success") {
+        setFormData({
+          nombre: "",
+          descripcion: "",
+          documento: null,
+        });
+        setRefreshButtonFile(true);
+      }
+    });
 
-    saveDocs(formData.documento).then((mensaje) => {
-      console.log(mensaje);
-    });
-    setFormData({
-      nombre: "",
-      descripcion: "",
-      documento: null,
-    });
+    //location.reload();+
+    setRefreshButtonFile(false);
   };
-
-  useEffect(() => {
-    Promise.all([initListOfEvents]).then((res) =>
-      setListOfEvents({ events: res[0].events })
-    );
-  }, []);
-
+  const handleCloseSnackbar = () => {
+    setRefreshButtonFile(false);
+  };
   return (
     <LayoutAdmin>
       <Container>
@@ -96,15 +83,24 @@ export const DocumentAdminPage = () => {
           onClose={() => setListOfEvents({ events, error: false })}
           anchorOrigin={{ vertical: "top", horizontal: "left" }}
         >
-          <Alert severity="error">Error al subir archivo</Alert>
+          <Alert severity="error">{errorMessage}</Alert>
         </Snackbar>
-
+        <Snackbar
+          open={refreshButtonFile}
+          autoHideDuration={2000}
+          onClose={handleCloseSnackbar} // Manejar el cierre del Snackbar
+          anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+        >
+          <Alert sx={{}} severity="success">
+            Documento subido correctamente!
+          </Alert>
+        </Snackbar>
         <Grid container spacing={2}>
           <Grid item md={6} xs={12}>
             <Tittle tittle={"Documentos"} />
             <form
               onSubmit={handleSubmit}
-              encType="multipart/form-data" 
+              encType="multipart/form-data"
               style={{
                 display: "flex",
                 flexDirection: "column",
@@ -127,46 +123,87 @@ export const DocumentAdminPage = () => {
                 multiline={true}
                 rows={5}
               />
-              <ButtonFile onFileSelect={handleFileSelect} />
+              <ButtonFile
+                onFileSelect={handleFileSelect}
+                refreshButtonFile={refreshButtonFile}
+              />
               <Button variant="contained" type="submit">
                 Confirmar
               </Button>
             </form>
           </Grid>
-          <Grid item sm={6} xs={12}>
+          <Grid item sm={12} md={6} xs={12}>
             <Grid container spacing={2}>
-              {events.map((event, index) => (
-                <Grid
-                  item
-                  key={index}
-                  xs={12}
-                  sm={12}
-                  md={12}
-                  sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    marginTop: 2,
-                  }}
-                >
-                  <Box sx={{ marginRight: 2 }}>
-                    <img
-                      src={iconPdf}
-                      style={{ maxWidth: "70px" }}
-                      alt="PDF Icon"
-                    />
-                  </Box>
-                  <Box>
-                    <Typography textAlign={"start"}>{event?.nombre}</Typography>
-                    <Typography
-                      textAlign={"justify"}
-                      fontSize={"10pt"}
-                      maxWidth={"318.45px"}
+              {events.length != 0 ? (
+                <>
+                  {events.map((event, index) => (
+                    <Grid
+                      item
+                      key={index}
+                      xs={12}
+                      sm={12}
+                      md={12}
+                      sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        marginTop: 2,
+                        position: "relative",
+                      }}
                     >
-                      {event?.descripcion}
+                      <Box
+                        sx={{
+                          width: "100%",
+                          display: "flex",
+                          justifyContent: "center",
+                        }}
+                      >
+                        <Box sx={{ marginRight: 2 }}>
+                          <img
+                            src={iconPdf}
+                            style={{ maxWidth: "70px" }}
+                            alt="PDF Icon"
+                          />
+                        </Box>
+                        <Box sx={{ width: "50%" }}>
+                          <Typography textAlign={"start"}>
+                            {event?.nombre}
+                          </Typography>
+                          <Typography
+                            textAlign={"justify"}
+                            fontSize={"10pt"}
+                            maxWidth={"318.45px"}
+                          >
+                            {event?.descripcion}
+                          </Typography>
+                        </Box>
+                        <IconButton
+                          sx={{ height: "30px", width: "30px" }}
+                          //onClick={() => handleRemoveEvent(index)}
+                        >
+                          <CloseIcon
+                            sx={{ width: "30px", height: "30px", color: "red" }}
+                          />
+                        </IconButton>
+                      </Box>
+                    </Grid>
+                  ))}
+                </>
+              ) : (
+                <Grid container spacing={2}>
+                  <Grid item xs={12} sm={12} md={12}>
+                    <InfoOutlinedIcon
+                      sx={{
+                        width: "200px",
+                        height: "200px",
+                        color: "red",
+                      }}
+                    />
+                    <Typography sx={{ fontWeight: "light", fontSize: "15pt" }}>
+                      No hay documentos que mostrar
                     </Typography>
-                  </Box>
+                  </Grid>
                 </Grid>
-              ))}
+              )}
             </Grid>
           </Grid>
         </Grid>
