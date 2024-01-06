@@ -54,6 +54,14 @@ export const DocumentAdminPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (!formData.nombre || !formData.descripcion || !formData.documento) {
+      swal("Por favor, completa todos los campos", {
+        icon: "warning",
+      });
+      return;
+    }
+
     saveEventDocument(
       formData.documento,
       formData.nombre,
