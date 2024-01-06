@@ -14,10 +14,10 @@ import {
 import Tittle from "./../../ui/AloneComponents/Tittle";
 import ButtonFile from "../../ui/AloneComponents/ButtonFile";
 import iconPdf from "../.././../public/PDF_file_icon.svg.png";
-import { saveDocs } from "../../backend/firebase/StorageFirebaseProvider";
 import CloseIcon from "@mui/icons-material/Close";
 import { useDocumentData } from "./../../hooks/useDocumentData";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import { startDeleteDocumentEvent } from "../../backend/Document/DocumentThunks";
 
 export const DocumentAdminPage = () => {
   const data = useDocumentData();
@@ -27,14 +27,15 @@ export const DocumentAdminPage = () => {
     errorMessage,
     setData: setListOfEvents,
     saveEventDocument,
+    deleteEventDocument,
   } = data;
   const [refreshButtonFile, setRefreshButtonFile] = useState(false);
   const [formData, setFormData] = useState({
     nombre: "",
     descripcion: "",
     documento: null,
+    nombreDoc: "",
   });
-
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -47,33 +48,55 @@ export const DocumentAdminPage = () => {
     setFormData({
       ...formData,
       documento: file,
+      nombreDoc: file.name,
     });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("1" + refreshButtonFile);
     saveEventDocument(
       formData.documento,
       formData.nombre,
-      formData.descripcion
+      formData.descripcion,
+      formData.nombreDoc
     ).then((status) => {
       if (status.status === "success") {
         setFormData({
           nombre: "",
           descripcion: "",
           documento: null,
+          nombreDoc: "",
         });
         setRefreshButtonFile(true);
+        swal("Documento Agregado Correctamente", {
+          icon: "success",
+        });
       }
     });
 
     //location.reload();+
     setRefreshButtonFile(false);
   };
-  const handleCloseSnackbar = () => {
-    setRefreshButtonFile(false);
+
+  const handleRemoveEvent = (index) => {
+    swal({
+      title: "¿Estas seguro de eliminar este documento?",
+      text: "Una vez eliminado no se podra recuperar",
+      icon: "warning",
+      buttons: ["Cancelar", "Eliminar"],
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        deleteEventDocument(events[index]).then((status) => {
+          console.log(status);
+        });
+        swal("El mes ha sido eliminado del calendario", {
+          icon: "success",
+        });
+      }
+    });
   };
+
   return (
     <LayoutAdmin>
       <Container>
@@ -84,16 +107,6 @@ export const DocumentAdminPage = () => {
           anchorOrigin={{ vertical: "top", horizontal: "left" }}
         >
           <Alert severity="error">{errorMessage}</Alert>
-        </Snackbar>
-        <Snackbar
-          open={refreshButtonFile}
-          autoHideDuration={2000}
-          onClose={handleCloseSnackbar} // Manejar el cierre del Snackbar
-          anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
-        >
-          <Alert sx={{}} severity="success">
-            Documento subido correctamente!
-          </Alert>
         </Snackbar>
         <Grid container spacing={2}>
           <Grid item md={6} xs={12}>
@@ -178,7 +191,7 @@ export const DocumentAdminPage = () => {
                         </Box>
                         <IconButton
                           sx={{ height: "30px", width: "30px" }}
-                          //onClick={() => handleRemoveEvent(index)}
+                          onClick={() => handleRemoveEvent(index)}
                         >
                           <CloseIcon
                             sx={{ width: "30px", height: "30px", color: "red" }}

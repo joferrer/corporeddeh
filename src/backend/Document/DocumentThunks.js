@@ -2,22 +2,23 @@ import {
   addDoc,
   arrayUnion,
   collection,
+  deleteDoc,
   doc,
   getDocs,
   updateDoc,
 } from "firebase/firestore/lite";
 import { setError, setEvents, setLoading } from "./DocumentSlice";
 import { FireBaseDB } from "../firebase/firebaseConfig";
+import { deleteDocsStorage } from "../firebase/StorageFirebaseProvider";
 
 const db = FireBaseDB;
-
+const documentCollection = collection(db, "documento");
 export const startLoadingDocumentsEvents = async () => {
   try {
     const documentEvents = await getDocs(collection(db, "documento"));
     const documentEventsList = documentEvents.docs.map((doc) => {
       return { id: doc.id, ...doc.data() };
     });
-    console.log("thunks", documentEventsList);
     return {
       status: "loaded",
       events: documentEventsList,
@@ -42,7 +43,6 @@ export const starSaveDocumentEvent = async (documentEvent) => {
       id: saveDocumentEvents.id,
     };
   } catch (error) {
-    console.log(error);
     return {
       status: "error",
       error: error.code,
@@ -50,18 +50,18 @@ export const starSaveDocumentEvent = async (documentEvent) => {
   }
 };
 
-
-export const startDeleteDocumentEvent = async (documentEvent) => {
+//TODO: FALTA MONTAR ESTE REQUERIMIENTO
+export const startDeleteDocumentEvent = async (id) => {
   try {
-    const doc = doc("documento", documentEvent.id);
-    await deleteDoc(doc);
+    const doco = doc(documentCollection, id);
+    await deleteDoc(doco);
     return {
-      status: "success",
+      ok: true,
     };
   } catch (error) {
     return {
       status: "error",
-      error: error.code,
+      error,
     };
   }
 };

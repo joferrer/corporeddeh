@@ -4,7 +4,10 @@ import {
   startDeleteDocumentEvent,
   startLoadingDocumentsEvents,
 } from "./../backend/Document/DocumentThunks";
-import { saveDocs } from "./../backend/firebase/StorageFirebaseProvider";
+import {
+  deleteDocsStorage,
+  saveDocs,
+} from "./../backend/firebase/StorageFirebaseProvider";
 
 export const useDocumentData = () => {
   const [data, setData] = useState({
@@ -16,7 +19,7 @@ export const useDocumentData = () => {
 
   const { events, status, errorMessage } = data;
 
-  const saveEventDocument = async (file, nombre, descripcion) => {
+  const saveEventDocument = async (file, nombre, descripcion, nombreDoc) => {
     const { url, error } = await saveDocs(file);
     if (error) {
       return {
@@ -25,7 +28,12 @@ export const useDocumentData = () => {
       };
     }
 
-    const newEventDoc = { nombre: nombre, descripcion: descripcion, url: url };
+    const newEventDoc = {
+      nombre: nombre,
+      descripcion: descripcion,
+      url: url,
+      nombreDoc: nombreDoc,
+    };
 
     const { status } = await starSaveDocumentEvent(newEventDoc);
     console.log(status);
@@ -39,13 +47,24 @@ export const useDocumentData = () => {
   };
 
   const deleteEventDocument = async (document) => {
-    const { error } = await startDeleteDocumentEvent(document);
+    const { id, nombreDoc } = document;
+    const { error } = await startDeleteDocumentEvent(id);
     if (error) {
       return {
         error: true,
         errorMessage: error,
       };
     }
+
+    const { status } = await deleteDocsStorage(nombreDoc);
+    const newArray = data.events.filter((item) => item !== document);
+    setData({
+      ...data,
+      events: newArray,
+    });
+    return {
+      status,
+    };
   };
 
   useEffect(() => {
