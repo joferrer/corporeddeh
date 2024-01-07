@@ -12,7 +12,7 @@ import {
 export const useDocumentData = () => {
   const [data, setData] = useState({
     events: [],
-    status: "loaded", // loading, loaded, error
+    status: "loaded",
     error: false,
     errorMessage: null,
   });

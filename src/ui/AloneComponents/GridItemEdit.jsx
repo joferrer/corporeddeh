@@ -92,24 +92,54 @@ const GridItemEdit = ({ color, ds, titulo, enabled, setEdit, handleSave }) => {
               <SaveIcon sx={{ color: "white" }} />
             </IconButton>
           )}
-          <IconButton
-            onClick={() => setEdit()}
-            sx={{
-              background: enabled ? "#FF0000" : "#308CD7",
-              borderRadius: "10px",
-              ":hover": {
-                transform: "scale(1.1)",
-                background: enabled ? "#FF0000" : "blue",
-              },
-              transition: "transform 0.3s ease-in-out",
-            }}
-          >
-            {enabled ? (
+          {enabled ? (
+            <IconButton
+              onClick={() => {
+                setEdit();
+                swal({
+                  title: "¿Deseas salir sin guardar cambios?",
+                  text: "No se guardara ningun cambio",
+                  icon: "warning",
+                  buttons: ["Volver", " Vale"],
+                  dangerMode: true,
+                }).then((willDelete) => {
+                  if (willDelete) {
+                    setValue(ds);
+                  } else {
+                    setEdit();
+                  }
+                });
+              }}
+              sx={{
+                background: "#FF0000",
+                borderRadius: "10px",
+                ":hover": {
+                  transform: "scale(1.1)",
+                  background: "#FF0000",
+                },
+                transition: "transform 0.3s ease-in-out",
+              }}
+            >
               <CloseIcon sx={{ color: "white" }} />
-            ) : (
+            </IconButton>
+          ) : (
+            <IconButton
+              onClick={() => {
+                setEdit();
+              }}
+              sx={{
+                background: "#308CD7",
+                borderRadius: "10px",
+                ":hover": {
+                  transform: "scale(1.1)",
+                  background: "blue",
+                },
+                transition: "transform 0.3s ease-in-out",
+              }}
+            >
               <EditIcon sx={{ color: "white" }} />
-            )}
-          </IconButton>
+            </IconButton>
+          )}
         </Box>
       </Box>
     </Grid>

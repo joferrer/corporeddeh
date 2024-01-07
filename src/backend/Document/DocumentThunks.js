@@ -50,7 +50,6 @@ export const starSaveDocumentEvent = async (documentEvent) => {
   }
 };
 
-//TODO: FALTA MONTAR ESTE REQUERIMIENTO
 export const startDeleteDocumentEvent = async (id) => {
   try {
     const doco = doc(documentCollection, id);

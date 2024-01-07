@@ -5,8 +5,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import CloseIcon from "@mui/icons-material/Close";
 import SaveIcon from "@mui/icons-material/Save";
 import GridItemEdit from "./../../../ui/AloneComponents/GridItemEdit";
-
-const GridAboutAsEdit = ({ events }) => {
+const GridAboutAsEdit = ({ events, updateInfo }) => {
   const [edit, setEdit] = useState({ q: false, m: false, v: false });
   const [data, setData] = useState(events);
 
@@ -14,14 +13,16 @@ const GridAboutAsEdit = ({ events }) => {
     setData(events);
   }, [events]);
 
-  const updateData = (index, newData) => {
-    setData((prevData) => {
-      const newDataArray = [...prevData];
-      newDataArray[index] = { ...newDataArray[index], descripcion: newData };
-      return newDataArray;
+  const updateData = (actu, index) => {
+    updateInfo(actu, index, data[index].id).then((result) => {
+      if (result.status === "loaded") {
+        swal("Cambio Realizado Correctamente", {
+          icon: "success",
+        });
+      }
     });
   };
-  console.log(data[0]?.descripcion, data[1]?.descripcion, data[2]?.descripcion);
+
   return (
     <Grid container spacing={5}>
       <GridItemEdit
@@ -31,29 +32,29 @@ const GridAboutAsEdit = ({ events }) => {
         enabled={edit.q}
         setEdit={() => setEdit((prevEdit) => ({ ...prevEdit, q: !prevEdit.q }))}
         handleSave={(newData) => {
-          updateData(0, newData);
+          updateData(newData, 0);
           setEdit((prevEdit) => ({ ...prevEdit, q: true }));
         }}
       />
       <GridItemEdit
         color={"#8491DF"}
-        ds={data[1]?.descripcion}
+        ds={data[2]?.descripcion}
         titulo={"Misión"}
         enabled={edit.m}
         setEdit={() => setEdit((prevEdit) => ({ ...prevEdit, m: !prevEdit.m }))}
         handleSave={(newData) => {
-          updateData(1, newData);
+          updateData(newData, 2);
           setEdit((prevEdit) => ({ ...prevEdit, m: true }));
         }}
       />
       <GridItemEdit
         color={"#E1432F"}
-        ds={data[2]?.descripcion}
+        ds={data[1]?.descripcion}
         titulo={"Visión"}
         enabled={edit.v}
         setEdit={() => setEdit((prevEdit) => ({ ...prevEdit, v: !prevEdit.v }))}
         handleSave={(newData) => {
-          updateData(2, newData);
+          updateData(newData, 1);
           setEdit((prevEdit) => ({ ...prevEdit, v: true }));
         }}
       />

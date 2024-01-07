@@ -3,41 +3,17 @@ import LayoutAdmin from "./Layout/LayoutAdmin";
 import Container from "./../../ui/AloneComponents/Container";
 import { Alert, Box, Snackbar } from "@mui/material";
 import GridAboutAsEdit from "./../../corporeddeh/pages/components/GridAboutAsEdit";
-
-const initListOfEvents = new Promise((resolve) => {
-  return resolve({
-    events: [
-      {
-        id: "1",
-        titulo: "Quienes Somos",
-        descripcion: "hola1",
-      },
-      {
-        id: "2",
-        titulo: "Mision",
-        descripcion: "hola2",
-      },
-      {
-        id: "3",
-        titulo: "Vision",
-        descripcion: "hola3",
-      },
-    ],
-  });
-});
+import { useAboutUsData } from "../../hooks/useAboutUsData";
 
 export const AboutUsAdmin = () => {
-  const [ListOfEvents, setListOfEvents] = useState({
-    events: [],
-    error: false,
-  });
-  const { events, error } = ListOfEvents;
-
-  useEffect(() => {
-    Promise.all([initListOfEvents]).then((res) =>
-      setListOfEvents({ events: res[0].events })
-    );
-  }, []);
+  const data = useAboutUsData();
+  const {
+    events,
+    error,
+    errorMessage,
+    setData: setListOfEvents,
+    updateInfo,
+  } = data;
 
   return (
     <LayoutAdmin>
@@ -48,7 +24,7 @@ export const AboutUsAdmin = () => {
           onClose={() => setListOfEvents({ events, error: false })}
           anchorOrigin={{ vertical: "top", horizontal: "left" }}
         >
-          <Alert severity="error">Error al subir archivo</Alert>
+          <Alert severity="error">{errorMessage}</Alert>
         </Snackbar>
         <Box
           sx={{
@@ -58,7 +34,7 @@ export const AboutUsAdmin = () => {
             },
           }}
         >
-          <GridAboutAsEdit events={events} />
+          <GridAboutAsEdit events={events} updateInfo={updateInfo} />
         </Box>
       </Container>
     </LayoutAdmin>

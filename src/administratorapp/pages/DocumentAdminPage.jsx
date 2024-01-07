@@ -17,7 +17,7 @@ import iconPdf from "../.././../public/PDF_file_icon.svg.png";
 import CloseIcon from "@mui/icons-material/Close";
 import { useDocumentData } from "./../../hooks/useDocumentData";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import { startDeleteDocumentEvent } from "../../backend/Document/DocumentThunks";
+
 
 export const DocumentAdminPage = () => {
   const data = useDocumentData();
