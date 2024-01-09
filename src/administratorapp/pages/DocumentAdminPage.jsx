@@ -18,7 +18,6 @@ import CloseIcon from "@mui/icons-material/Close";
 import { useDocumentData } from "./../../hooks/useDocumentData";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
-
 export const DocumentAdminPage = () => {
   const data = useDocumentData();
   const {
@@ -210,19 +209,17 @@ export const DocumentAdminPage = () => {
                   ))}
                 </>
               ) : (
-                <Grid container spacing={2}>
-                  <Grid item xs={12} sm={12} md={12}>
-                    <InfoOutlinedIcon
-                      sx={{
-                        width: "200px",
-                        height: "200px",
-                        color: "red",
-                      }}
-                    />
-                    <Typography sx={{ fontWeight: "light", fontSize: "15pt" }}>
-                      No hay documentos que mostrar
-                    </Typography>
-                  </Grid>
+                <Grid item xs={12} sm={12} md={12}>
+                  <InfoOutlinedIcon
+                    sx={{
+                      width: "200px",
+                      height: "200px",
+                      color: "red",
+                    }}
+                  />
+                  <Typography sx={{ fontWeight: "light", fontSize: "15pt" }}>
+                    No hay documentos que mostrar
+                  </Typography>
                 </Grid>
               )}
             </Grid>

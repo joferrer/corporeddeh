@@ -3,12 +3,12 @@ import Layout from "./layout/Layout";
 import { MediaQuerys } from "./../../theme/Config";
 import GridAboutAs from "./components/GridAboutAs";
 import Container from "../../ui/AloneComponents/Container";
-
-const m =
-  "En el día más brillante, en la noche más oscura, ningún mal podrá escapar de mi vista, que aquellos que veneran el poder del mal, teman a mi poder... ¡La luz de la linterna verde!";
+import { useAboutUsData } from "../../hooks/useAboutUsData";
 
 export const AboutusPage = () => {
   const { Mobile } = MediaQuerys;
+  const data = useAboutUsData();
+  const { events, error, errorMessage } = data;
   return (
     <Layout>
       <Container>
@@ -20,7 +20,7 @@ export const AboutusPage = () => {
             },
           }}
         >
-          <GridAboutAs ds1={m} ds2={m} ds3={m} />
+          <GridAboutAs events={events} />
         </Box>
       </Container>
     </Layout>

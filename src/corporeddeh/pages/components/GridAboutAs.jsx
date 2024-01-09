@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Grid, Typography } from "@mui/material";
 import logo from "../../../../public/logo-SinFondo.png";
 
-const GridAboutAs = ({ ds1, ds2, ds3 }) => {
+const GridAboutAs = ({ events }) => {
   return (
     <Grid container spacing={5}>
       <Grid
@@ -41,6 +41,7 @@ const GridAboutAs = ({ ds1, ds2, ds3 }) => {
           sx={{
             width: "60%",
             marginTop: 3,
+            minHeight: "100px",
             textAlign: "justify",
             "@media (max-width:1100px)": {
               width: "80%",
@@ -51,7 +52,7 @@ const GridAboutAs = ({ ds1, ds2, ds3 }) => {
           }}
         >
           <Typography sx={{ width: "100%" }} variant="body">
-            {ds1}
+            {events[0]?.descripcion}
           </Typography>
         </Box>
       </Grid>
@@ -91,6 +92,7 @@ const GridAboutAs = ({ ds1, ds2, ds3 }) => {
           sx={{
             width: "60%",
             marginTop: 3,
+            minHeight: "100px",
             textAlign: "justify",
             "@media (max-width:1100px)": {
               width: "80%",
@@ -101,7 +103,7 @@ const GridAboutAs = ({ ds1, ds2, ds3 }) => {
           }}
         >
           <Typography sx={{ width: "100%" }} variant="body">
-            {ds2}
+            {events[2]?.descripcion}
           </Typography>
         </Box>
       </Grid>
@@ -141,6 +143,7 @@ const GridAboutAs = ({ ds1, ds2, ds3 }) => {
           sx={{
             width: "60%",
             marginTop: 3,
+            minHeight: "100px",
             textAlign: "justify",
             "@media (max-width:1100px)": {
               width: "80%",
@@ -151,7 +154,7 @@ const GridAboutAs = ({ ds1, ds2, ds3 }) => {
           }}
         >
           <Typography sx={{ width: "100%" }} variant="body">
-            {ds3}
+            {events[1]?.descripcion}
           </Typography>
         </Box>
       </Grid>
