@@ -14,7 +14,6 @@ export const SocialNetworksComponent = ({ sociallinks }) => {
   }, [sociallinks])
 
   const onSubmit = async () => {
-    console.log('SUBMIT', links)
     const { status } = await startSetSocialNetworks(links)
     if (status === 'success') return setEditable(!editable)
     alert('No se pudo guardar el valor del contador. Intente nuevamente.')

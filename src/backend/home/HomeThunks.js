@@ -36,7 +36,6 @@ export const startSetCounterValue = async (counterValue) => {
 
 export const startSetSocialNetworks = async (socialNetworks) => {
   try {
-    console.log(socialNetworks)
     const docRef = doc(db, 'home', idHome)
     await updateDoc(docRef, { socialNetworks })
     console.log('Document successfully updated!')
@@ -72,7 +71,6 @@ export const startSetLinksVideos = async (linksVideos) => {
 export const startLoadHomeDocumment = async () => {
   try {
     const homeDoc = await getDoc(doc(db, 'home', idHome))
-    console.log(homeDoc.data())
     return {
       status: 'success',
       data: homeDoc.data()

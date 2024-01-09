@@ -1,6 +1,7 @@
-import { addDoc, arrayUnion, collection, doc, getDocs, updateDoc } from 'firebase/firestore/lite'
+import { addDoc, arrayUnion, collection, deleteDoc, doc, getDocs, updateDoc } from 'firebase/firestore/lite'
 import { FireBaseDB } from '../firebase/firebaseConfig'
 import { sortEventsByDate } from '../../helpers'
+import { deleteAllImagesForMonth } from '../firebase/StorageFirebaseProvider'
 
 const db = FireBaseDB
 
@@ -77,6 +78,24 @@ export const startSetAImgsToCalendarEvent = async (id, img) => {
     await updateDoc(calendarEventRef, {
       imgs: arrayUnion(...[img])
     })
+    return {
+      status: 'success'
+    }
+  } catch (error) {
+    console.log(error)
+    return {
+      status: 'error',
+      error
+    }
+  }
+}
+
+export const startDeleteCalendarEvent = async ({ id, mouth, year }) => {
+  try {
+    await Promise.all([
+      deleteDoc(doc(db, 'calendario', id)),
+      deleteAllImagesForMonth(mouth, year)])
+
     return {
       status: 'success'
     }
