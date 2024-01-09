@@ -2,6 +2,7 @@
 import { useMemo, useState } from 'react'
 import { Button, TextField, Typography } from '@mui/material'
 import { useForm } from 'react-hook-form'
+import { startSetSocialNetworks } from '../../../backend/home/HomeThunks'
 
 export const SocialNetworksComponent = ({ sociallinks }) => {
   const { register, handleSubmit } = useForm()
@@ -12,9 +13,11 @@ export const SocialNetworksComponent = ({ sociallinks }) => {
     setLinks(sociallinks)
   }, [sociallinks])
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     console.log('SUBMIT', links)
-    location.reload()
+    const { status } = await startSetSocialNetworks(links)
+    if (status === 'success') return setEditable(!editable)
+    alert('No se pudo guardar el valor del contador. Intente nuevamente.')
   }
   return (
     <form
