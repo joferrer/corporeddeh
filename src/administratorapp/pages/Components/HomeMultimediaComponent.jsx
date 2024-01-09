@@ -2,21 +2,28 @@
 import { Delete } from '@mui/icons-material'
 import { Button, Grid, TextField, Typography } from '@mui/material'
 import { useMemo, useState } from 'react'
+import { startSetLinksVideos } from '../../../backend/home/HomeThunks'
 
 export const HomeMultimediaComponent = ({ videosList }) => {
   const [list, setList] = useState(videosList)
 
-  const onDelete = (index) => {
+  const onDelete = async (index) => {
     const newList = list?.filter((video, i) => i !== index)
-    setList(newList)
+    const { status } = await startSetLinksVideos(newList)
+    if (status === 'success') return setList(newList)
+    alert('No se pudo eliminar el link del vídeo. Intente nuevamente.')
   }
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault()
-    if (list?.length >= 2) return alert('Solo es posible subir dos vídeos')
+    if (list?.length >= 2) return alert('Solo es posible subir dos vídeos a la página principal.')
     const { value } = e.target[0]
+    if (value === '') return alert('El campo no puede estar vacío.')
+
     const newList = [...list, value]
-    setList(newList)
+    const { status } = await startSetLinksVideos(newList)
+    if (status === 'success') return setList(newList)
+    alert('No se pudo guardar el link del vídeo. Intente nuevamente.')
   }
 
   useMemo(() => {
