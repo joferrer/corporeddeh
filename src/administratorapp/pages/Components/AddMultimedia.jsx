@@ -6,7 +6,7 @@ import { HomeMultimediaComponent } from './HomeMultimediaComponent'
 import ResponsiveDialog from './DialogMuiComponent'
 
 export const AddMultimediaComponent = ({ videos, imagesList, addMultimedia, setAddMultimedia }) => {
-  const [listOfImages, setListOfImages] = useState({ images: imagesList || [], error: false })
+  const [listOfImages, setListOfImages] = useState({ images: imagesList || [], imagesFiles: [], error: false })
   const [videosList, setVideosList] = useState(videos || [])
   const [open, setOpen] = useState(false)
   const { images } = listOfImages
@@ -14,24 +14,32 @@ export const AddMultimediaComponent = ({ videos, imagesList, addMultimedia, setA
   const onImgDelete = (index, imgIndex) => {
     const newListOfImages = images
     newListOfImages.splice(imgIndex, 1)
+    const newListOfImagesFiles = listOfImages.imagesFiles
+    newListOfImagesFiles.splice(imgIndex, 1)
 
-    setListOfImages({ images: newListOfImages, error: false })
+    setListOfImages({ images: newListOfImages, imagesFiles: newListOfImagesFiles, error: false })
   }
 
   const onFileInputClick = (e, index) => {
     const img = e.target.files[0]
 
     if (img && img.type.substr(0, 5) === 'image') {
+      /* eslint-disable-next-line no-undef */
       const reader = new FileReader()
       reader.onload = (e) => {
-        const imageUrl = e.target.result
+        const imageBuff = e.target.result
+        const urlImg = URL.createObjectURL(new Blob([imageBuff], { type: 'image/*' }))
         const newListOfImages = listOfImages.images
-        newListOfImages.push(imageUrl)
+        newListOfImages.push(urlImg)
 
-        setListOfImages({ images: newListOfImages, error: false })
+        const newListOfImagesFiles = listOfImages.imagesFiles
+        newListOfImagesFiles.push(imageBuff)
+
+        setListOfImages({ images: newListOfImages, imagesFiles: newListOfImagesFiles, error: false })
+        console.log(listOfImages)
       }
 
-      reader.readAsDataURL(img)
+      reader.readAsArrayBuffer(img)
     } else {
       setListOfImages({ images, error: true })
     }

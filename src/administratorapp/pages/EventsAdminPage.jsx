@@ -5,110 +5,110 @@ import {
   Grid,
   Snackbar,
   TextField,
-  Typography,
-} from "@mui/material";
-import { DatePicker } from "@mui/x-date-pickers";
-import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import { AddMultimediaComponent } from "./Components/AddMultimedia";
-import LayoutAdmin from "./Layout/LayoutAdmin";
-import { CardEventComponent } from "./Components";
-import Container from "../../ui/AloneComponents/Container";
+  Typography
+} from '@mui/material'
+import { DatePicker } from '@mui/x-date-pickers'
+import { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { AddMultimediaComponent } from './Components/AddMultimedia'
+import LayoutAdmin from './Layout/LayoutAdmin'
+import { CardEventComponent } from './Components'
+import Container from '../../ui/AloneComponents/Container'
 
 const initListOfEvents = new Promise((resolve) => {
   return resolve([
     {
-      id: "1",
-      titulo: "Titulo",
+      id: '1',
+      titulo: 'Titulo',
       descripcion:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quibusdam.Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quibusdam. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quibusdam.Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quibusdam.",
-      fecha: "20/20/2023",
+        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quibusdam.Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quibusdam. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quibusdam.Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quibusdam.',
+      fecha: '20/20/2023',
       imagen:
-        "https://pbs.twimg.com/media/FCVslvrXoAAIzS7?format=jpg&name=large",
+        'https://pbs.twimg.com/media/FCVslvrXoAAIzS7?format=jpg&name=large'
     },
     {
-      id: "2",
-      titulo: "Titulo",
-      descripcion: "Una descripcion Larga...........",
-      fecha: "20/20/2023",
+      id: '2',
+      titulo: 'Titulo',
+      descripcion: 'Una descripcion Larga...........',
+      fecha: '20/20/2023',
       imagen:
-        "https://pbs.twimg.com/media/FCVslvrXoAAIzS7?format=jpg&name=large",
-    },
-  ]);
-});
+        'https://pbs.twimg.com/media/FCVslvrXoAAIzS7?format=jpg&name=large'
+    }
+  ])
+})
 
 const sendData = async (data) => {
   return await {
     status: 400,
-    message: "Evento creado correctamente",
-  };
-};
+    message: 'Evento creado correctamente'
+  }
+}
 
 export const EventsAdminPage = () => {
-  const [listOfEvents, setListOfEvents] = useState([]);
-  const [error, setError] = useState(false);
-  const [addMultimedia, setAddMultimedia] = useState(false);
-  const { register, handleSubmit } = useForm();
+  const [listOfEvents, setListOfEvents] = useState([])
+  const [error, setError] = useState(false)
+  const [addMultimedia, setAddMultimedia] = useState(false)
+  const { register, handleSubmit } = useForm()
 
   const getData = async () => {
-    return await initListOfEvents;
-  };
+    return await initListOfEvents
+  }
 
   const onDelete = (index) => {
-    setListOfEvents(listOfEvents.filter((event) => event.id !== index));
-  };
+    setListOfEvents(listOfEvents.filter((event) => event.id !== index))
+  }
 
   const onCreateEvent = async (event) => {
-    const response = await sendData(event);
-    console.log(response);
+    const response = await sendData(event)
+    console.log(response)
     if (response.status === 200) {
-      return setListOfEvents([...listOfEvents, event]);
+      return setListOfEvents([...listOfEvents, event])
     }
-    setError(true);
-  };
+    setError(true)
+  }
 
   useEffect(() => {
     Promise.all([getData()]).then((res) => {
-      setListOfEvents(res[0]);
-    });
-  }, []);
+      setListOfEvents(res[0])
+    })
+  }, [])
 
   return (
     <LayoutAdmin>
       <Container>
-        {" "}
+        {' '}
         <Grid
           sx={{
-            display: "flex",
-            justifyContent: "space-around",
-            width: "100%",
-            flexWrap: "wrap",
+            display: 'flex',
+            justifyContent: 'space-around',
+            width: '100%',
+            flexWrap: 'wrap'
           }}
         >
           <AddMultimediaComponent
             event={event}
-            title="Añadir multimedia"
+            title='Añadir multimedia'
             addMultimedia={addMultimedia}
             setAddMultimedia={setAddMultimedia}
           />
           <Typography
-            variant="h4"
+            variant='h4'
             sx={{
               flexGrow: 1,
-              width: "100%",
-              textAlign: "left",
-              paddingLeft: "50px",
-              marginBottom: "10px",
+              width: '100%',
+              textAlign: 'left',
+              paddingLeft: '50px',
+              marginBottom: '10px'
             }}
           >
             Eventos
           </Typography>
           <Grid
             sx={{
-              display: "flex",
-              flexDirection: "column",
+              display: 'flex',
+              flexDirection: 'column',
               flexGrow: 1,
-              padding: "1rem",
+              padding: '1rem'
             }}
           >
             {/** //TODO: Add a correct success message */}
@@ -119,8 +119,8 @@ export const EventsAdminPage = () => {
             >
               <Alert
                 onClose={() => setError(false)}
-                severity="error"
-                sx={{ width: "100%" }}
+                severity='error'
+                sx={{ width: '100%' }}
               >
                 This is a success message!
               </Alert>
@@ -128,41 +128,41 @@ export const EventsAdminPage = () => {
             <form
               onSubmit={handleSubmit(onCreateEvent)}
               style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "10px",
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '10px'
               }}
             >
-              <TextField label="Nombre del evento" variant="standard" />
+              <TextField label='Nombre del evento' variant='standard' />
               <DatePicker
                 slotProps={{
                   textField: {
-                    helperText: "DD/MM/YYYY",
-                  },
+                    helperText: 'DD/MM/YYYY'
+                  }
                 }}
               />
               <TextField
-                label="Descripción"
-                variant="standard"
+                label='Descripción'
+                variant='standard'
                 multiline
                 rows={5}
               />
               <Button
-                variant="contained"
+                variant='contained'
                 onClick={() => setAddMultimedia(true)}
               >
                 Añadir multimedia
               </Button>
-              <Button variant="contained" type="submit">
+              <Button variant='contained' type='submit'>
                 Crear evento
               </Button>
             </form>
           </Grid>
           <Grid
             sx={{
-              display: "flex",
-              flexDirection: "column",
-              padding: "1rem",
+              display: 'flex',
+              flexDirection: 'column',
+              padding: '1rem'
             }}
           >
             {listOfEvents.map((event) => {
@@ -173,11 +173,11 @@ export const EventsAdminPage = () => {
                   index={event?.id}
                   onDelete={onDelete}
                 />
-              );
+              )
             })}
           </Grid>
         </Grid>
       </Container>
     </LayoutAdmin>
-  );
-};
+  )
+}
