@@ -1,5 +1,4 @@
 import { addDoc, arrayUnion, collection, doc, getDocs, updateDoc } from 'firebase/firestore/lite'
-import { setError, setEvents, setLoading } from './CalendarSlice'
 import { FireBaseDB } from '../firebase/firebaseConfig'
 import { sortEventsByDate } from '../../helpers'
 
