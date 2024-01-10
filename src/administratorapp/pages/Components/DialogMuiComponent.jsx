@@ -23,7 +23,7 @@ export default function ResponsiveDialog({ children, title, state, setState, onC
   const handleClose = () => setState(false)
   const onConfirmAction = () => {
     onConfirm()
-    setState(false)
+    handleClose()
   }
 
   useEffect(() => {

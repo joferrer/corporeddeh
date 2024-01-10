@@ -14,6 +14,7 @@ import { AddMultimediaComponent } from './Components/AddMultimedia'
 import LayoutAdmin from './Layout/LayoutAdmin'
 import { CardEventComponent } from './Components'
 import Container from '../../ui/AloneComponents/Container'
+import { useDate } from '../../theme'
 
 const initListOfEvents = new Promise((resolve) => {
   return resolve([
@@ -49,17 +50,18 @@ export const EventsAdminPage = () => {
   const [listOfEvents, setListOfEvents] = useState([])
   const [error, setError] = useState(false)
   const [addMultimedia, setAddMultimedia] = useState({ edit: false, videos: [], images: [] })
+  const { datejs } = useDate()
   const { register, handleSubmit } = useForm()
   const getData = async () => {
     return await initListOfEvents
   }
-  console.log(addMultimedia)
 
   const onDelete = (index) => {
     setListOfEvents(listOfEvents.filter((event) => event.id !== index))
   }
 
   const onCreateEvent = async (event) => {
+    console.log('aq')
     console.log('a', event)
     const response = await sendData(event)
     console.log(response)
@@ -138,12 +140,16 @@ export const EventsAdminPage = () => {
                 {...register('eventName', { required: true })}
               />
               <DatePicker
+                minDate={datejs()}
+                name='eventDate'
+                {...register('eventDate', { required: true })}
+                label='Fecha del evento'
+                defaultValue={datejs()}
                 slotProps={{
                   textField: {
                     helperText: 'DD/MM/YYYY'
                   }
                 }}
-                {...register('eventDate', { required: true })}
 
               />
               <TextField
@@ -156,7 +162,7 @@ export const EventsAdminPage = () => {
               />
               <Button
                 variant='contained'
-                onClick={() => setAddMultimedia({ edit: true, ...addMultimedia })}
+                onClick={() => setAddMultimedia({ ...addMultimedia, edit: true })}
               >
                 Añadir multimedia
               </Button>

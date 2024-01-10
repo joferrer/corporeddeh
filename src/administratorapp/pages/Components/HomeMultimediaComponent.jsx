@@ -4,11 +4,15 @@ import { Button, Grid, TextField, Typography } from '@mui/material'
 import { useMemo, useState } from 'react'
 import { startSetLinksVideos } from '../../../backend/home/HomeThunks'
 
-export const HomeMultimediaComponent = ({ videosList }) => {
+export const HomeMultimediaComponent = ({ videosList, option = 'calendar', setVideosList }) => {
   const [list, setList] = useState(videosList)
 
   const onDelete = async (index) => {
     const newList = list?.filter((video, i) => i !== index)
+    if (option !== 'calendar') {
+      setVideosList(newList)
+      return setList(newList) // Esto es porque este componente se usa en el calendario y en eventos.
+    }
     const { status } = await startSetLinksVideos(newList)
     if (status === 'success') return setList(newList)
     alert('No se pudo eliminar el link del vídeo. Intente nuevamente.')
@@ -21,6 +25,10 @@ export const HomeMultimediaComponent = ({ videosList }) => {
     if (value === '') return alert('El campo no puede estar vacío.')
 
     const newList = [...list, value]
+    if (option !== 'calendar') { // Esto es porque este componente se usa en el calendario y en eventos.
+      setVideosList(newList)
+      return setList(newList)
+    }
     const { status } = await startSetLinksVideos(newList)
     if (status === 'success') return setList(newList)
     alert('No se pudo guardar el link del vídeo. Intente nuevamente.')

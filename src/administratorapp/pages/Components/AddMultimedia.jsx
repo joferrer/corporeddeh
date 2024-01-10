@@ -50,7 +50,10 @@ export const AddMultimediaComponent = ({ videos, imagesList, addMultimedia, setA
     setOpen(state)
     setAddMultimedia({ edit: state, videos: videosList, images: listOfImages.imagesFiles })
   }
-
+  const componentSetVideosList = (newList) => {
+    setVideosList(newList)
+    setAddMultimedia({ ...addMultimedia, videos: newList })
+  }
   useEffect(() => setOpen(addMultimedia.edit), [addMultimedia])
 
   return (
@@ -58,7 +61,7 @@ export const AddMultimediaComponent = ({ videos, imagesList, addMultimedia, setA
       <Grid>
 
         <Grid>
-          <HomeMultimediaComponent videosList={videosList} />
+          <HomeMultimediaComponent videosList={videosList} option='envents' setVideosList={componentSetVideosList} />
         </Grid>
         <Grid>
           <Typography variant='h4'>Imagenes</Typography>
