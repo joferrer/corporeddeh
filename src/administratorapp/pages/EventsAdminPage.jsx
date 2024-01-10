@@ -38,6 +38,7 @@ const initListOfEvents = new Promise((resolve) => {
 })
 
 const sendData = async (data) => {
+  console.log(data)
   return await {
     status: 400,
     message: 'Evento creado correctamente'
@@ -47,18 +48,19 @@ const sendData = async (data) => {
 export const EventsAdminPage = () => {
   const [listOfEvents, setListOfEvents] = useState([])
   const [error, setError] = useState(false)
-  const [addMultimedia, setAddMultimedia] = useState(false)
+  const [addMultimedia, setAddMultimedia] = useState({ edit: false, videos: [], images: [] })
   const { register, handleSubmit } = useForm()
-
   const getData = async () => {
     return await initListOfEvents
   }
+  console.log(addMultimedia)
 
   const onDelete = (index) => {
     setListOfEvents(listOfEvents.filter((event) => event.id !== index))
   }
 
   const onCreateEvent = async (event) => {
+    console.log('a', event)
     const response = await sendData(event)
     console.log(response)
     if (response.status === 200) {
@@ -86,8 +88,6 @@ export const EventsAdminPage = () => {
           }}
         >
           <AddMultimediaComponent
-            event={event}
-            title='Añadir multimedia'
             addMultimedia={addMultimedia}
             setAddMultimedia={setAddMultimedia}
           />
@@ -133,23 +133,30 @@ export const EventsAdminPage = () => {
                 gap: '10px'
               }}
             >
-              <TextField label='Nombre del evento' variant='standard' />
+              <TextField
+                label='Nombre del evento' variant='standard'
+                {...register('eventName', { required: true })}
+              />
               <DatePicker
                 slotProps={{
                   textField: {
                     helperText: 'DD/MM/YYYY'
                   }
                 }}
+                {...register('eventDate', { required: true })}
+
               />
               <TextField
                 label='Descripción'
                 variant='standard'
                 multiline
                 rows={5}
+                {...register('description')}
+
               />
               <Button
                 variant='contained'
-                onClick={() => setAddMultimedia(true)}
+                onClick={() => setAddMultimedia({ edit: true, ...addMultimedia })}
               >
                 Añadir multimedia
               </Button>

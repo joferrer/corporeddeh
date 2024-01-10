@@ -18,9 +18,13 @@ import { useEffect } from 'react'
 export default function ResponsiveDialog({ children, title, state, setState, onConfirm }) {
   const [open, setOpen] = React.useState(false)
   const theme = useTheme()
+  console.log(state)
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'))
-
   const handleClose = () => setState(false)
+  const onConfirmAction = () => {
+    onConfirm()
+    setState(false)
+  }
 
   useEffect(() => {
     setOpen(state)
@@ -45,7 +49,7 @@ export default function ResponsiveDialog({ children, title, state, setState, onC
           <Button autoFocus onClick={handleClose}>
             Cancelar
           </Button>
-          <Button onClick={onConfirm} autoFocus>
+          <Button onClick={onConfirmAction} autoFocus>
             Confirmar
           </Button>
         </DialogActions>

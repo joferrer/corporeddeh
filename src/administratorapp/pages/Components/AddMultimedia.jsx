@@ -10,7 +10,8 @@ export const AddMultimediaComponent = ({ videos, imagesList, addMultimedia, setA
   const [videosList, setVideosList] = useState(videos || [])
   const [open, setOpen] = useState(false)
   const { images } = listOfImages
-
+  console.log(addMultimedia)
+  console.log(open)
   const onImgDelete = (index, imgIndex) => {
     const newListOfImages = images
     newListOfImages.splice(imgIndex, 1)
@@ -45,10 +46,15 @@ export const AddMultimediaComponent = ({ videos, imagesList, addMultimedia, setA
     }
   }
 
-  useEffect(() => setOpen(addMultimedia), [addMultimedia])
+  const setDialogState = (state) => {
+    setOpen(state)
+    setAddMultimedia({ edit: state, videos: videosList, images: listOfImages.imagesFiles })
+  }
+
+  useEffect(() => setOpen(addMultimedia.edit), [addMultimedia])
 
   return (
-    <ResponsiveDialog title='Añadir multimedia' state={open} setState={setAddMultimedia}>
+    <ResponsiveDialog title='Añadir multimedia' state={open} setState={setDialogState} onConfirm={() => { }}>
       <Grid>
 
         <Grid>

@@ -23,6 +23,7 @@ const LoginComponent = () => {
   })
 
   const onSubmit = (data) => {
+    // TODO: Implementar login con usuario y contraseña.
     // e.preventDefault()
     console.log(data)
     // setError({error:true,message:"Correo o contraseña incorrectos"})
