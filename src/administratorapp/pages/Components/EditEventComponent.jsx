@@ -4,6 +4,7 @@ import { Button, Grid, TextField } from '@mui/material'
 import { DatePicker } from '@mui/x-date-pickers'
 import { useDate } from '../../../theme/dateConfig'
 import { useState } from 'react'
+import { set } from 'react-hook-form'
 
 const sendData = async (data) => {
   return await {
@@ -12,9 +13,10 @@ const sendData = async (data) => {
   }
 }
 
-export const EditEventComponent = ({ event, setOpen, setListOfEvents, listOfEvents }) => {
+export const EditEventComponent = ({ event, setEvent, setOpen, setListOfEvents, listOfEvents }) => {
   const { datejs } = useDate()
   const [sendStatus, setSendStatus] = useState(false)
+  console.log(event)
   const onSubmit = async () => {
     console.log('SUBMIT', event)
     // setOpen(false)
@@ -48,7 +50,9 @@ export const EditEventComponent = ({ event, setOpen, setListOfEvents, listOfEven
           label='Descripción'
           multiline
           rows={4}
-          defaultValue={event?.descripcion}
+          value={event?.descripcion}
+          onChange={(e) => setEvent({ ...event, descripcion: e.target.value })}
+
         />
 
       </Grid>
@@ -59,7 +63,12 @@ export const EditEventComponent = ({ event, setOpen, setListOfEvents, listOfEven
 
       }}
       >
-        <DatePicker defaultValue={datejs(event.fecha)} />
+        <DatePicker
+          label='Fecha'
+          value={datejs(event.fecha)}
+          onChange={(date) => setEvent({ ...event, fecha: datejs(date).format('DD/MM/YYYY') })}
+
+        />
         <Button variant='contained'>Añadir multimedia</Button>
         <Button variant='contained'>Guardar cambios</Button>
       </Grid>

@@ -47,6 +47,7 @@ export const EventsAdminPage = () => {
       swal('Evento creado correctamente', '', 'success')
       return setListOfEvents([...listOfEvents, event])
     }
+    swal('No se pudo crear el evento, intentelo de nuevo.', '', 'error')
     setError(true)
   }
 
@@ -89,10 +90,11 @@ export const EventsAdminPage = () => {
               display: 'flex',
               flexDirection: 'column',
               flexGrow: 1,
-              padding: '1rem'
+              padding: '1rem',
+              maxHeight: 'fit-content'
             }}
           >
-            {/** //TODO: Add a correct success message */}
+
             <Snackbar
               open={error}
               autoHideDuration={6000}

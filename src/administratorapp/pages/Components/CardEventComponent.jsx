@@ -1,12 +1,14 @@
 /* eslint-disable react/prop-types */
 import { Button, Card, CardActions, CardContent, CardMedia, Grid, Typography } from '@mui/material'
 import { useState } from 'react'
-import TransitionsModal from './ModalComponent'
 import { EditEventComponent } from './EditEventComponent'
 import { Clear, Edit } from '@mui/icons-material'
+import ResponsiveDialog from './DialogMuiComponent'
 
 export const CardEventComponent = ({ event, onDelete }) => {
   const [open, setOpen] = useState(false)
+  const [eventToEdit, setEventToEdit] = useState(event)
+  console.log(eventToEdit)
   return (
     <Card sx={{
       width: '100%',
@@ -17,10 +19,10 @@ export const CardEventComponent = ({ event, onDelete }) => {
       maxWidth: '500px'
     }}
     >
-      {/* //TODO Replace the transitionsModal with the ResponsiveDialog */}
-      <TransitionsModal title='Editar evento' state={open} setState={setOpen}>
-        <EditEventComponent event={event} />
-      </TransitionsModal>
+
+      <ResponsiveDialog title='Editar evento' state={open} setState={setOpen} onConfirm={() => { }}>
+        <EditEventComponent event={eventToEdit} setEvent={setEventToEdit} />
+      </ResponsiveDialog>
 
       <Grid
         sx={{
@@ -57,7 +59,7 @@ export const CardEventComponent = ({ event, onDelete }) => {
             variant='contained' color='error' sx={{
               flexGrow: 1
             }}
-            onClick={() => onDelete(event?.id)}
+            onClick={() => onDelete(eventToEdit?.id)}
           >
             <Clear />
           </Button>
@@ -69,7 +71,7 @@ export const CardEventComponent = ({ event, onDelete }) => {
       }}
       >
         <Typography variant='h4'>{event?.titulo}</Typography>
-        <Typography variant='h6'>{event?.fecha}</Typography>
+        <Typography variant='h6'>{eventToEdit?.fecha}</Typography>
         <Typography variant='body1'>{event?.descripcion}</Typography>
 
       </CardContent>
