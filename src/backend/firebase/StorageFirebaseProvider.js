@@ -129,3 +129,34 @@ export const deleteAllImagesForMonth = async (mouth, year) => {
     })
   return urls
 }
+/**
+ * Save a list of images in the images folder according to the event id and return a list of urls.
+ * @param {[]} images
+ * @param {String || Number} id
+ * @returns {Promise<{status: string, urls?: string[], error?: string}>}
+ */
+export const saveListOfImagesByEvent = async (images, id) => {
+  const promises = images.map(async (image) => {
+    const UID = Math.floor(Math.random() * 999999999)
+    const fileRef = ref(storageRef, `events/${id}/${UID}.jpg`)
+    const snapshot = await uploadBytes(fileRef, image, metadata)
+    const url = await getDownloadURL(snapshot.ref)
+    return {
+      url
+    }
+  })
+  return Promise.all(promises)
+    .then(async (res) => {
+      const urls = res.map((img) => img.url)
+      return {
+        status: 'success',
+        urls
+      }
+    })
+    .catch((error) => {
+      return {
+        status: 'error',
+        error: error.code
+      }
+    })
+}

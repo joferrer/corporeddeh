@@ -15,36 +15,8 @@ import LayoutAdmin from './Layout/LayoutAdmin'
 import { CardEventComponent } from './Components'
 import Container from '../../ui/AloneComponents/Container'
 import { useDate } from '../../theme'
-
-const initListOfEvents = new Promise((resolve) => {
-  return resolve([
-    {
-      id: '1',
-      titulo: 'Titulo',
-      descripcion:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quibusdam.Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quibusdam. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quibusdam.Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quibusdam.',
-      fecha: '20/20/2023',
-      imagen:
-        'https://pbs.twimg.com/media/FCVslvrXoAAIzS7?format=jpg&name=large'
-    },
-    {
-      id: '2',
-      titulo: 'Titulo',
-      descripcion: 'Una descripcion Larga...........',
-      fecha: '20/20/2023',
-      imagen:
-        'https://pbs.twimg.com/media/FCVslvrXoAAIzS7?format=jpg&name=large'
-    }
-  ])
-})
-
-const sendData = async (data) => {
-  console.log(data)
-  return await {
-    status: 400,
-    message: 'Evento creado correctamente'
-  }
-}
+import { startLoadEvents, startSaveEvent } from '../../backend/events/EventsThunks'
+import swal from 'sweetalert'
 
 export const EventsAdminPage = () => {
   const [listOfEvents, setListOfEvents] = useState([])
@@ -53,7 +25,9 @@ export const EventsAdminPage = () => {
   const { datejs } = useDate()
   const { register, handleSubmit } = useForm()
   const getData = async () => {
-    return await initListOfEvents
+    const { status, events } = await startLoadEvents()
+    if (status === 'error') return setError(true)
+    return events
   }
 
   const onDelete = (index) => {
@@ -61,11 +35,16 @@ export const EventsAdminPage = () => {
   }
 
   const onCreateEvent = async (event) => {
-    console.log('aq')
     console.log('a', event)
-    const response = await sendData(event)
+    const dataToSend = {
+      ...event,
+      videos: addMultimedia.videos,
+      images: addMultimedia.images
+    }
+    const response = await startSaveEvent(dataToSend)
     console.log(response)
-    if (response.status === 200) {
+    if (response.status === 'success') {
+      swal('Evento creado correctamente', '', 'success')
       return setListOfEvents([...listOfEvents, event])
     }
     setError(true)
