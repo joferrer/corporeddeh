@@ -112,6 +112,7 @@ export const startSaveEventDoc = async (event) => {
 
 export const startSaveImgOfEvent = async (files, id) => {
   try {
+    console.log('Upload event images', files, id)
     const { status, urls, error } = await saveListOfImagesByEvent(files, id)
     if (status === 'error') {
       return {
@@ -162,16 +163,15 @@ export const startDeleteAImgOfEvent = async (id, urls, name) => {
 
 export const startUpdateEvent = async (id, event) => {
   try {
+    console.log(event)
     const newEvent = {
       titulo: event.eventName,
       descripcion: event.description,
       fecha: toDate(event.eventDate),
-      imagen: event.videos
+      imagen: event.imagen
     }
     const eventRef = doc(db, 'events', id)
-    await updateDoc(eventRef, {
-      imagen: arrayUnion(...urls)
-    })
+    await updateDoc(eventRef, newEvent)
     return {
       status: 'success'
     }

@@ -4,7 +4,7 @@ import { ImagesAdminComponent } from './ImagesAdminComponent'
 import { useEffect, useState } from 'react'
 import { HomeMultimediaComponent } from './HomeMultimediaComponent'
 import ResponsiveDialog from './DialogMuiComponent'
-import { startDeleteAImgOfEvent } from '../../../backend/events/EventsThunks'
+import { startDeleteAImgOfEvent, startSaveImgOfEvent } from '../../../backend/events/EventsThunks'
 import swal from 'sweetalert'
 
 function getFilenameFromURL(url) {
@@ -20,7 +20,7 @@ const nombreDeArchivo = getFilenameFromURL(url)
 
 console.log(nombreDeArchivo) // Esto debería imprimir "235068201.jpg"
 
-export const AddMultimediaComponent = ({ videos, imagesList = [], addMultimedia, setAddMultimedia, id }) => {
+export const AddMultimediaComponent = ({ videos, imagesList = [], addMultimedia, setAddMultimedia, id, onConfirm }) => {
   const [listOfImages, setListOfImages] = useState({ images: imagesList, imagesFiles: [], error: false })
   const [videosList, setVideosList] = useState(videos || addMultimedia.videos || [])
   const [open, setOpen] = useState(false)
@@ -29,13 +29,17 @@ export const AddMultimediaComponent = ({ videos, imagesList = [], addMultimedia,
   const { images } = listOfImages
   console.log(listOfImages)
   const onImgDelete = (index, imgIndex) => {
-    const img = images[index]
+    const img = images[imgIndex]
     const newListOfImages = images
+    console.log(newListOfImages)
+    console.log(imgIndex, img)
     newListOfImages.splice(imgIndex, 1)
+    console.log(newListOfImages)
 
     if (img.includes('firebase')) {
       const filename = getFilenameFromURL(img)
       console.log(filename)
+
       Promise.all([startDeleteAImgOfEvent(id, newListOfImages.concat(addMultimedia.videos), filename)])
         .then((res) => {
           const { status } = res[0]
@@ -68,11 +72,12 @@ export const AddMultimediaComponent = ({ videos, imagesList = [], addMultimedia,
         const urlImg = URL.createObjectURL(new Blob([imageBuff], { type: 'image/*' }))
         const newListOfImages = listOfImages.images
         newListOfImages.push(urlImg)
+        console.log('urlprueba', urlImg)
         console.log('prueba', listOfImages)
         const newListOfImagesFiles = listOfImages.imagesFiles
         newListOfImagesFiles.push(imageBuff)
-
-        setListOfImages({ images: newListOfImages, imagesFiles: newListOfImagesFiles, error: false })
+        console.log(newListOfImagesFiles)
+        setListOfImages({ ...listOfImages, images: newListOfImages, imagesFiles: newListOfImagesFiles, error: false })
         setAddMultimedia({ ...addMultimedia, imagesFiles: newListOfImagesFiles })
         console.log(listOfImages)
       }
@@ -91,14 +96,23 @@ export const AddMultimediaComponent = ({ videos, imagesList = [], addMultimedia,
     setVideosList(newList)
     setAddMultimedia({ ...addMultimedia, videos: newList })
   }
+
+  const saveData = async () => {
+    console.log('a', listOfImages)
+    const { status } = await startSaveImgOfEvent(listOfImages.imagesFiles, id)
+    if (status === 'success') {
+      return swal('Imagenes creadas correctamente', '', 'success').finally(() => window.location.reload())
+    }
+    return swal('No se pudo crear el evento, intentelo de nuevo.', '', 'error')
+  }
   useEffect(() => {
     setOpen(addMultimedia.edit)
     setVideosList(addMultimedia.videos)
-    setListOfImages({ ...addMultimedia, imagesFiles: [] })
+    setListOfImages({ ...addMultimedia, imagesFiles: addMultimedia?.imagesFiles || [] })
   }, [addMultimedia])
 
   return (
-    <ResponsiveDialog title='Añadir multimedia' state={open} setState={setDialogState} onConfirm={() => { }}>
+    <ResponsiveDialog title='Añadir multimedia' state={open} setState={setDialogState} onConfirm={saveData}>
       <Grid>
 
         <Grid>

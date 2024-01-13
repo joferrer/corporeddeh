@@ -20,9 +20,7 @@ export const CardEventComponent = ({ event, onDelete }) => {
     }}
     >
 
-      <ResponsiveDialog title='Editar evento' state={open} setState={setOpen} onConfirm={() => { }}>
-        <EditEventComponent event={eventToEdit} setEvent={setEventToEdit} />
-      </ResponsiveDialog>
+      <EditEventComponent event={eventToEdit} setEvent={setEventToEdit} open={open} setOpen={setOpen} />
 
       <Grid
         sx={{
