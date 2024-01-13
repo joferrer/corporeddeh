@@ -1,6 +1,6 @@
 import { addDoc, arrayUnion, collection, doc, getDocs, updateDoc } from 'firebase/firestore/lite'
 import { FireBaseDB } from '../firebase/firebaseConfig'
-import { saveListOfImagesByEvent } from '../firebase/StorageFirebaseProvider'
+import { deleteAImageOfAnEvent, saveListOfImagesByEvent } from '../firebase/StorageFirebaseProvider'
 import { useDate } from '../../theme'
 
 const db = FireBaseDB
@@ -134,6 +134,52 @@ export const startSaveImgOfEvent = async (files, id) => {
     return {
       status: 'error',
       error: error.code
+    }
+  }
+}
+
+export const startDeleteAImgOfEvent = async (id, urls, name) => {
+  try {
+    console.log(urls, id, name)
+    const eventRef = doc(db, 'events', id)
+    await deleteAImageOfAnEvent(id, name)
+    await updateDoc(eventRef, {
+      imagen: urls
+    })
+    return {
+      status: 'success',
+      id,
+      name
+    }
+  } catch (error) {
+    console.log(error)
+    return {
+      status: 'error',
+      error: error.code
+    }
+  }
+}
+
+export const startUpdateEvent = async (id, event) => {
+  try {
+    const newEvent = {
+      titulo: event.eventName,
+      descripcion: event.description,
+      fecha: toDate(event.eventDate),
+      imagen: event.videos
+    }
+    const eventRef = doc(db, 'events', id)
+    await updateDoc(eventRef, {
+      imagen: arrayUnion(...urls)
+    })
+    return {
+      status: 'success'
+    }
+  } catch (error) {
+    console.log(error)
+    return {
+      status: 'error',
+      error
     }
   }
 }

@@ -3,26 +3,45 @@
 import { Button, Grid, TextField } from '@mui/material'
 import { DatePicker } from '@mui/x-date-pickers'
 import { useDate } from '../../../theme/dateConfig'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { set } from 'react-hook-form'
+import ResponsiveDialog from './DialogMuiComponent'
+import { AddMultimediaComponent } from './AddMultimedia'
+import swal from 'sweetalert'
 
 const sendData = async (data) => {
   return await {
-    status: 200,
+    status: 'success',
     message: 'Evento creado correctamente'
   }
 }
 
 export const EditEventComponent = ({ event, setEvent, setOpen, setListOfEvents, listOfEvents }) => {
   const { datejs } = useDate()
-  const [sendStatus, setSendStatus] = useState(false)
+  const [addMultimedia, setAddMultimedia] = useState({ edit: false, videos: [], images: [], imagesFiles: [] })
+  console.log(addMultimedia)
   console.log(event)
   const onSubmit = async () => {
     console.log('SUBMIT', event)
     // setOpen(false)
-    const response = await sendData(event)
-    setSendStatus(response)
+
+    const { status } = await sendData(event)
+    if (status !== 'success') {
+      return swal('No se pudo crear el evento, intentelo de nuevo.', '', 'error')
+    }
+    setListOfEvents([...listOfEvents, event])
   }
+
+  const onConfirm = () => {
+    onSubmit()
+    setOpen(false)
+  }
+  useEffect(() => {
+    const { imagen } = event
+    const videosList = imagen.filter((img) => img.includes('youtube'))
+    const imagesList = imagen.filter((img) => !img.includes('youtube'))
+    setAddMultimedia({ edit: false, videos: videosList, images: imagesList, imagesFiles: [] })
+  }, [])
 
   return (
     <Grid
@@ -33,6 +52,8 @@ export const EditEventComponent = ({ event, setEvent, setOpen, setListOfEvents, 
         flexWrap: 'wrap'
       }}
     >
+      <AddMultimediaComponent addMultimedia={addMultimedia} setAddMultimedia={setAddMultimedia} imagesList={addMultimedia?.images} id={event.id} />
+
       <Grid sx={{
         display: 'flex',
         flexDirection: 'column',
@@ -69,7 +90,7 @@ export const EditEventComponent = ({ event, setEvent, setOpen, setListOfEvents, 
           onChange={(date) => setEvent({ ...event, fecha: datejs(date).format('DD/MM/YYYY') })}
 
         />
-        <Button variant='contained'>Añadir multimedia</Button>
+        <Button variant='contained' onClick={() => setAddMultimedia({ ...addMultimedia, edit: true })}>Añadir multimedia</Button>
         <Button variant='contained'>Guardar cambios</Button>
       </Grid>
 
