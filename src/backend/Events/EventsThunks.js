@@ -56,6 +56,7 @@ export const startLoadEvents = async () => {
  * @returns
  */
 export const startSaveEvent = async (event) => {
+  console.log(event)
   const newEvent = {
     titulo: event.eventName,
     descripcion: event.description,
@@ -143,7 +144,13 @@ export const startDeleteAImgOfEvent = async (id, urls, name) => {
   try {
     console.log(urls, id, name)
     const eventRef = doc(db, 'events', id)
-    await deleteAImageOfAnEvent(id, name)
+    const resp = await deleteAImageOfAnEvent(id, name)
+    if (resp.status === 'error') {
+      return {
+        status: 'error',
+        error: resp.error
+      }
+    }
     await updateDoc(eventRef, {
       imagen: urls
     })

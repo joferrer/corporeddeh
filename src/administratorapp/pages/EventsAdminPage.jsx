@@ -17,11 +17,13 @@ import Container from '../../ui/AloneComponents/Container'
 import { useDate } from '../../theme'
 import { startDeleteEventById, startLoadEvents, startSaveEvent } from '../../backend/Events/EventsThunks'
 import swal from 'sweetalert2'
+import dayjs from 'dayjs'
 
 export const EventsAdminPage = () => {
   const [listOfEvents, setListOfEvents] = useState([])
   const [error, setError] = useState(false)
   const [addMultimedia, setAddMultimedia] = useState({ edit: false, videos: [], images: [] })
+  const [date, setDate] = useState(dayjs().format('DD/MM/YYYY'))
   const { datejs } = useDate()
   const { register, handleSubmit } = useForm()
   const getData = async () => {
@@ -42,7 +44,7 @@ export const EventsAdminPage = () => {
       dangerMode: true
     })
       .then(async (willDelete) => {
-        if (willDelete) {
+        if (willDelete.isConfirmed) {
           const response = await startDeleteEventById(id)
           if (response.status === 'success') {
             swal.fire({
@@ -76,6 +78,7 @@ export const EventsAdminPage = () => {
     })
     const dataToSend = {
       ...event,
+      eventDate: date,
       videos: addMultimedia.videos,
       images: addMultimedia.images
     }
@@ -172,11 +175,11 @@ export const EventsAdminPage = () => {
                 {...register('eventName', { required: true })}
               />
               <DatePicker
-                minDate={datejs()}
-                name='eventDate'
-                {...register('eventDate', { required: true })}
                 label='Fecha del evento'
                 defaultValue={datejs()}
+                onChange={(date) => {
+                  setDate(date.format('DD/MM/YYYY'))
+                }}
                 slotProps={{
                   textField: {
                     helperText: 'DD/MM/YYYY'

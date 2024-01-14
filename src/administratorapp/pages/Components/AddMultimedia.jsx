@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 import { HomeMultimediaComponent } from './HomeMultimediaComponent'
 import ResponsiveDialog from './DialogMuiComponent'
 import { startDeleteAImgOfEvent, startSaveImgOfEvent } from '../../../backend/Events/EventsThunks'
-import swal from 'sweetalert'
+import swal from 'sweetalert2'
 
 const getFilenameFromURL = (url) => {
   const path = url.split('/')
@@ -39,22 +39,44 @@ export const AddMultimediaComponent = ({ videos, imagesList = [], addMultimedia,
     if (img.includes('firebase')) {
       const filename = getFilenameFromURL(img)
       console.log(filename)
-
-      Promise.all([startDeleteAImgOfEvent(id, newListOfImages.concat(addMultimedia.videos), filename)])
-        .then((res) => {
-          const { status } = res[0]
-          if (status === 'success') {
-            setListOfImages({ images: newListOfImages, imagesFiles: listOfImages.imagesFiles, error: false })
-            return swal('Imagen eliminada correctamente', '', 'success')
+      swal.fire({
+        title: '¿Estás seguro?',
+        text: 'Una vez eliminado, no podrás recuperar esta imagen!',
+        icon: 'warning',
+        buttons: true,
+        dangerMode: true,
+        showCancelButton: true,
+        confirmButtonText: 'Si, eliminar!'
+      })
+        .then(async (willDelete) => {
+          console.log(willDelete.isConfirmed)
+          if (willDelete.isConfirmed) {
+            const { status } = await startDeleteAImgOfEvent(id, newListOfImages.concat(addMultimedia.videos), filename)
+            if (status === 'success') {
+              setListOfImages({ images: newListOfImages, imagesFiles: listOfImages.imagesFiles, error: false })
+              return swal.fire({
+                title: 'Imagen eliminada correctamente',
+                icon: 'success'
+              })
+            }
+            return swal.fire({
+              title: 'No se pudo eliminar la imagen, intentelo de nuevo.',
+              icon: 'error'
+            })
           }
-          return swal('No se pudo eliminar la imagen, intentelo de nuevo.', '', 'error')
+          return swal.fire({
+            title: 'La imagen no se elimino.',
+            icon: 'info'
+          })
         })
         .catch(() =>
-          swal('No se pudo eliminar la imagen, intentelo de nuevo.', '', 'error')
+          swal.fire.fire({
+            title: 'No se pudo eliminar la imagen, intentelo de nuevo.',
+            icon: 'error'
+          })
         )
       return
     }
-
     const newListOfImagesFiles = listOfImages.imagesFiles
     newListOfImagesFiles.splice(imgIndex, 1)
 
@@ -99,11 +121,27 @@ export const AddMultimediaComponent = ({ videos, imagesList = [], addMultimedia,
 
   const saveData = async () => {
     console.log('a', listOfImages)
+    swal.fire({
+      title: 'Creando evento...',
+      icon: 'info',
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+      allowEnterKey: false,
+      showConfirmButton: false
+    })
     const { status } = await startSaveImgOfEvent(listOfImages.imagesFiles, id)
     if (status === 'success') {
-      return swal('Imagenes creadas correctamente', '', 'success').finally(() => window.location.reload())
+      return swal.fire({
+        title: 'Evento creado correctamente',
+        icon: 'success'
+      })
+        .finally(() => window.location.reload())
     }
-    return swal('No se pudo crear el evento, intentelo de nuevo.', '', 'error')
+    return swal.fire({
+      title: 'No se pudo crear el evento, intentelo de nuevo.',
+      icon: 'error'
+
+    })
   }
   useEffect(() => {
     console.log(addMultimedia)
