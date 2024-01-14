@@ -18,25 +18,28 @@ const sendData = async (data) => {
 }
 
 export const EditEventComponent = ({ event, setEvent, setOpen, setListOfEvents, listOfEvents, open }) => {
-  const { datejs } = useDate()
+  const { datejs, toFormat, dayjsDate } = useDate()
   const [addMultimedia, setAddMultimedia] = useState({ edit: false, videos: [], images: [], imagesFiles: [] })
   console.log(addMultimedia)
   console.log(event)
+  console.log(event.fecha)
   const onSubmit = async () => {
     console.log('SUBMIT', event)
     // setOpen(false)
     const eventToUpdate = {
-      ...event,
-      images: addMultimedia.videos.concat(addMultimedia.images)
+      eventName: event.titulo,
+      eventDate: event.fecha,
+      description: event.descripcion,
+      imagen: addMultimedia.videos.concat(addMultimedia.images)
     }
     // Primero se guarda el doc en firestore.
-    const updateEvent = await startUpdateEvent(eventToUpdate)
-    if (updateEvent.status !== 'success') return swal('No se pudo crear el evento, intentelo de nuevo.', '', 'error')
+    const updateEvent = await startUpdateEvent(event.id, eventToUpdate)
+    if (updateEvent.status !== 'success') return swal('No se pudo editar el evento, intentelo de nuevo.', '', 'error')
     // Luego si hay imagenes cargadas por el usuario se guardan en storage.
     if (addMultimedia.imagesFiles.length !== 0) {
       const { status } = await startSaveImgOfEvent(addMultimedia.imagesFiles, event.id)
       if (status !== 'success') {
-        return swal('No se pudo crear el evento, intentelo de nuevo.', '', 'error')
+        return swal('No se pudo editar el evento, intentelo de nuevo.', '', 'error')
       }
     }
     // Para ahorrar problemas con el cache se recarga la pagina luego de notificar al usuario.
@@ -56,7 +59,7 @@ export const EditEventComponent = ({ event, setEvent, setOpen, setListOfEvents, 
   }, [addMultimedia.edit])
 
   return (
-    <ResponsiveDialog title='Editar evento' state={open} setState={setOpen} onConfirm={onConfirm}>
+    <ResponsiveDialog title='Editar evento' state={open} setState={setOpen} onConfirm={onConfirm} creating>
       <Grid
         sx={{
           display: 'flex',
@@ -70,6 +73,7 @@ export const EditEventComponent = ({ event, setEvent, setOpen, setListOfEvents, 
           setAddMultimedia={setAddMultimedia}
           imagesList={addMultimedia?.images}
           id={event.id}
+          creating
         />
 
         <Grid sx={{
@@ -83,7 +87,7 @@ export const EditEventComponent = ({ event, setEvent, setOpen, setListOfEvents, 
 
         }}
         >
-          <TextField variant='outlined' label='Titulo' defaultValue={event?.titulo} />
+          <TextField variant='outlined' label='Titulo' defaultValue={event?.titulo} onChange={(e) => setEvent({ ...event, titulo: e.target.value })} />
           <TextField
             variant='outlined'
             label='Descripción'
@@ -104,8 +108,8 @@ export const EditEventComponent = ({ event, setEvent, setOpen, setListOfEvents, 
         >
           <DatePicker
             label='Fecha'
-            value={datejs(event.fecha)}
-            onChange={(date) => setEvent({ ...event, fecha: datejs(date).format('DD/MM/YYYY') })}
+            value={dayjsDate(toFormat(event?.fecha))}
+            onChange={(date) => setEvent({ ...event, fecha: toFormat(date) })}
 
           />
           <Button variant='contained' onClick={() => setAddMultimedia({ ...addMultimedia, edit: true })}>Añadir multimedia</Button>

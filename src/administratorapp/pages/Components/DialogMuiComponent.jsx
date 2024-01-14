@@ -15,7 +15,7 @@ import { useEffect } from 'react'
  * @props {title, state, setState, onConfirm}
  * @returns ReactComponent
  */
-export default function ResponsiveDialog({ children, title, state, setState, onConfirm }) {
+export default function ResponsiveDialog({ children, title, state, setState, onConfirm, creating = false }) {
   const [open, setOpen] = React.useState(false)
   const theme = useTheme()
   console.log(state)
@@ -48,10 +48,15 @@ export default function ResponsiveDialog({ children, title, state, setState, onC
         <DialogActions>
           <Button autoFocus onClick={handleClose}>
             Cancelar
-          </Button>
-          <Button onClick={onConfirmAction} autoFocus>
-            Confirmar
-          </Button>
+          </Button>{
+            creating
+              ? (
+                <Button onClick={onConfirmAction} autoFocus>
+                  Confirmar
+                </Button>)
+              : null
+          }
+
         </DialogActions>
       </Dialog>
     </>

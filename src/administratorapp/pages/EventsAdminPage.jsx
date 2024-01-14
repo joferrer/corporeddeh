@@ -29,7 +29,8 @@ export const EventsAdminPage = () => {
     if (status === 'error') return setError(true)
     return events
   }
-
+  console.log(listOfEvents)
+  console.log(addMultimedia)
   const onDelete = (index) => {
     setListOfEvents(listOfEvents.filter((event) => event.id !== index))
   }
@@ -45,7 +46,14 @@ export const EventsAdminPage = () => {
     console.log(response)
     if (response.status === 'success') {
       swal('Evento creado correctamente', '', 'success')
-      return setListOfEvents([...listOfEvents, event])
+      const newEvent = {
+        id: response.id,
+        imagen: response.urls,
+        titulo: dataToSend.eventName,
+        descripcion: dataToSend.description,
+        fecha: dataToSend.eventDate
+      }
+      return setListOfEvents([...listOfEvents, newEvent])
     }
     swal('No se pudo crear el evento, intentelo de nuevo.', '', 'error')
     setError(true)

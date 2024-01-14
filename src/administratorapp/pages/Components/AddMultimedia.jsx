@@ -20,7 +20,7 @@ const nombreDeArchivo = getFilenameFromURL(url)
 
 console.log(nombreDeArchivo) // Esto debería imprimir "235068201.jpg"
 
-export const AddMultimediaComponent = ({ videos, imagesList = [], addMultimedia, setAddMultimedia, id, onConfirm }) => {
+export const AddMultimediaComponent = ({ videos, imagesList = [], addMultimedia, setAddMultimedia, id, onConfirm, creating = false }) => {
   const [listOfImages, setListOfImages] = useState({ images: imagesList, imagesFiles: [], error: false })
   const [videosList, setVideosList] = useState(videos || addMultimedia.videos || [])
   const [open, setOpen] = useState(false)
@@ -106,13 +106,13 @@ export const AddMultimediaComponent = ({ videos, imagesList = [], addMultimedia,
     return swal('No se pudo crear el evento, intentelo de nuevo.', '', 'error')
   }
   useEffect(() => {
+    console.log(addMultimedia)
     setOpen(addMultimedia.edit)
     setVideosList(addMultimedia.videos)
-    setListOfImages({ ...addMultimedia, imagesFiles: addMultimedia?.imagesFiles || [] })
   }, [addMultimedia])
 
   return (
-    <ResponsiveDialog title='Añadir multimedia' state={open} setState={setDialogState} onConfirm={saveData}>
+    <ResponsiveDialog title='Añadir multimedia' state={open} setState={setDialogState} onConfirm={saveData} creating={creating}>
       <Grid>
 
         <Grid>

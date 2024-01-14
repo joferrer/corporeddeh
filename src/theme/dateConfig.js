@@ -13,5 +13,12 @@ export const useDate = () => {
   const toDate = (date) => {
     return datejs(date, 'DD/MM/YYYY').toDate()
   }
-  return { datejs, month, toDate }
+
+  const toFormat = (date) => {
+    return dayjs(date).format('DD/MM/YYYY')
+  }
+  const dayjsDate = (date) => {
+    return dayjs(date)
+  }
+  return { datejs, month, toDate, toFormat, dayjsDate }
 }

@@ -2,10 +2,11 @@ import { addDoc, arrayUnion, collection, doc, getDocs, updateDoc } from 'firebas
 import { FireBaseDB } from '../firebase/firebaseConfig'
 import { deleteAImageOfAnEvent, saveListOfImagesByEvent } from '../firebase/StorageFirebaseProvider'
 import { useDate } from '../../theme'
+import dayjs from 'dayjs'
 
 const db = FireBaseDB
 
-const { datejs, toDate } = useDate()
+const { toDate, toFormat } = useDate()
 /**
  * eventExample ={
  * eventName: '',
@@ -30,11 +31,12 @@ export const startLoadEvents = async () => {
     const eventsRef = collection(db, 'events')
     const querySnapshot = await getDocs(eventsRef)
     querySnapshot.forEach((doc) => {
-      console.log(datejs(doc.data().fecha).format('DD/MM/YYYY'))
+      console.log(doc.id, ' => ', doc.data().fecha)
+
       events.push({
         id: doc.id,
         ...doc.data(),
-        fecha: datejs(doc.data().fecha).format('DD/MM/YYYY')
+        fecha: toFormat(doc.data().fecha.toDate())
       })
     })
     return {
@@ -163,13 +165,14 @@ export const startDeleteAImgOfEvent = async (id, urls, name) => {
 
 export const startUpdateEvent = async (id, event) => {
   try {
-    console.log(event)
+    console.log(event, id)
     const newEvent = {
       titulo: event.eventName,
       descripcion: event.description,
-      fecha: toDate(event.eventDate),
+      fecha: dayjs(event.eventDate, 'DD/MM/YYYY').toDate(),
       imagen: event.imagen
     }
+    console.log(newEvent)
     const eventRef = doc(db, 'events', id)
     await updateDoc(eventRef, newEvent)
     return {

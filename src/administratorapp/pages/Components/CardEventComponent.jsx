@@ -9,6 +9,7 @@ export const CardEventComponent = ({ event, onDelete }) => {
   const [open, setOpen] = useState(false)
   const [eventToEdit, setEventToEdit] = useState(event)
   console.log(eventToEdit)
+  console.log(event)
   return (
     <Card sx={{
       width: '100%',
@@ -69,7 +70,7 @@ export const CardEventComponent = ({ event, onDelete }) => {
       }}
       >
         <Typography variant='h4'>{event?.titulo}</Typography>
-        <Typography variant='h6'>{eventToEdit?.fecha}</Typography>
+        <Typography variant='h6'>{event?.fecha}</Typography>
         <Typography variant='body1'>{event?.descripcion}</Typography>
 
       </CardContent>
