@@ -15,8 +15,8 @@ import LayoutAdmin from './Layout/LayoutAdmin'
 import { CardEventComponent } from './Components'
 import Container from '../../ui/AloneComponents/Container'
 import { useDate } from '../../theme'
-import { startLoadEvents, startSaveEvent } from '../../backend/events/EventsThunks'
-import swal from 'sweetalert'
+import { startDeleteEventById, startLoadEvents, startSaveEvent } from '../../backend/events/EventsThunks'
+import swal from 'sweetalert2'
 
 export const EventsAdminPage = () => {
   const [listOfEvents, setListOfEvents] = useState([])
@@ -31,8 +31,37 @@ export const EventsAdminPage = () => {
   }
   console.log(listOfEvents)
   console.log(addMultimedia)
-  const onDelete = (index) => {
-    setListOfEvents(listOfEvents.filter((event) => event.id !== index))
+  const onDelete = async (index) => {
+    const { id } = listOfEvents.find((event) => event.id === index)
+    console.log(id)
+    swal.fire({
+      title: '¿Estás seguro?',
+      text: 'Una vez eliminado, no podrás recuperar este evento!',
+      icon: 'warning',
+      buttons: true,
+      dangerMode: true
+    })
+      .then(async (willDelete) => {
+        if (willDelete) {
+          const response = await startDeleteEventById(id)
+          if (response.status === 'success') {
+            swal.fire({
+              title: 'Evento eliminado correctamente',
+              icon: 'success'
+            })
+            return setListOfEvents(listOfEvents.filter((event) => event.id !== index))
+          }
+          swal.fire({
+            title: 'No se pudo eliminar el evento, intentelo de nuevo.',
+            icon: 'error'
+          })
+        } else {
+          swal.fire({
+            title: 'No se pudo eliminar el evento, intentelo de nuevo.',
+            icon: 'error'
+          })
+        }
+      })
   }
 
   const onCreateEvent = async (event) => {
@@ -45,7 +74,10 @@ export const EventsAdminPage = () => {
     const response = await startSaveEvent(dataToSend)
     console.log(response)
     if (response.status === 'success') {
-      swal('Evento creado correctamente', '', 'success')
+      swal.fire({
+        title: 'Evento creado correctamente',
+        icon: 'success'
+      })
       const newEvent = {
         id: response.id,
         imagen: response.urls,
@@ -55,7 +87,10 @@ export const EventsAdminPage = () => {
       }
       return setListOfEvents([...listOfEvents, newEvent])
     }
-    swal('No se pudo crear el evento, intentelo de nuevo.', '', 'error')
+    swal.fire({
+      title: 'No se pudo crear el evento, intentelo de nuevo.',
+      icon: 'error'
+    })
     setError(true)
   }
 

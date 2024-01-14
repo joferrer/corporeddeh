@@ -10,6 +10,7 @@ export const CardEventComponent = ({ event, onDelete }) => {
   const [eventToEdit, setEventToEdit] = useState(event)
   console.log(eventToEdit)
   console.log(event)
+
   return (
     <Card sx={{
       width: '100%',

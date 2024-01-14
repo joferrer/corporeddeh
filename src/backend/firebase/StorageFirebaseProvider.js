@@ -161,7 +161,7 @@ export const saveListOfImagesByEvent = async (images, id) => {
     })
 }
 
-export const deleteAImageOfAnEvent = async (id, name) => {
+export const deleteAImageOfAnEvent = async (id, name = '') => {
   const fileRef = ref(storageRef, `events/${id}/${name}`)
   return deleteObject(fileRef)
     .then(async () => {
@@ -171,6 +171,7 @@ export const deleteAImageOfAnEvent = async (id, name) => {
     })
     .catch((error) => {
       return {
+        status: 'error',
         error: error.code
       }
     })

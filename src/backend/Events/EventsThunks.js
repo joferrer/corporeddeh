@@ -1,4 +1,4 @@
-import { addDoc, arrayUnion, collection, doc, getDocs, updateDoc } from 'firebase/firestore/lite'
+import { addDoc, arrayUnion, collection, deleteDoc, doc, getDocs, updateDoc } from 'firebase/firestore/lite'
 import { FireBaseDB } from '../firebase/firebaseConfig'
 import { deleteAImageOfAnEvent, saveListOfImagesByEvent } from '../firebase/StorageFirebaseProvider'
 import { useDate } from '../../theme'
@@ -177,6 +177,24 @@ export const startUpdateEvent = async (id, event) => {
     await updateDoc(eventRef, newEvent)
     return {
       status: 'success'
+    }
+  } catch (error) {
+    console.log(error)
+    return {
+      status: 'error',
+      error
+    }
+  }
+}
+
+export const startDeleteEventById = async (id) => {
+  try {
+    const eventRef = doc(db, 'events', id)
+    await deleteAImageOfAnEvent(id)
+    await deleteDoc(eventRef)
+    return {
+      status: 'success',
+      id
     }
   } catch (error) {
     console.log(error)

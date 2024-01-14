@@ -113,7 +113,6 @@ export const EditEventComponent = ({ event, setEvent, setOpen, setListOfEvents, 
 
           />
           <Button variant='contained' onClick={() => setAddMultimedia({ ...addMultimedia, edit: true })}>Añadir multimedia</Button>
-          <Button variant='contained'>Guardar cambios</Button>
         </Grid>
 
       </Grid>
