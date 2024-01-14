@@ -66,6 +66,14 @@ export const EventsAdminPage = () => {
 
   const onCreateEvent = async (event) => {
     console.log('a', event)
+    swal.fire({
+      title: 'Creando evento...',
+      icon: 'info',
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+      allowEnterKey: false
+
+    })
     const dataToSend = {
       ...event,
       videos: addMultimedia.videos,

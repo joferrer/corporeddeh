@@ -1,12 +1,10 @@
 import { addDoc, arrayUnion, collection, deleteDoc, doc, getDocs, updateDoc } from 'firebase/firestore/lite'
 import { FireBaseDB } from '../firebase/firebaseConfig'
 import { deleteAImageOfAnEvent, saveListOfImagesByEvent } from '../firebase/StorageFirebaseProvider'
-import { useDate } from '../../theme'
 import dayjs from 'dayjs'
 
 const db = FireBaseDB
 
-const { toDate, toFormat } = useDate()
 /**
  * eventExample ={
  * eventName: '',
@@ -32,11 +30,11 @@ export const startLoadEvents = async () => {
     const querySnapshot = await getDocs(eventsRef)
     querySnapshot.forEach((doc) => {
       console.log(doc.id, ' => ', doc.data().fecha)
-
+      console.log(dayjs(doc.data().fecha.toDate()))
       events.push({
         id: doc.id,
         ...doc.data(),
-        fecha: toFormat(doc.data().fecha.toDate())
+        fecha: dayjs(doc.data().fecha.toDate()).format('DD/MM/YYYY')
       })
     })
     return {
@@ -61,7 +59,7 @@ export const startSaveEvent = async (event) => {
   const newEvent = {
     titulo: event.eventName,
     descripcion: event.description,
-    fecha: toDate(event.eventDate),
+    fecha: dayjs(event.eventDate, 'DD/MM/YYYY').toDate(),
     imagen: event.videos
   }
   return Promise.all([
