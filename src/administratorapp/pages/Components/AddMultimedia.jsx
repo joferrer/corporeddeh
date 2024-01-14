@@ -4,7 +4,7 @@ import { ImagesAdminComponent } from './ImagesAdminComponent'
 import { useEffect, useState } from 'react'
 import { HomeMultimediaComponent } from './HomeMultimediaComponent'
 import ResponsiveDialog from './DialogMuiComponent'
-import { startDeleteAImgOfEvent, startSaveImgOfEvent } from '../../../backend/events/EventsThunks'
+import { startDeleteAImgOfEvent, startSaveImgOfEvent } from '../../../backend/Events/EventsThunks'
 import swal from 'sweetalert'
 
 function getFilenameFromURL(url) {

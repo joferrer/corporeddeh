@@ -15,7 +15,7 @@ import LayoutAdmin from './Layout/LayoutAdmin'
 import { CardEventComponent } from './Components'
 import Container from '../../ui/AloneComponents/Container'
 import { useDate } from '../../theme'
-import { startDeleteEventById, startLoadEvents, startSaveEvent } from '../../backend/events/EventsThunks'
+import { startDeleteEventById, startLoadEvents, startSaveEvent } from '../../backend/Events/EventsThunks'
 import swal from 'sweetalert2'
 
 export const EventsAdminPage = () => {
