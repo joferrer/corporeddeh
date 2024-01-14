@@ -7,7 +7,7 @@ import ResponsiveDialog from './DialogMuiComponent'
 import { startDeleteAImgOfEvent, startSaveImgOfEvent } from '../../../backend/Events/EventsThunks'
 import swal from 'sweetalert'
 
-function getFilenameFromURL(url) {
+const getFilenameFromURL = (url) => {
   const path = url.split('/')
   const filename = path[path.length - 1].split('?')[0]
   console.log(filename)

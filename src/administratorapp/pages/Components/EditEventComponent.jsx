@@ -8,7 +8,7 @@ import { set } from 'react-hook-form'
 import ResponsiveDialog from './DialogMuiComponent'
 import { AddMultimediaComponent } from './AddMultimedia'
 import swal from 'sweetalert'
-import { startSaveImgOfEvent, startUpdateEvent } from '../../../backend/events/EventsThunks'
+import { startSaveImgOfEvent, startUpdateEvent } from '../../../backend/Events/EventsThunks'
 
 const sendData = async (data) => {
   return await {
