@@ -32,7 +32,7 @@ import FloatingButton from "../../../ui/AloneComponents/FloatingButton";
 
 const AppBarTool = ({ handleDrawerOpen }) => {
   const [scrolling, setScrolling] = useState(false);
-  
+
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 50) {
@@ -347,7 +347,7 @@ const DrawerBar = ({ drawerOpen, handleDrawerClose }) => {
   );
 };
 
-const Footer = ({linkSocial}) => {
+const Footer = ({ linkSocial }) => {
   return (
     <Box
       sx={{
@@ -377,7 +377,7 @@ const Footer = ({linkSocial}) => {
               sx={{ color: "white", width: 40, height: 40 }}
             />
           </a>
-          <a href={""} target="_blank">
+          <a href={"https://wa.me/c/" + linkSocial.whatsapp} target="_blank">
             <WhatsAppIcon sx={{ color: "white", width: 40, height: 40 }} />
           </a>
           <a href={"mailto:" + linkSocial.email} target="_blank">
@@ -442,27 +442,29 @@ const Layout = ({ children }) => {
   const handleDrawerOpen = () => {
     setDrawerOpen(true);
   };
-const [linkSocial, setLinks] = useState({
-  youtube: "",
-  facebook: "",
-  instagram: "",
-  twitter: "",
-  email: "",
-});
-
-useEffect(() => {
-  Promise.all([startLoadHomeDocumment()]).then((result) => {
-    const { socialNetworks } = result[0].data;
-    const linksPromise = {
-      youtube: socialNetworks.youtube,
-      facebook: socialNetworks.facebook,
-      instagram: socialNetworks.instagram,
-      twitter: socialNetworks.twitter,
-      email: socialNetworks.email,
-    };
-    setLinks(linksPromise);
+  const [linkSocial, setLinks] = useState({
+    youtube: "",
+    facebook: "",
+    instagram: "",
+    twitter: "",
+    email: "",
+    whatsapp: "",
   });
-}, []);
+
+  useEffect(() => {
+    Promise.all([startLoadHomeDocumment()]).then((result) => {
+      const { socialNetworks } = result[0].data;
+      const linksPromise = {
+        youtube: socialNetworks.youtube,
+        facebook: socialNetworks.facebook,
+        instagram: socialNetworks.instagram,
+        twitter: socialNetworks.twitter,
+        email: socialNetworks.email,
+        whatsapp: socialNetworks.whatsapp,
+      };
+      setLinks(linksPromise);
+    });
+  }, []);
   const handleDrawerClose = () => {
     setDrawerOpen(false);
   };
