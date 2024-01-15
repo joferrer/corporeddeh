@@ -209,3 +209,33 @@ export const startDeleteEventById = async (id) => {
     }
   }
 }
+
+export const startGetEventById = async (id) => {
+  try {
+    const eventRef = doc(db, 'events', id)
+    const docSnap = await eventRef.get()
+    if (docSnap.exists()) {
+      console.log('Document data:', docSnap.data())
+      return {
+        status: 'success',
+        event: {
+          id: docSnap.id,
+          ...docSnap.data(),
+          fecha: dayjs(docSnap.data().fecha.toDate()).format('DD/MM/YYYY')
+        }
+      }
+    } else {
+      console.log('No such document!')
+      return {
+        status: 'error',
+        error: 'No such document!'
+      }
+    }
+  } catch (error) {
+    console.log(error)
+    return {
+      status: 'error',
+      error
+    }
+  }
+}

@@ -119,6 +119,7 @@ export const AddMultimediaComponent = ({ videos, imagesList = [], addMultimedia,
     console.log(newList, 'newList')
     setVideosList(newList)
     setAddMultimedia({ ...addMultimedia, videos: newList })
+    console.log(addMultimedia)
   }
 
   const saveData = async () => {
