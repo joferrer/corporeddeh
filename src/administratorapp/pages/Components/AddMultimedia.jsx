@@ -27,6 +27,7 @@ export const AddMultimediaComponent = ({ videos, imagesList = [], addMultimedia,
   console.log(imagesList)
   console.log(addMultimedia)
   const { images } = listOfImages
+  console.log(videos)
   console.log(listOfImages)
   const onImgDelete = (index, imgIndex) => {
     const img = images[imgIndex]
@@ -115,6 +116,7 @@ export const AddMultimediaComponent = ({ videos, imagesList = [], addMultimedia,
     setAddMultimedia({ edit: state, videos: videosList, images: listOfImages.imagesFiles })
   }
   const componentSetVideosList = (newList) => {
+    console.log(newList, 'newList')
     setVideosList(newList)
     setAddMultimedia({ ...addMultimedia, videos: newList })
   }

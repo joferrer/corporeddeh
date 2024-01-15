@@ -54,7 +54,7 @@ export const EditEventComponent = ({ event, setEvent, setOpen, setListOfEvents, 
     const { imagen } = event
     const videosList = imagen.filter((img) => img.includes('youtube'))
     const imagesList = imagen.filter((img) => !img.includes('youtube'))
-    console.log('effect')
+    console.log('effect', videosList)
     setAddMultimedia({ edit: addMultimedia.edit, videos: videosList, images: imagesList, imagesFiles: [] })
   }, [addMultimedia.edit])
 

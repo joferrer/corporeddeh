@@ -29,7 +29,7 @@ export const startLoadEvents = async () => {
     const eventsRef = collection(db, 'events')
     const querySnapshot = await getDocs(eventsRef)
     querySnapshot.forEach((doc) => {
-      console.log(doc.id, ' => ', doc.data().fecha)
+      console.log(doc.id, ' => ', doc.data())
       console.log(dayjs(doc.data().fecha.toDate()))
       events.push({
         id: doc.id,

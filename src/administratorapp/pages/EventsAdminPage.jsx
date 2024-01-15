@@ -96,7 +96,8 @@ export const EventsAdminPage = () => {
         descripcion: dataToSend.description,
         fecha: dataToSend.eventDate
       }
-      return setListOfEvents([...listOfEvents, newEvent])
+      setListOfEvents([...listOfEvents, newEvent])
+      return window.location.reload() // Para ahorrar problemas con el cache se recarga la pagina luego de notificar al usuario.
     }
     swal.fire({
       title: 'No se pudo crear el evento, intentelo de nuevo.',
