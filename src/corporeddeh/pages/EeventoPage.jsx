@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "./layout/Layout";
 import {
   Box,
@@ -17,6 +17,7 @@ import {
   Close as CloseIcon,
 } from "@mui/icons-material";
 import Container from "../../ui/AloneComponents/Container";
+import { startGetEventById } from "./../../backend/Events/EventsThunks";
 
 export const EeventoPage = () => {
   const { Mobile } = MediaQuerys;
@@ -28,7 +29,20 @@ export const EeventoPage = () => {
     "https://www.youtube.com/embed/APyyYg-rJyE?si=dWHT3wlaKLckSGfl",
     "https://www.youtube.com/embed/APyyYg-rJyE?si=dWHT3wlaKLckSGfl",
   ];
+  const [events, setListOfEvents] = useState([]);
+  const [error, setError] = useState(false);
+  const getData = async () => {
+    const { status, events } = await startGetEventById(id);
+    if (status === "error") return setError(true);
+    return events;
+  };
+  console.log(events);
 
+  useEffect(() => {
+    Promise.all([getData()]).then((res) => {
+      setListOfEvents(res[0]);
+    });
+  }, []);
   const [openModal, setOpenModal] = useState(false);
   const [selectedImageIndex, setSelectedImageIndex] = useState(null);
 
@@ -44,8 +58,7 @@ export const EeventoPage = () => {
 
   return (
     <Layout>
-      <Container
-      >
+      <Container>
         <Box sx={{ marginBottom: 4 }}>
           <Typography display="flex" justifyContent="start" variant="h4">
             Titulo extenso pero asi tooo gua´po

@@ -1,4 +1,4 @@
-import { addDoc, arrayUnion, collection, deleteDoc, doc, getDocs, updateDoc } from 'firebase/firestore/lite'
+import { addDoc, arrayUnion, collection, deleteDoc, doc, getDoc, getDocs, updateDoc } from 'firebase/firestore/lite'
 import { FireBaseDB } from '../firebase/firebaseConfig'
 import { deleteAImageOfAnEvent, saveListOfImagesByEvent } from '../firebase/StorageFirebaseProvider'
 import dayjs from 'dayjs'
@@ -213,7 +213,7 @@ export const startDeleteEventById = async (id) => {
 export const startGetEventById = async (id) => {
   try {
     const eventRef = doc(db, 'events', id)
-    const docSnap = await eventRef.get()
+    const docSnap = await getDoc(eventRef)
     if (docSnap.exists()) {
       console.log('Document data:', docSnap.data())
       return {
