@@ -3,7 +3,6 @@ import { Button, Card, CardActions, CardContent, CardMedia, Grid, Typography } f
 import { useState } from 'react'
 import { EditEventComponent } from './EditEventComponent'
 import { Clear, Edit } from '@mui/icons-material'
-import ResponsiveDialog from './DialogMuiComponent'
 
 export const CardEventComponent = ({ event, onDelete }) => {
   const [open, setOpen] = useState(false)

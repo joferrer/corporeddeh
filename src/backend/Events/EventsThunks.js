@@ -239,3 +239,23 @@ export const startGetEventById = async (id) => {
     }
   }
 }
+
+export const startSaveVideosOfEvent = async (id, videos) => {
+  try {
+    const eventRef = doc(db, 'events', id)
+    await updateDoc(eventRef, {
+      imagen: videos
+    })
+    return {
+      status: 'success',
+      id,
+      videos
+    }
+  } catch (error) {
+    console.log(error)
+    return {
+      status: 'error',
+      error
+    }
+  }
+}

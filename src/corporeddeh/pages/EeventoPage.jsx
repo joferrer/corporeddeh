@@ -1,69 +1,69 @@
-import React, { useEffect, useState } from "react";
-import Layout from "./layout/Layout";
+import React, { useEffect, useState } from 'react'
+import Layout from './layout/Layout'
 import {
   Box,
   Button,
   Grid,
   IconButton,
   Modal,
-  Typography,
-} from "@mui/material";
-import { MediaQuerys } from "./../../theme/Config";
-import Carousel from "react-material-ui-carousel";
-import loguito from "../../../public/vite.svg";
+  Typography
+} from '@mui/material'
+import { MediaQuerys } from './../../theme/Config'
+import Carousel from 'react-material-ui-carousel'
+import loguito from '../../../public/vite.svg'
 import {
   ArrowBack,
   ArrowForward,
-  Close as CloseIcon,
-} from "@mui/icons-material";
-import Container from "../../ui/AloneComponents/Container";
-import { startGetEventById } from "./../../backend/Events/EventsThunks";
+  Close as CloseIcon
+} from '@mui/icons-material'
+import Container from '../../ui/AloneComponents/Container'
+import { startGetEventById } from './../../backend/Events/EventsThunks'
 
 export const EeventoPage = () => {
-  const { Mobile } = MediaQuerys;
-  const searchParams = new URLSearchParams(location.search);
-  const id = searchParams.get("id");
+  const { Mobile } = MediaQuerys
+  const searchParams = new URLSearchParams(location.search)
+  const id = searchParams.get('id')
 
-  const listImagen = [loguito, "../../../public/Train-PNG-HD-Image.png"];
+  const listImagen = [loguito, '../../../public/Train-PNG-HD-Image.png']
   const listVideo = [
-    "https://www.youtube.com/embed/APyyYg-rJyE?si=dWHT3wlaKLckSGfl",
-    "https://www.youtube.com/embed/APyyYg-rJyE?si=dWHT3wlaKLckSGfl",
-  ];
-  const [events, setListOfEvents] = useState([]);
-  const [error, setError] = useState(false);
+    'https://www.youtube.com/embed/APyyYg-rJyE?si=dWHT3wlaKLckSGfl',
+    'https://www.youtube.com/embed/APyyYg-rJyE?si=dWHT3wlaKLckSGfl'
+  ]
+  const [events, setListOfEvents] = useState([])
+  const [error, setError] = useState(false)
   const getData = async () => {
-    const { status, events } = await startGetEventById(id);
-    if (status === "error") return setError(true);
-    return events;
-  };
-  console.log(events);
+    const { status, events } = await startGetEventById(id)
+    if (status === 'error') return setError(true)
+    return events
+  }
+  console.log(events)
 
   useEffect(() => {
     Promise.all([getData()]).then((res) => {
-      setListOfEvents(res[0]);
-    });
-  }, []);
-  const [openModal, setOpenModal] = useState(false);
-  const [selectedImageIndex, setSelectedImageIndex] = useState(null);
+      setListOfEvents(res[0])
+    })
+  }, [])
+  const [openModal, setOpenModal] = useState(false)
+  const [selectedImageIndex, setSelectedImageIndex] = useState(null)
 
   const handleOpenModal = (index) => {
-    setSelectedImageIndex(index);
-    setOpenModal(true);
-  };
+    setSelectedImageIndex(index)
+    setOpenModal(true)
+  }
 
   const handleCloseModal = () => {
-    setOpenModal(false);
-    setSelectedImageIndex(null);
-  };
+    setOpenModal(false)
+    setSelectedImageIndex(null)
+  }
 
   return (
     <Layout>
       <Container>
         <Box sx={{ marginBottom: 4 }}>
-          <Typography display="flex" justifyContent="start" variant="h4">
+          <Typography display='flex' justifyContent='start' variant='h4'>
             Titulo extenso pero asi tooo gua´po
           </Typography>
-          <Typography display="flex" justifyContent="start">
+          <Typography display='flex' justifyContent='start'>
             20/12/2023
           </Typography>
         </Box>
@@ -73,9 +73,9 @@ export const EeventoPage = () => {
             item
             xs={12}
             md={6}
-            sx={{ display: "flex", justifyContent: "center", marginTop: 2 }}
+            sx={{ display: 'flex', justifyContent: 'center', marginTop: 2 }}
           >
-            <Typography variant="body">
+            <Typography variant='body'>
               Se dice de mí Se dice que soy fea Que camino a lo malevo Que soy
               chueca y que me muevo Con un aire compadrón Que parezco un
               dinosaurio Mi nariz es puntiaguda La figura no me ayuda Y mi boca
@@ -107,30 +107,30 @@ export const EeventoPage = () => {
             item
             xs={12}
             md={6}
-            sx={{ display: "flex", justifyContent: "center", marginTop: 2 }}
+            sx={{ display: 'flex', justifyContent: 'center', marginTop: 2 }}
           >
             <Carousel
               interval={4000}
               sx={{
-                maxWidth: "660px",
-                width: "100%",
-                maxHeight: "550px",
-                height: "100%",
-                zIndex: 0,
+                maxWidth: '660px',
+                width: '100%',
+                maxHeight: '550px',
+                height: '100%',
+                zIndex: 0
               }}
             >
               {listImagen.map((url, index) => (
                 <Box
                   key={index}
                   sx={{
-                    width: "100%",
-                    marginRight: "10px",
-                    marginBottom: "10px",
-                    cursor: "pointer",
-                    "&:hover": {
-                      transform: Mobile ? "none" : "scale(1.02)",
-                      transition: "transform 0.3s ease",
-                    },
+                    width: '100%',
+                    marginRight: '10px',
+                    marginBottom: '10px',
+                    cursor: 'pointer',
+                    '&:hover': {
+                      transform: Mobile ? 'none' : 'scale(1.02)',
+                      transition: 'transform 0.3s ease'
+                    }
                   }}
                   onClick={() => handleOpenModal(index)}
                 >
@@ -139,9 +139,9 @@ export const EeventoPage = () => {
                     key={index}
                     alt={`Image ${index}`}
                     style={{
-                      maxWidth: "550px",
-                      width: "100%",
-                      height: "350px",
+                      maxWidth: '550px',
+                      width: '100%',
+                      height: '350px'
                     }}
                   />
                 </Box>
@@ -149,76 +149,78 @@ export const EeventoPage = () => {
             </Carousel>
           </Grid>
         </Grid>
-        {listVideo.length > 0 ? (
-          <>
-            <Typography
-              variant="h5"
-              display="flex"
-              justifyContent="start"
-              sx={{ marginTop: 3 }}
-            >
-              Videos
-            </Typography>
-            <Grid container spacing={2}>
-              {listVideo.map((url, index) => (
-                <Grid
-                  item
-                  key={index}
-                  xs={12}
-                  sm={4}
-                  sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    marginTop: 2,
-                  }}
-                >
-                  <iframe
+        {listVideo.length > 0
+          ? (
+            <>
+              <Typography
+                variant='h5'
+                display='flex'
+                justifyContent='start'
+                sx={{ marginTop: 3 }}
+              >
+                Videos
+              </Typography>
+              <Grid container spacing={2}>
+                {listVideo.map((url, index) => (
+                  <Grid
+                    item
                     key={index}
-                    src={url}
-                    width="100%"
-                    height="250"
-                    style={{ border: 0 }}
-                    allowFullScreen
-                  />
-                </Grid>
-              ))}
-            </Grid>
-          </>
-        ) : (
-          <></>
-        )}
+                    xs={12}
+                    sm={4}
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      marginTop: 2
+                    }}
+                  >
+                    <iframe
+                      key={index}
+                      src={url}
+                      width='100%'
+                      height='250'
+                      style={{ border: 0 }}
+                      allowFullScreen
+                    />
+                  </Grid>
+                ))}
+              </Grid>
+            </>
+          )
+          : (
+            <></>
+          )}
       </Container>
 
       <Modal
         open={openModal}
         onClose={handleCloseModal}
-        aria-labelledby="image-modal"
-        aria-describedby="image-modal-description"
+        aria-labelledby='image-modal'
+        aria-describedby='image-modal-description'
       >
         <Box
           sx={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
             width: 1300,
-            maxWidth: "90vw",
+            maxWidth: '90vw',
             maxHeight: 900,
-            bgcolor: "background.paper",
-            border: "2px solid #000",
+            bgcolor: 'background.paper',
+            border: '2px solid #000',
             boxShadow: 24,
             p: 4,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center'
           }}
         >
           <IconButton
             sx={{
-              position: "absolute",
+              position: 'absolute',
               top: 0,
               right: 0,
-              color: "red",
+              color: 'red'
             }}
             onClick={handleCloseModal}
           >
@@ -229,7 +231,7 @@ export const EeventoPage = () => {
             <img
               src={listImagen[selectedImageIndex]}
               alt={`Selected Image ${selectedImageIndex}`}
-              style={{ width: "100%", maxHeight: 800 }}
+              style={{ width: '100%', maxHeight: 800 }}
             />
           )}
 
@@ -237,34 +239,32 @@ export const EeventoPage = () => {
             onClick={() =>
               setSelectedImageIndex((prev) =>
                 prev > 0 ? prev - 1 : listImagen.length - 1
-              )
-            }
+              )}
             sx={{
-              position: "absolute",
-              top: "50%",
+              position: 'absolute',
+              top: '50%',
               left: 0,
-              transform: "translateY(-50%)",
-              color: "primary.main",
+              transform: 'translateY(-50%)',
+              color: 'primary.main'
             }}
           >
             <ArrowBack />
           </IconButton>
 
-          <Typography variant="body1" sx={{ textAlign: "center", mt: 2 }}>
+          <Typography variant='body1' sx={{ textAlign: 'center', mt: 2 }}>
             {`${selectedImageIndex + 1} / ${listImagen.length}`}
           </Typography>
           <IconButton
             onClick={() =>
               setSelectedImageIndex((prev) =>
                 prev < listImagen.length - 1 ? prev + 1 : 0
-              )
-            }
+              )}
             sx={{
-              position: "absolute",
-              top: "50%",
+              position: 'absolute',
+              top: '50%',
               right: 0,
-              transform: "translateY(-50%)",
-              color: "primary.main",
+              transform: 'translateY(-50%)',
+              color: 'primary.main'
             }}
           >
             <ArrowForward />
@@ -272,5 +272,5 @@ export const EeventoPage = () => {
         </Box>
       </Modal>
     </Layout>
-  );
-};
+  )
+}
