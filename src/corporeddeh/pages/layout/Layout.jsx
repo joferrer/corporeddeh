@@ -485,7 +485,12 @@ const Layout = ({ children }) => {
         minHeight: "100vh",
       }}
     >
-      <Box sx={{ marginTop: 9, zIndex: 3 }}>
+      <Box
+        sx={{
+          marginTop: location.pathname === routes.HOME ? 14 : 9,
+          zIndex: 3,
+        }}
+      >
         <AppBarTool handleDrawerOpen={handleDrawerOpen} />
       </Box>
       <DrawerBar
