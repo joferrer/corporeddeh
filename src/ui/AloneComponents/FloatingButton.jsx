@@ -22,7 +22,7 @@ const FloatingButton = ({ link }) => {
           display: "flex",
           alignItems: "center",
           position: "fixed",
-          bottom: "50%", // Ajusta el valor inferior para posicionarlo más arriba
+          bottom: "40%", // Ajusta el valor inferior para posicionarlo más arriba
           right: "20px",
           zIndex: 3,
         }}

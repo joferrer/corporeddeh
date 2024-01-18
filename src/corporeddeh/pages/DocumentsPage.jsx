@@ -11,6 +11,26 @@ export const DocumentsPage = () => {
   const { Mobile } = MediaQuerys;
   const data = useDocumentData();
   const { events, error, errorMessage } = data;
+
+  const downloadFile = async (url, fileName) => {
+    try {
+      const response = await fetch(url);
+      const blob = await response.blob();
+
+      const fileUrl = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = fileUrl;
+      link.download = fileName || "archivo_descargado";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      window.URL.revokeObjectURL(fileUrl);
+    } catch (error) {
+      console.error("Error al descargar el archivo:", error);
+    }
+  };
+
   return (
     <Layout>
       <Container>
@@ -31,19 +51,43 @@ export const DocumentsPage = () => {
                     marginTop: 2,
                   }}
                 >
-                  <Box sx={{ marginRight: 2 }}>
-                    <img src={iconPdf} style={{ maxWidth: "70px" }} />
-                  </Box>
-                  <Box>
-                    <Typography textAlign={"start"}>{card?.nombre}</Typography>
-                    <Typography
-                      textAlign={"justify"}
-                      fontSize={"10pt"}
-                      maxWidth={"318.45px"}
+                  <Box
+                    sx={{
+                      display: "flex",
+                      cursor: "pointer",
+                      textDecoration: "none",
+                    }}
+                  ></Box>
+                  <a
+                    href={card.url}
+                    style={{ textDecoration: "none", display: "flex" }}
+                    target="_blank"
+                  >
+                    <Box
+                      sx={{
+                        marginRight: 2,
+                      }}
                     >
-                      {card?.descripcion}
-                    </Typography>
-                  </Box>
+                      <img src={iconPdf} style={{ maxWidth: "70px" }} />
+                    </Box>
+
+                    <Box>
+                      <Typography
+                        sx={{ textDecoration: "none", color: "black" }}
+                        textAlign={"start"}
+                      >
+                        {card?.nombre}
+                      </Typography>
+                      <Typography
+                        textAlign={"justify"}
+                        fontSize={"10pt"}
+                        maxWidth={"318.45px"}
+                        sx={{ textDecoration: "none", color: "black" }}
+                      >
+                        {card?.descripcion}
+                      </Typography>
+                    </Box>
+                  </a>
                 </Grid>
               ))}
             </>

@@ -1,4 +1,4 @@
-import { addDoc, arrayUnion, collection, deleteDoc, doc, getDoc, getDocs, updateDoc } from 'firebase/firestore/lite'
+import { addDoc, arrayUnion, collection, deleteDoc, doc, getDoc, getDocs, limit, query, updateDoc } from 'firebase/firestore/lite'
 import { FireBaseDB } from '../firebase/firebaseConfig'
 import { deleteAImageOfAnEvent, saveListOfImagesByEvent } from '../firebase/StorageFirebaseProvider'
 import dayjs from 'dayjs'
@@ -259,3 +259,30 @@ export const startSaveVideosOfEvent = async (id, videos) => {
     }
   }
 }
+
+export const startLoadCountEvents = async () => {
+  try {
+    const events = [];
+    const eventsRef = collection(db, "events");
+    const querySnapshot = await getDocs(query(eventsRef, limit(5)));
+    querySnapshot.forEach((doc) => {
+      console.log(doc.id, " => ", doc.data());
+      console.log(dayjs(doc.data().fecha.toDate()));
+      events.push({
+        id: doc.id,
+        ...doc.data(),
+        fecha: dayjs(doc.data().fecha.toDate()).format("DD/MM/YYYY"),
+      });
+    });
+    return {
+      status: "success",
+      events,
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      status: "error",
+      error: error.code,
+    };
+  }
+};

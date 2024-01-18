@@ -19,7 +19,7 @@ export default function CardAction({ titulo, fecha, descripcion, imagen, id }) {
           component="img"
           height="170px"
           image={imagen}
-          alt="green iguana"
+          alt="imagenEvento"
         />
         <CardContent sx={{ textAlign: "start" }}>
           <Typography gutterBottom variant="h5" component="div">

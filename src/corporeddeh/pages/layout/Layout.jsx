@@ -401,7 +401,13 @@ const Footer = ({ linkSocial }) => {
           sx={{ marginBottom: 2 }}
         >
           <Grid item>
-            <Typography> Contatanos +57 30303030</Typography>
+            <Link
+              to={"https://wa.me/c/" + linkSocial.whatsapp}
+              style={{ color: "inherit", textDecoration: "none" }}
+            >
+              <Typography> Contactanos</Typography>
+            </Link>
+
             <Link
               to={routes.OFFICE}
               style={{ color: "inherit", textDecoration: "none" }}
@@ -486,7 +492,7 @@ const Layout = ({ children }) => {
         drawerOpen={drawerOpen}
         handleDrawerClose={handleDrawerClose}
       />
-      <FloatingButton link={""} />
+      <FloatingButton link={"https://wa.me/c/" + linkSocial.whatsapp} />
       <Box
         sx={{
           flex: 1,

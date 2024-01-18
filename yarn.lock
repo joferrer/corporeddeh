@@ -2192,6 +2192,16 @@ framesync@5.3.0:
   dependencies:
     tslib "^2.1.0"
 
+fs-extra@~0.8.1:
+  version "0.8.1"
+  resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-0.8.1.tgz#0e5779ffbfedf511bc755595c7f03c06d4b43e8d"
+  integrity sha512-Akj5XDR7y7vvXJi9m7R9D7TCBk6tkdCSI9ot4FJ8ulBog14KyqCi/6JxXa4AU6P9YhEZWwmTQ6Bi5QUyYrFqWQ==
+  dependencies:
+    jsonfile "~1.1.0"
+    mkdirp "0.3.x"
+    ncp "~0.4.2"
+    rimraf "~2.2.0"
+
 fs.realpath@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/fs.realpath/-/fs.realpath-1.0.0.tgz#1504ad2523158caa40db4a2787cb01411994ea4f"
@@ -2657,6 +2667,11 @@ json5@^1.0.2:
   dependencies:
     minimist "^1.2.0"
 
+jsonfile@~1.1.0:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/jsonfile/-/jsonfile-1.1.1.tgz#da4fd6ad77f1a255203ea63c7bc32dc31ef64433"
+  integrity sha512-yrmo536TrJWDHNYlkCjtkPSqNnAkt6u1k89O5Xxr53zc4DkdikTHE+Fx6VF7syJd18xsdo24U4csedAkhLgxVQ==
+
 "jsx-ast-utils@^2.4.1 || ^3.0.0":
   version "3.3.5"
   resolved "https://registry.yarnpkg.com/jsx-ast-utils/-/jsx-ast-utils-3.3.5.tgz#4766bd05a8e2a11af222becd19e15575e52a853a"
@@ -2759,6 +2774,11 @@ minimist@^1.2.0, minimist@^1.2.6:
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.8.tgz#c1a464e7693302e082a075cee0c057741ac4772c"
   integrity sha512-2yyAR8qBkN3YuheJanUpWC5U3bb5osDywNB8RzDVlDwDHbocAJveqqj1u8+SVD7jkWT4yvsHCpWqqWqAxb0zCA==
 
+mkdirp@0.3.x:
+  version "0.3.5"
+  resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-0.3.5.tgz#de3e5f8961c88c787ee1368df849ac4413eca8d7"
+  integrity sha512-8OCq0De/h9ZxseqzCH8Kw/Filf5pF/vMI6+BH7Lu0jXz2pqYCjTAQRolSxRIi+Ax+oCCjlxoJMP0YQ4XlrQNHg==
+
 ms@2.1.2:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.1.2.tgz#d09d1f357b443f493382a8eb3ccd183872ae6009"
@@ -2778,6 +2798,19 @@ natural-compare@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/natural-compare/-/natural-compare-1.4.0.tgz#4abebfeed7541f2c27acfb29bdbbd15c8d5ba4f7"
   integrity sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==
+
+ncp@~0.4.2:
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/ncp/-/ncp-0.4.2.tgz#abcc6cbd3ec2ed2a729ff6e7c1fa8f01784a8574"
+  integrity sha512-PfGU8jYWdRl4FqJfCy0IzbkGyFHntfWygZg46nFk/dJD/XRrk2cj0SsKSX9n5u5gE0E0YfEpKWrEkfjnlZSTXA==
+
+nodemailer-browser@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/nodemailer-browser/-/nodemailer-browser-0.1.0.tgz#819fb9e3c2cad914a2b2195170af0b770bb3d6b9"
+  integrity sha512-XuYP9GqLC1HAtHR1m/CyyNzTj71C1nHiENz6ke1DZECpsEZpNkGfi0ouPbRUXX1aYzt8vX1USXOZQWHiaOE9TQ==
+  dependencies:
+    fs-extra "~0.8.1"
+    open "0.0.4"
 
 object-assign@^4.1.1:
   version "4.1.1"
@@ -2855,6 +2888,11 @@ once@^1.3.0:
   integrity sha512-lNaJgI+2Q5URQBkccEKHTQOPaXdUxnZZElQTZY0MFUAuaEqe1E+Nyvgdz/aIyNi6Z9MzO5dv1H8n58/GELp3+w==
   dependencies:
     wrappy "1"
+
+open@0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/open/-/open-0.0.4.tgz#5de46a0858b9f49f9f211aa8f26628550657f262"
+  integrity sha512-89TW6JswxDIlkXZ6gBscNCE7x+A3oN/J0OqGhiLNhFnWiphTVnXOMsi5ggo72DqpB5PzinTu9ZU508z7Af2TnA==
 
 optionator@^0.9.3:
   version "0.9.3"
@@ -3249,6 +3287,11 @@ rimraf@^3.0.2:
   integrity sha512-JZkJMZkAGFFPP2YqXZXPbMlMBgsxzE8ILs4lMIX/2o0L9UBw9O/Y3o6wFw/i9YLapcUJWwqbi3kdxIPdC62TIA==
   dependencies:
     glob "^7.1.3"
+
+rimraf@~2.2.0:
+  version "2.2.8"
+  resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-2.2.8.tgz#e439be2aaee327321952730f99a8929e4fc50582"
+  integrity sha512-R5KMKHnPAQaZMqLOsyuyUmcIjSeDm+73eoqQpaXA7AZ22BL+6C+1mcUscgOsNd8WVlJuvlgAPsegcx7pjlV0Dg==
 
 rollup@^3.25.2:
   version "3.29.4"
