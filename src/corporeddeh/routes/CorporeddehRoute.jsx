@@ -9,7 +9,9 @@ import {
   DonationPage,
   OfficesPage,
   EeventoPage,
+  StrategicGuidelines
 } from "../pages";
+
 
 export const CorpoeddehRoute = () => {
   console.log("CorpoeddehRoute");
@@ -23,6 +25,7 @@ export const CorpoeddehRoute = () => {
       <Route path={routes.DONATION} element={<DonationPage />}></Route>
       <Route path={routes.OFFICE} element={<OfficesPage />}></Route>
       <Route path={routes.EEVENTO} element={<EeventoPage />} />
+      <Route path={routes.STRATEGIC_LINES} element={<StrategicGuidelines />} />
       <Route path={routes.RANDOM} element={<Navigate to="/" />} />
       <Route path="/*" element={<Navigate to={routes.HOME} />} />
     </Routes>

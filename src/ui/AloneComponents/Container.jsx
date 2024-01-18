@@ -9,7 +9,7 @@ const Container = ({ children }) => {
   return (
     <Box
       sx={{
-        marginTop: windowSize.width >= 900 ? 9 : 1,
+        marginTop: windowSize.width >= 1055 ? 9 : 1,
         maxWidth: "1371px",
         padding: 2,
         marginRight: 2,

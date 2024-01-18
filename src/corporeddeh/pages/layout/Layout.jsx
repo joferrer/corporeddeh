@@ -29,7 +29,7 @@ import { ButtonNavBar } from "./../../../ui/AloneComponents/ButtonNavBar";
 import { ButtonDrawer } from "./../../../ui/AloneComponents/ButtonDrawer";
 import { startLoadHomeDocumment } from "../../../backend/home/HomeThunks";
 import FloatingButton from "../../../ui/AloneComponents/FloatingButton";
-
+import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
 const AppBarTool = ({ handleDrawerOpen }) => {
   const [scrolling, setScrolling] = useState(false);
 
@@ -76,7 +76,7 @@ const AppBarTool = ({ handleDrawerOpen }) => {
             justifyContent: "space-between",
             width: "100%",
             marginBottom: 0,
-            "@media (min-width: 901px)": { display: "none" },
+            "@media (min-width:1056px)": { display: "none" },
           }}
         >
           {/* Icono de menú para el Drawer */}
@@ -108,7 +108,7 @@ const AppBarTool = ({ handleDrawerOpen }) => {
               transform: "scale(1.1)",
             },
             transition: "transform 0.3s ease-in-out",
-            "@media (max-width: 900px)": { display: "none" },
+            "@media (max-width: 1055px)": { display: "none" },
           }}
         >
           <a href="/">
@@ -128,7 +128,7 @@ const AppBarTool = ({ handleDrawerOpen }) => {
             marginLeft: "auto",
             color: "#308CD7",
             paddingLeft: "2px",
-            "@media (max-width: 900px)": { display: "none" },
+            "@media (max-width: 1055px)": { display: "none" },
           }}
         >
           <ButtonNavBar
@@ -193,7 +193,22 @@ const AppBarTool = ({ handleDrawerOpen }) => {
               />
             }
             ruta={routes.OFFICE}
-            texto="Sedes"
+            texto="Capitulos"
+          />
+          <ButtonNavBar
+            icono={
+              <BusinessCenterIcon
+                sx={{
+                  color:
+                    location.pathname === routes.STRATEGIC_LINES
+                      ? "white"
+                      : "brown",
+                  marginRight: "5px",
+                }}
+              />
+            }
+            ruta={routes.STRATEGIC_LINES}
+            texto="Servicios"
           />
         </Box>
       </Toolbar>
@@ -205,7 +220,7 @@ const DrawerBar = ({ drawerOpen, handleDrawerClose }) => {
   return (
     <Drawer
       sx={{
-        "@media (min-width: 901px)": { display: "none" },
+        "@media (min-width:1056px)": { display: "none" },
       }}
       anchor="left"
       open={drawerOpen}
@@ -322,9 +337,20 @@ const DrawerBar = ({ drawerOpen, handleDrawerClose }) => {
             />
           }
           ruta={routes.OFFICE}
-          texto="Sedes"
+          texto="Capitulos"
         />
-
+        <ButtonDrawer
+          icono={
+            <BusinessCenterIcon
+              sx={{
+                color: "white",
+                marginRight: "5px",
+              }}
+            />
+          }
+          ruta={routes.STRATEGIC_LINES}
+          texto="Servicios"
+        />
         <Box
           sx={{
             height: "75px",

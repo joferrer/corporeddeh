@@ -7,6 +7,7 @@ export const routes = {
     DONATION:"/donaciones",
     OFFICE:"/sedes",
     EEVENTO: "/evento",
+    STRATEGIC_LINES:"/lineamientos",
     default: "/*",
     LOGIN: "/login",
     RESET_PASWWORD: "/reset",
