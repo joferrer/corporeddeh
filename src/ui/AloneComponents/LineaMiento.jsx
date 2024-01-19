@@ -9,6 +9,8 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
+import { Parrafos } from "./Parrafos";
+import { Titulo } from './Titulo';
 
 export const LineaMiento = () => {
   const list = [
@@ -23,7 +25,8 @@ export const LineaMiento = () => {
         "Cursos(150 horas)(En alianza)",
         "Diplomado(En alianza)",
       ],
-      color: "rgb(204,150,50)",
+      startColor: "#EDB348",
+      endColor: "#C08B2A",
     },
     {
       nombre: "ASESORÍA Y ACOMPAÑAMIENTO",
@@ -33,7 +36,8 @@ export const LineaMiento = () => {
         "Construcción del modelo (según la forma de organización social )",
         "Diseño del proceso de intervención: diagnóstico, plan de mejoramiento, estrategia de desarrollo de capacidades, asesoria, acompañamiento, asistencia técnica, monitoreo y evaluación. ",
       ],
-      color: "rgb(192,110,63)",
+      startColor: "#D26C32",
+      endColor: "#AD5A2A",
     },
     {
       nombre: "GESTIÓN DE PROYECTOS",
@@ -45,7 +49,8 @@ export const LineaMiento = () => {
         "Monitoreo / Seguimiento y Evaluación.",
         "Sistematización de Experiencias.",
       ],
-      color: "rgb(183,84,128)",
+      startColor: "#C5638F",
+      endColor: "#8C325A",
     },
     {
       nombre: "ACCIÓN COLECTIVA E INCIDENCIA",
@@ -61,7 +66,8 @@ export const LineaMiento = () => {
         "Investigaciones, estudios, caracterizacionos.",
         "Publicaciones y otras plezas de comunicación.",
       ],
-      color: "rgb(26,119,180)",
+      startColor: "rgb(26,119,180)",
+      endColor: "#003F92",
     },
   ];
 
@@ -72,23 +78,8 @@ export const LineaMiento = () => {
   };
 
   return (
-    <Box sx={{ width: "100%", height: "100%" }}>
-      <Typography
-        sx={{
-          textAlign: "left",
-          fontSize: "30pt",
-          fontWeight: "bold",
-          color: "#308CD7",
-          "@media (max-width:720px)": {
-            fontSize: "26pt",
-          },
-          "@media (max-width:400px)": {
-            fontSize: "20pt",
-          },
-        }}
-      >
-        NUESTRAS LINEAS DE TRABAJO
-      </Typography>
+    <Box sx={{ width: "100%" }}>
+      <Titulo>NUESTRAS LINEAS DE TRABAJO</Titulo>
       <Typography
         sx={{
           textAlign: "left",
@@ -101,35 +92,28 @@ export const LineaMiento = () => {
       >
         (SERVICIOS)
       </Typography>
-      <Typography
-        sx={{
-          textAlign: "justify",
-          fontSize: "14pt",
-          marginTop: 2,
-          marginBottom: 2,
-          "@media (max-width:720px)": {
-            fontSize: "14pt",
-          },
-        }}
-      >
+      <Parrafos>
+
         Teniendo en cuenta las necesidades sentidas y los intereses estratégicos
         de nuestros clientes (internos y externos), se definieron las siguientes
         líneas de trabajo (servicios).
-      </Typography>
+      </Parrafos>
 
       <List>
         {list.map((item, index) => (
           <React.Fragment key={index}>
             <ListItemButton
+              key={index}
               onClick={() => handleClick(index)}
               sx={{
                 borderRadius: "20px",
-                backgroundColor: item.color,
+                background: `linear-gradient(to right, ${item.startColor}, ${item.endColor})`,
                 ":hover": {
                   transform: "scale(1.03)",
-                  backgroundColor: item.color,
+                  background: `linear-gradient(to right, ${item.startColor}, ${item.endColor})`,
                 },
-                transition: "transform 0.3s ease-in-out",
+                transition:
+                  "transform 0.3s ease-in-out, background 0.3s ease-in-out",
                 transform: openIndex === index ? "scale(1.03)" : "scale(1)",
               }}
             >
@@ -149,7 +133,15 @@ export const LineaMiento = () => {
                   </Typography>
                 }
               />
-              {openIndex === index ? <ExpandLess /> : <ExpandMore />}
+              {openIndex === index ? (
+                <ExpandLess
+                  sx={{ color: "white", width: "30px", height: "30px" }}
+                />
+              ) : (
+                <ExpandMore
+                  sx={{ color: "white", width: "30px", height: "30px" }}
+                />
+              )}
             </ListItemButton>
             <Collapse in={openIndex === index} timeout="auto" unmountOnExit>
               <Box sx={{ marginTop: 2, marginBottom: 2 }}>

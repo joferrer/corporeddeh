@@ -2,6 +2,9 @@ import React from "react";
 import Layout from "./layout/Layout";
 import Container from "../../ui/AloneComponents/Container";
 import { LineaMiento } from "../../ui/AloneComponents/LineaMiento";
+import { Objetivos } from "./../../ui/AloneComponents/Objetivos";
+import { Proyectos } from "./../../ui/AloneComponents/Proyectos";
+import { Clientes } from "./../../ui/AloneComponents/Clientes";
 export const StrategicGuidelines = () => {
   const pro = [
     "Conferencias (30' - 45' )",
@@ -13,7 +16,10 @@ export const StrategicGuidelines = () => {
   return (
     <Layout>
       <Container>
-        <LineaMiento/>
+        <LineaMiento />
+        <Objetivos />
+        <Proyectos />
+        <Clientes />
       </Container>
     </Layout>
   );
