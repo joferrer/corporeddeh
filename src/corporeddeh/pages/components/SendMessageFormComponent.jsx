@@ -2,19 +2,24 @@ import { Button, Grid, Typography } from '@mui/material'
 import { Controller, useForm } from 'react-hook-form'
 import { TextInput } from '../../../ui/FormComponents/TextInput'
 import { sendCustomMailer } from '../../../backend/firebase/sendCustomMailer'
+import Swal from 'sweetalert2'
 
 export const SendMessageForm = () => {
   const { control, handleSubmit, reset } = useForm()
   const onSubmit = async (data) => {
-    console.log('Enviando...')
-    console.log(data)
     const { username, useremail, emailsubject, userrequire } = data
-    console.log(username, useremail, emailsubject, userrequire)
     const { status } = await sendCustomMailer(useremail, emailsubject, `${userrequire}`, username)
     if (status === 'success') {
-      console.log('Enviado')
+      Swal.fire({
+        title: `Su mensaje ha sido enviado correctamente, pronto nos pondremos en contacto con usted al correo ${useremail}`,
+        icon: 'success'
+      })
+      reset()
     } else {
-      console.log('Error')
+      Swal.fire({
+        title: 'No se pudo enviar el mensaje, intentelo de nuevo.',
+        icon: 'error'
+      })
     }
   }
 
