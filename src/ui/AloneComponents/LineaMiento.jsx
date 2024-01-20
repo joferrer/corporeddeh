@@ -93,7 +93,6 @@ export const LineaMiento = () => {
         (SERVICIOS)
       </Typography>
       <Parrafos>
-
         Teniendo en cuenta las necesidades sentidas y los intereses estratégicos
         de nuestros clientes (internos y externos), se definieron las siguientes
         líneas de trabajo (servicios).
@@ -103,7 +102,6 @@ export const LineaMiento = () => {
         {list.map((item, index) => (
           <React.Fragment key={index}>
             <ListItemButton
-              key={index}
               onClick={() => handleClick(index)}
               sx={{
                 borderRadius: "20px",
@@ -187,8 +185,8 @@ export const LineaMiento = () => {
                   PRODUCTOS
                 </Typography>
                 <ul style={{ textAlign: "left" }}>
-                  {item.productos.map((i) => (
-                    <li>{i}</li>
+                  {item.productos.map((i, index) => (
+                    <li key={index}>{i}</li>
                   ))}
                 </ul>
                 <Typography sx={{ marginBottom: 2 }}>.</Typography>

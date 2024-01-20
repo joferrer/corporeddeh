@@ -6,7 +6,7 @@ export const Titulo = ({children}) => {
       <Typography
         sx={{
           textAlign: "left",
-          fontSize: "30pt",
+          fontSize: "25pt",
           fontWeight: "bold",
           color: "#308CD7",
           "@media (max-width:720px)": {
