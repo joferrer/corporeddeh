@@ -463,7 +463,7 @@ const Footer = ({ linkSocial }) => {
         2023 © All Rights Reserved
       </Typography>
       <Typography fontSize="10pt" color="white">
-        Desarrollado por: @jeison fort - @guillermo gu
+        Desarrollado por: @Jeisonfort - @GuillermoGu
       </Typography>
     </Box>
   );
