@@ -4,13 +4,13 @@ import { TextInput } from '../../../ui/FormComponents/TextInput'
 import { sendCustomMailer } from '../../../backend/firebase/sendCustomMailer'
 
 export const SendMessageForm = () => {
-  const { control, handleSubmit } = useForm()
+  const { control, handleSubmit, reset } = useForm()
   const onSubmit = async (data) => {
     console.log('Enviando...')
     console.log(data)
     const { username, useremail, emailsubject, userrequire } = data
     console.log(username, useremail, emailsubject, userrequire)
-    const { status } = await sendCustomMailer(useremail, emailsubject, `${username} - ${userrequire}`)
+    const { status } = await sendCustomMailer(useremail, emailsubject, `${userrequire}`, username)
     if (status === 'success') {
       console.log('Enviado')
     } else {
