@@ -5,7 +5,8 @@ import { useForm } from 'react-hook-form'
 import { useState } from 'react'
 import { routes } from '../../corporeddeh/routes/routes'
 import { useDispatch } from 'react-redux'
-import { startGoogleSingIn } from '../../backend/auth'
+import { startGoogleSingIn, startLoginWithEmailPassword } from '../../backend/auth'
+import loguito from '../../../public/logo-SinFondo.png'
 
 const styleC = {
   paddingBottom: '10px'
@@ -23,10 +24,12 @@ const LoginComponent = () => {
   })
 
   const onSubmit = (data) => {
-    // TODO: Implementar login con usuario y contraseña.
     // e.preventDefault()
-    console.log(data)
     // setError({error:true,message:"Correo o contraseña incorrectos"})
+    dispatch(startLoginWithEmailPassword(data.email, data.password))
+    if (!errorMessage) {
+      return setError({ error: true, message: errorMessage })
+    }
     window.location = routes.HOME_ADMIN
   }
 
@@ -96,7 +99,7 @@ export const LoginPage = () => {
     }}
     >
 
-      <img style={{ flexGrow: 1, maxWidth: '80vw', maxHeight: '80vh', objectFit: 'cover' }} src='https://pbs.twimg.com/media/FCVslvrXoAAIzS7.jpg:large' alt='imagen' />
+      <img style={{ flexGrow: 1, maxWidth: '80vw', maxHeight: '80vh', objectFit: 'cover' }} src={loguito} alt='imagen' />
       <LoginComponent />
     </Grid>
   )
