@@ -30,6 +30,7 @@ import { ButtonDrawer } from "./../../../ui/AloneComponents/ButtonDrawer";
 import { startLoadHomeDocumment } from "../../../backend/home/HomeThunks";
 import FloatingButton from "../../../ui/AloneComponents/FloatingButton";
 import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
+import { useWindowSize } from "../../../hooks/useWindowSize";
 const AppBarTool = ({ handleDrawerOpen }) => {
   const [scrolling, setScrolling] = useState(false);
 
@@ -470,6 +471,7 @@ const Footer = ({ linkSocial }) => {
 };
 
 const Layout = ({ children }) => {
+  const { windowSize } = useWindowSize();
   const [drawerOpen, setDrawerOpen] = useState(false);
   const handleDrawerOpen = () => {
     setDrawerOpen(true);
@@ -513,7 +515,12 @@ const Layout = ({ children }) => {
     >
       <Box
         sx={{
-          marginTop: location.pathname === routes.HOME ? 14 : 9,
+          marginTop:
+            location.pathname === routes.HOME
+              ? windowSize.width >= 1055
+                ? 14
+                : 9
+              : 9,
           zIndex: 3,
         }}
       >
