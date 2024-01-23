@@ -107,3 +107,21 @@ export const startDeleteCalendarEvent = async ({ id, mouth, year }) => {
     }
   }
 }
+
+export const startDeleteAImg = async (id, img) => {
+  try {
+    const calendarEventRef = doc(db, 'calendario', id)
+    await updateDoc(calendarEventRef, {
+      imgs: img
+    })
+    return {
+      status: 'success'
+    }
+  } catch (error) {
+    console.log(error)
+    return {
+      status: 'error',
+      error
+    }
+  }
+}

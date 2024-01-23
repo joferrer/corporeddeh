@@ -121,11 +121,15 @@ export const startSaveImgOfEvent = async (files, id) => {
         error
       }
     }
-    console.log('Upload event images complete')
+    console.log('Upload event images complete', urls)
+    const testing = ['STRING DE PRUEBA', 'STRING DE PRUEBA 2']
     const eventRef = doc(db, 'events', id)
     await updateDoc(eventRef, {
-      imagen: arrayUnion(...urls)
+      titulo: 'Probando el update 3',
+      urls: [...urls, ...testing],
+      imagen: [...urls, ...testing]
     })
+    console.log('Upload event images complete')
     return {
       status: 'success',
       id,
@@ -262,27 +266,27 @@ export const startSaveVideosOfEvent = async (id, videos) => {
 
 export const startLoadCountEvents = async () => {
   try {
-    const events = [];
-    const eventsRef = collection(db, "events");
-    const querySnapshot = await getDocs(query(eventsRef, limit(5)));
+    const events = []
+    const eventsRef = collection(db, 'events')
+    const querySnapshot = await getDocs(query(eventsRef, limit(5)))
     querySnapshot.forEach((doc) => {
-      console.log(doc.id, " => ", doc.data());
-      console.log(dayjs(doc.data().fecha.toDate()));
+      console.log(doc.id, ' => ', doc.data())
+      console.log(dayjs(doc.data().fecha.toDate()))
       events.push({
         id: doc.id,
         ...doc.data(),
-        fecha: dayjs(doc.data().fecha.toDate()).format("DD/MM/YYYY"),
-      });
-    });
+        fecha: dayjs(doc.data().fecha.toDate()).format('DD/MM/YYYY')
+      })
+    })
     return {
-      status: "success",
-      events,
-    };
+      status: 'success',
+      events
+    }
   } catch (error) {
-    console.log(error);
+    console.log(error)
     return {
-      status: "error",
-      error: error.code,
-    };
+      status: 'error',
+      error: error.code
+    }
   }
-};
+}

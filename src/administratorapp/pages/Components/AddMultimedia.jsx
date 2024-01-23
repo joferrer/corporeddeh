@@ -109,6 +109,7 @@ export const AddMultimediaComponent = ({ videos, imagesList = [], addMultimedia,
       allowEnterKey: false,
       showConfirmButton: false
     })
+    console.log(listOfImages, videosList)
     const { status } = await startSaveImgOfEvent(listOfImages.imagesFiles, id)
     const { status: status2 } = await startSaveVideosOfEvent(id, videosList)
     if (status === 'success' && status2 === 'success') {

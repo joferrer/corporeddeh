@@ -7,7 +7,7 @@ import { CreateNewEventComponent } from './Components'
 import swal from 'sweetalert'
 import { useCalendarData } from '../../hooks/useCalendarData'
 import Container from '../../ui/AloneComponents/Container'
-import { startDeleteCalendarEvent } from '../../backend/Calendar/CalendarThunks'
+import { startDeleteAImg, startDeleteCalendarEvent } from '../../backend/Calendar/CalendarThunks'
 
 export const CalendarAdminPage = () => {
   const data = useCalendarData()
@@ -67,7 +67,8 @@ export const CalendarAdminPage = () => {
     })
   }
 
-  const onImgDelete = (index, imgIndex) => {
+  const onImgDelete = async (index, imgIndex) => {
+    // TODO: Me lleva el chafle, faltó hacer que se eliminar en la db la img.
     const newEventImages = events[index].imgs
     newEventImages.splice(imgIndex, 1)
     const newEvent = {
@@ -77,6 +78,7 @@ export const CalendarAdminPage = () => {
     }
     const newListOfEvents = events
     newListOfEvents.splice(index, 1, newEvent)
+    const resp = await startDeleteAImg()
     setListOfEvents({ events: newListOfEvents, error: false })
   }
 

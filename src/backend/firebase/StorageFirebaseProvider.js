@@ -148,6 +148,7 @@ export const saveListOfImagesByEvent = async (images, id) => {
   return Promise.all(promises)
     .then(async (res) => {
       const urls = res.map((img) => img.url)
+      console.log(urls)
       return {
         status: 'success',
         urls
