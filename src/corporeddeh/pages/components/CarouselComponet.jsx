@@ -11,14 +11,15 @@ export const PrincipalImgComponent = ({ events }) => {
 };
 
 function CarouselComponent({ events }) {
- const updatedEvents = events
-   .map((event) => {
-     const filteredImagen = event.imagen.filter(
-       (url) => !url.includes("youtube")
-     );
-     return { ...event, imagen: filteredImagen };
-   })
-   .filter((event) => event.imagen.length > 0);
+  const updatedEvents = events
+
+    .map((event) => {
+      const filteredImagen = event.imagen.filter(
+        (url) => !url.includes("youtube")
+      );
+      return { ...event, imagen: filteredImagen };
+    })
+    .filter((event) => event.imagen.length > 0);
 
   var items = [
     {
@@ -44,9 +45,14 @@ function CarouselComponent({ events }) {
 }
 
 function Item(props) {
+  const handleClick = (id = 0) => {
+    window.location.href = "/evento?id=" + id;
+  };
   return (
     <Paper
+      onClick={() => handleClick(props.item.id)}
       sx={{
+        cursor: "pointer",
         position: "relative",
         backgroundColor: "grey.800",
         color: "#fff",
