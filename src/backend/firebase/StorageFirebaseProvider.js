@@ -177,3 +177,20 @@ export const deleteAImageOfAnEvent = async (id, name = '') => {
       }
     })
 }
+
+export const deleteImgOfAMonth = async (mouth, year, name = '') => {
+  console.log(`${mouth}-${year}/${name}`)
+  const fileRef = ref(imagesCalendarRef, `${mouth}-${year}/${name}`)
+  return deleteObject(fileRef)
+    .then(async () => {
+      return {
+        status: 'success'
+      }
+    })
+    .catch((error) => {
+      return {
+        status: 'error',
+        error: error.code
+      }
+    })
+}

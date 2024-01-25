@@ -8,6 +8,7 @@ import swal from 'sweetalert'
 import { useCalendarData } from '../../hooks/useCalendarData'
 import Container from '../../ui/AloneComponents/Container'
 import { startDeleteAImg, startDeleteCalendarEvent } from '../../backend/Calendar/CalendarThunks'
+import Swal from 'sweetalert2'
 
 export const CalendarAdminPage = () => {
   const data = useCalendarData()
@@ -69,17 +70,41 @@ export const CalendarAdminPage = () => {
 
   const onImgDelete = async (index, imgIndex) => {
     // TODO: Me lleva el chafle, faltó hacer que se eliminar en la db la img.
-    const newEventImages = events[index].imgs
-    newEventImages.splice(imgIndex, 1)
-    const newEvent = {
-      mouth: events[index].mouth,
-      year: events[index].year,
-      imgs: newEventImages
-    }
-    const newListOfEvents = events
-    newListOfEvents.splice(index, 1, newEvent)
-    const resp = await startDeleteAImg()
-    setListOfEvents({ events: newListOfEvents, error: false })
+    Swal.fire({
+      title: '¿Estas seguro de eliminar esta imagen?',
+      text: 'Una vez eliminada no se podra recuperar',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Eliminar',
+      cancelButtonText: 'Cancelar',
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6'
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const newEventImages = events[index].imgs
+        const urlImageToDelete = newEventImages.splice(imgIndex, 1) // es una lista con la url de la img
+        console.log(events[index])
+        const newEvent = {
+          mouth: events[index].mouth,
+          year: events[index].year,
+          imgs: newEventImages
+        }
+        const { mouth, year } = events[index]
+        const { status } = await startDeleteAImg(events[index].id, urlImageToDelete[0], newEventImages, { mouth, year })
+        if (status === 'error') {
+          swal('No se pudo eliminar la imagen', {
+            icon: 'error'
+          })
+          return
+        }
+        const newListOfEvents = events
+        newListOfEvents.splice(index, 1, newEvent)
+        setListOfEvents({ events: newListOfEvents, error: false })
+        swal('La imagen ha sido eliminada del calendario', {
+          icon: 'success'
+        })
+      }
+    }).then(async (result) => { })
   }
 
   return (

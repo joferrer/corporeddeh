@@ -1,7 +1,7 @@
 import { addDoc, arrayUnion, collection, deleteDoc, doc, getDocs, updateDoc } from 'firebase/firestore/lite'
 import { FireBaseDB } from '../firebase/firebaseConfig'
 import { sortEventsByDate } from '../../helpers'
-import { deleteAllImagesForMonth } from '../firebase/StorageFirebaseProvider'
+import { deleteAllImagesForMonth, deleteImgOfAMonth } from '../firebase/StorageFirebaseProvider'
 
 const db = FireBaseDB
 
@@ -107,12 +107,27 @@ export const startDeleteCalendarEvent = async ({ id, mouth, year }) => {
     }
   }
 }
-
-export const startDeleteAImg = async (id, img) => {
+const getFilenameFromURL = (url) => {
+  const path = url.split('/')
+  const filename = path[path.length - 1].split('?')[0]
+  return decodeURIComponent(filename).split('/').pop()
+}
+export const startDeleteAImg = async (id, img, imgs, { mouth, year }) => {
   try {
+    console.log(id, img, imgs, mouth, year)
     const calendarEventRef = doc(db, 'calendario', id)
+    const filename = getFilenameFromURL(img)
+    console.log(filename)
+
+    const { status } = await deleteImgOfAMonth(mouth, year, filename)
+    if (status === 'error') {
+      return {
+        status: 'error',
+        error: 'Error al eliminar la imagen'
+      }
+    }
     await updateDoc(calendarEventRef, {
-      imgs: img
+      imgs
     })
     return {
       status: 'success'
