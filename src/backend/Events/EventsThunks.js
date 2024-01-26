@@ -1,4 +1,4 @@
-import { addDoc, arrayUnion, collection, deleteDoc, doc, getDoc, getDocs, limit, query, updateDoc } from 'firebase/firestore/lite'
+import { addDoc, arrayUnion, collection, deleteDoc, doc, getDoc, getDocs, limit, orderBy, query, updateDoc } from 'firebase/firestore/lite'
 import { FireBaseDB } from '../firebase/firebaseConfig'
 import { deleteAImageOfAnEvent, saveListOfImagesByEvent } from '../firebase/StorageFirebaseProvider'
 import dayjs from 'dayjs'
@@ -27,7 +27,7 @@ const db = FireBaseDB
 export const startLoadEvents = async () => {
   try {
     const events = []
-    const eventsRef = collection(db, 'events')
+    const eventsRef = query(collection(db, 'events'), orderBy('fecha', 'desc'))
     const querySnapshot = await getDocs(eventsRef)
     querySnapshot.forEach((doc) => {
       console.log(doc.id, ' => ', doc.data())
