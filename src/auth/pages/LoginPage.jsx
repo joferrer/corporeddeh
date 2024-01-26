@@ -1,4 +1,4 @@
-import { Alert, Button, Grid, TextField, Typography } from '@mui/material'
+import { Alert, Box, Button, Grid, TextField, Typography } from '@mui/material'
 import { useCheckAuth, useWindowSize } from '../../hooks'
 import { Google } from '@mui/icons-material'
 import { useForm } from 'react-hook-form'
@@ -7,6 +7,7 @@ import { routes } from '../../corporeddeh/routes/routes'
 import { useDispatch } from 'react-redux'
 import { startGoogleSingIn, startLoginWithEmailPassword } from '../../backend/auth'
 import loguito from '../../../public/logo-SinFondo.png'
+
 
 const styleC = {
   paddingBottom: '10px'
@@ -48,7 +49,8 @@ const LoginComponent = () => {
         flexDirection: 'column',
         flexWrap: 'wrap',
         flexGrow: 1,
-        padding: `${windowSize.width < 525 ? '10' : '100'}px`
+        padding: `${windowSize.width < 525 ? '10' : '100'}px`,
+        maxWidth: '600px'
       }}
       onSubmit={handleSubmit(onSubmit)}
     >
@@ -88,19 +90,33 @@ const LoginComponent = () => {
 
 export const LoginPage = () => {
   return (
-    <Grid sx={{
-      display: 'flex',
-      flexWrap: 'wrap',
-      justifyContent: 'center',
-      alignContent: 'center',
-      alignItems: 'center',
-      height: '100vh',
-      padding: '10px'
-    }}
+    <Grid
+      sx={{
+        display: "flex",
+        flexWrap: "wrap",
+        justifyContent: "center",
+        alignContent: "center",
+        alignItems: "center",
+        height: "100vh",
+        padding: "10px",
+      }}
     >
-
-      <img style={{ flexGrow: 1, maxWidth: '80vw', maxHeight: '80vh', objectFit: 'cover' }} src={loguito} alt='imagen' />
+      <Box
+        sx={{
+          flexGrow: 1,
+          width: "100%",
+          height: "100%",
+          maxHeight: "500px",
+          maxWidth: "600px",
+          "@media (max-width:1026px)": {
+            maxHeight: "350px",
+            maxWidth: "400px",
+          },
+        }}
+      >
+        <img style={{width:"100%", height:"100%"}} src={loguito} alt="imagen" />
+      </Box>
       <LoginComponent />
     </Grid>
-  )
+  );
 }

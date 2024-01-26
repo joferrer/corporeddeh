@@ -47,7 +47,7 @@ export const EeventoPage = () => {
   const [selectedImageIndex, setSelectedImageIndex] = useState(null);
 
   const urls = events?.imagen;
-  console.log(events)
+  console.log(events);
   const firebaseUrls = [];
   const otherUrls = [];
 
@@ -86,7 +86,7 @@ export const EeventoPage = () => {
             item
             xs={12}
             md={6}
-            sx={{ display: "flex", justifyContent: "center", marginTop: 2 }}
+            sx={{ display: "flex", justifyContent: "left", marginTop: 2 }}
           >
             <Typography variant="body">{events?.descripcion}</Typography>
           </Grid>
