@@ -127,7 +127,7 @@ export const startSaveImgOfEvent = async (files, id) => {
     await updateDoc(eventRef, {
       titulo: 'Probando el update 3',
       urls: [...urls, ...testing],
-      imagen: [...urls, ...testing]
+      imagen: ['MMM', 'MMM2']
     })
     console.log('Upload event images complete')
     return {
