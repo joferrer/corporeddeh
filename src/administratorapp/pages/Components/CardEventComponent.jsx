@@ -38,7 +38,7 @@ export const CardEventComponent = ({ event, onDelete }) => {
             objectFit: 'cover'
 
           }}
-          image={event?.imagen[0]}
+          image={event?.imagen[0] || ''}
           alt='Image description'
         />
         <CardActions sx={{

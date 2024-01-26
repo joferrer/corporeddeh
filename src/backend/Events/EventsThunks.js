@@ -2,6 +2,7 @@ import { addDoc, arrayUnion, collection, deleteDoc, doc, getDoc, getDocs, limit,
 import { FireBaseDB } from '../firebase/firebaseConfig'
 import { deleteAImageOfAnEvent, saveListOfImagesByEvent } from '../firebase/StorageFirebaseProvider'
 import dayjs from 'dayjs'
+import { array } from 'prop-types'
 
 const db = FireBaseDB
 
@@ -19,7 +20,7 @@ const db = FireBaseDB
     titulo: "Titulo",
     descripcion: "Una descripcion Larga...........",
     fecha: "20/20/2023",
-    imagen: [] // Supongo que se mesclan aca los videos y las imagenes. Es una lista de urls.
+    urls: [] // Supongo que se mesclan aca los videos y las imagenes. Es una lista de urls.
  * }
  */
 
@@ -34,6 +35,7 @@ export const startLoadEvents = async () => {
       events.push({
         id: doc.id,
         ...doc.data(),
+        imagen: doc.data().urls || [],
         fecha: dayjs(doc.data().fecha.toDate()).format('DD/MM/YYYY')
       })
     })
@@ -61,7 +63,7 @@ export const startSaveEvent = async (event) => {
     titulo: event.eventName,
     descripcion: event.description,
     fecha: dayjs(event.eventDate, 'DD/MM/YYYY').toDate(),
-    imagen: event.videos
+    urls: event.videos
   }
   return Promise.all([
     startSaveEventDoc(newEvent)
@@ -122,12 +124,9 @@ export const startSaveImgOfEvent = async (files, id) => {
       }
     }
     console.log('Upload event images complete', urls)
-    const testing = ['STRING DE PRUEBA', 'STRING DE PRUEBA 2']
     const eventRef = doc(db, 'events', id)
     await updateDoc(eventRef, {
-      titulo: 'Probando el update 3',
-      urls: [...urls, ...testing],
-      imagen: ['MMM', 'MMM2']
+      urls: arrayUnion(...urls)
     })
     console.log('Upload event images complete')
     return {
@@ -156,7 +155,7 @@ export const startDeleteAImgOfEvent = async (id, urls, name) => {
       }
     }
     await updateDoc(eventRef, {
-      imagen: urls
+      urls
     })
     return {
       status: 'success',
@@ -179,7 +178,7 @@ export const startUpdateEvent = async (id, event) => {
       titulo: event.eventName,
       descripcion: event.description,
       fecha: dayjs(event.eventDate, 'DD/MM/YYYY').toDate(),
-      imagen: event.imagen
+      urls: event.imagen
     }
     console.log(newEvent)
     const eventRef = doc(db, 'events', id)
@@ -225,6 +224,7 @@ export const startGetEventById = async (id) => {
         event: {
           id: docSnap.id,
           ...docSnap.data(),
+          imagen: docSnap.data().urls || [],
           fecha: dayjs(docSnap.data().fecha.toDate()).format('DD/MM/YYYY')
         }
       }
@@ -275,6 +275,7 @@ export const startLoadCountEvents = async () => {
       events.push({
         id: doc.id,
         ...doc.data(),
+        imagen: doc.data().urls || [],
         fecha: dayjs(doc.data().fecha.toDate()).format('DD/MM/YYYY')
       })
     })

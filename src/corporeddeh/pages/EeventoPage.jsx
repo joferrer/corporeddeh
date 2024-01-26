@@ -47,17 +47,17 @@ export const EeventoPage = () => {
   const [selectedImageIndex, setSelectedImageIndex] = useState(null);
 
   const urls = events?.imagen;
+  console.log(events)
+  const firebaseUrls = [];
+  const otherUrls = [];
 
-const firebaseUrls = [];
-const otherUrls = [];
-
-urls?.forEach((url) => {
-  if (url.includes("firebasestorage")) {
-    firebaseUrls.push(url);
-  } else {
-    otherUrls.push(url);
-  }
-});
+  urls?.forEach((url) => {
+    if (url.includes("firebasestorage")) {
+      firebaseUrls.push(url);
+    } else {
+      otherUrls.push(url);
+    }
+  });
 
   const handleOpenModal = (index) => {
     setSelectedImageIndex(index);
