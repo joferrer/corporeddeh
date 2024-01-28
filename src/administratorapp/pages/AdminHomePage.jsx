@@ -18,9 +18,11 @@ export const AdminHomePage = () => {
     facebook: '',
     instagram: '',
     twitter: '',
-    email: ''
+    email: '',
+    whatsapp: ''
   })
   const { videosList } = links
+  console.log(links)
   useEffect(() => {
     Promise.all([startLoadHomeDocumment()]).then((result) => {
       const { counter, linksVideos, socialNetworks } = result[0].data
@@ -31,7 +33,8 @@ export const AdminHomePage = () => {
         facebook: socialNetworks.facebook,
         instagram: socialNetworks.instagram,
         twitter: socialNetworks.twitter,
-        email: socialNetworks.email
+        email: socialNetworks.email,
+        whatsapp: socialNetworks.whatsapp
       }
       setLinks(linksPromise)
     })
@@ -59,7 +62,8 @@ export const AdminHomePage = () => {
               facebook: links?.facebook,
               instagram: links?.instagram,
               twitter: links?.twitter,
-              email: links?.email
+              email: links?.email,
+              whatsapp: links?.whatsapp
             }}
           />
         </Grid>

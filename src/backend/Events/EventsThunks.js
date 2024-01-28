@@ -2,7 +2,6 @@ import { addDoc, arrayUnion, collection, deleteDoc, doc, getDoc, getDocs, limit,
 import { FireBaseDB } from '../firebase/firebaseConfig'
 import { deleteAImageOfAnEvent, saveListOfImagesByEvent } from '../firebase/StorageFirebaseProvider'
 import dayjs from 'dayjs'
-import { array } from 'prop-types'
 
 const db = FireBaseDB
 

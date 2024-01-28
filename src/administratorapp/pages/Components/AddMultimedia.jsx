@@ -6,6 +6,7 @@ import { HomeMultimediaComponent } from './HomeMultimediaComponent'
 import ResponsiveDialog from './DialogMuiComponent'
 import { startDeleteAImgOfEvent, startSaveImgOfEvent, startSaveVideosOfEvent } from '../../../backend/Events/EventsThunks'
 import swal from 'sweetalert2'
+import { set } from 'react-hook-form'
 
 const getFilenameFromURL = (url) => {
   const path = url.split('/')
@@ -17,6 +18,7 @@ export const AddMultimediaComponent = ({ videos, imagesList = [], addMultimedia,
   const [listOfImages, setListOfImages] = useState({ images: imagesList, imagesFiles: [], error: false })
   const [videosList, setVideosList] = useState(videos || addMultimedia.videos || [])
   const [open, setOpen] = useState(false)
+  const [imagenTrack, setImagenTrack] = useState(new Map())
   const { images } = listOfImages
   const onImgDelete = (index, imgIndex) => {
     const img = images[imgIndex]
@@ -62,12 +64,19 @@ export const AddMultimediaComponent = ({ videos, imagesList = [], addMultimedia,
         )
       return
     }
-    const newListOfImagesFiles = listOfImages.imagesFiles
-    newListOfImagesFiles.splice(imgIndex, 1)
+    const fileToDelete = imagenTrack.get(img)
 
-    setListOfImages({ images: newListOfImages, imagesFiles: newListOfImagesFiles, error: false })
+    const newImagesFile = addMultimedia.imagesFiles.filter((file) => file !== fileToDelete)
+    setListOfImages({ images: newListOfImages, imagesFiles: newImagesFile, error: false })
+    console.log(newImagesFile)
+
+    setAddMultimedia({ ...addMultimedia, imagesFiles: newImagesFile })
+    const newimagenTrack = imagenTrack
+    newimagenTrack.delete(img)
+    setImagenTrack(newimagenTrack) // Eliminar archivo blob del trackeo.
   }
-
+  console.log(addMultimedia)
+  console.log(imagenTrack)
   const onFileInputClick = (e, index) => {
     const img = e.target.files[0]
 
@@ -81,6 +90,9 @@ export const AddMultimediaComponent = ({ videos, imagesList = [], addMultimedia,
         newListOfImages.push(urlImg)
         const newListOfImagesFiles = listOfImages.imagesFiles
         newListOfImagesFiles.push(imageBuff)
+        const newimagenTrack = imagenTrack
+        newimagenTrack.set(urlImg, imageBuff)
+        setImagenTrack(newimagenTrack) // Trackear la imagen para luego saber que archivo blob eliminar.
         setListOfImages({ ...listOfImages, images: newListOfImages, imagesFiles: newListOfImagesFiles, error: false })
         setAddMultimedia({ ...addMultimedia, imagesFiles: newListOfImagesFiles })
       }

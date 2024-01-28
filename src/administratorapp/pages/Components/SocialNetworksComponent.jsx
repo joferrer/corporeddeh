@@ -3,6 +3,7 @@ import { useMemo, useState } from 'react'
 import { Button, TextField, Typography } from '@mui/material'
 import { useForm } from 'react-hook-form'
 import { startSetSocialNetworks } from '../../../backend/home/HomeThunks'
+import Swal from 'sweetalert2'
 
 export const SocialNetworksComponent = ({ sociallinks }) => {
   const { register, handleSubmit } = useForm()
@@ -15,8 +16,18 @@ export const SocialNetworksComponent = ({ sociallinks }) => {
 
   const onSubmit = async () => {
     const { status } = await startSetSocialNetworks(links)
-    if (status === 'success') return setEditable(!editable)
-    alert('No se pudo guardar el valor del contador. Intente nuevamente.')
+    if (status === 'success') {
+      Swal.fire({
+        icon: 'success',
+        title: 'Datos guardados correctamente'
+      })
+      return setEditable(!editable)
+    }
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Ocurrio un error al guardar los datos'
+    })
   }
   return (
     <form
@@ -68,6 +79,16 @@ export const SocialNetworksComponent = ({ sociallinks }) => {
         label='Correo'
         value={links?.email}
         onChange={(e) => setLinks({ ...links, email: e.target.value })}
+        disabled={!editable}
+      />
+      <TextField
+        variant='standard'
+        sx={{ paddingBottom: '10px' }}
+        {...register('whatsapp', { required: true })}
+        type='number'
+        label='Whatsapp'
+        value={links?.whatsapp}
+        onChange={(e) => setLinks({ ...links, whatsapp: e.target.value })}
         disabled={!editable}
       />
       <Button
