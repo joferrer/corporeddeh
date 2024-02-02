@@ -33,7 +33,7 @@ export const CreateNewEventComponent = ({ open, setOpen, setListOfEvents }) => {
   }
 
   return (
-    <ResponsiveDialog state={open} setState={setOpen} title='Agregar nuevo més' onConfirm={onConfirm}>
+    <ResponsiveDialog state={open} setState={setOpen} title='Agregar nuevo més' onConfirm={onConfirm} creating>
       <Grid
         sx={{
           display: 'flex',
