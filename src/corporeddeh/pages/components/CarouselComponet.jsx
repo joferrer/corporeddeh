@@ -10,15 +10,15 @@ export const PrincipalImgComponent = ({ events }) => {
   )
 }
 
-function CarouselComponent ({ events }) {
+function CarouselComponent({ events }) {
   console.log(events)
-  const updatedEvents = events
-    .map((event) => {
-      const filteredImagen = event.imagen.filter(
-        (url) => !url.includes('youtube')
-      )
-      return { ...event, imagen: filteredImagen }
-    })
+  const eventl = events || []
+  const updatedEvents = eventl?.map((event) => {
+    const filteredImagen = event.imagen.filter(
+      (url) => !url.includes('youtube')
+    )
+    return { ...event, imagen: filteredImagen }
+  })
     .filter((event) => event.imagen.length > 0)
 
   const items = [
@@ -44,7 +44,7 @@ function CarouselComponent ({ events }) {
   )
 }
 
-function Item (props) {
+function Item(props) {
   const handleClick = (id = 0) => {
     window.location.href = '/evento?id=' + id
   }
