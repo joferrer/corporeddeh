@@ -108,7 +108,7 @@ export const EventsAdminPage = () => {
 
   useEffect(() => {
     Promise.all([getData()]).then((res) => {
-      setListOfEvents(res[0])
+      setListOfEvents(res[0] || [])
     })
   }, [])
 
@@ -214,7 +214,7 @@ export const EventsAdminPage = () => {
               padding: '1rem'
             }}
           >
-            {listOfEvents.map((event) => {
+            {listOfEvents?.map((event) => {
               return (
                 <CardEventComponent
                   key={event?.id}
