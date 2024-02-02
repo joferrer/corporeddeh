@@ -73,10 +73,19 @@ export const EeventoPage = () => {
     <Layout>
       <Container>
         <Box sx={{ marginBottom: 4 }}>
-          <Typography display="flex" justifyContent="start" variant="h4">
+          <Typography
+            display="flex"
+            justifyContent="start"
+            sx={{ textAlign: "center" }}
+            variant="h4"
+          >
             {events?.titulo}
           </Typography>
-          <Typography display="flex" justifyContent="start">
+          <Typography
+            display="flex"
+            justifyContent="start"
+            sx={{ textAlign: "center" }}
+          >
             {events?.fecha}
           </Typography>
         </Box>
@@ -88,13 +97,15 @@ export const EeventoPage = () => {
             md={6}
             sx={{ display: "flex", justifyContent: "left", marginTop: 2 }}
           >
-            <Typography variant="body">{events?.descripcion}</Typography>
+            <Typography variant="body" sx={{ textAlign: "left" }}>
+              {events?.descripcion}
+            </Typography>
           </Grid>
           <Grid
             item
             xs={12}
             md={6}
-            sx={{ display: "flex", justifyContent: "center", marginTop: 2 }}
+            sx={{ display: "flex", justifyContent: "left", marginTop: 2 }}
           >
             <Carousel
               interval={4000}

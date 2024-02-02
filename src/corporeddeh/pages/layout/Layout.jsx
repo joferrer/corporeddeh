@@ -361,13 +361,29 @@ const DrawerBar = ({ drawerOpen, handleDrawerClose }) => {
           }}
         >
           <Typography fontSize="14pt" fontWeight="bold">
-            {" "}
             CORPOREDDEH
           </Typography>
-          <Typography> 2023 © All Rights Reserved</Typography>
-          <Typography fontSize="9pt">
-            Desarrollado por: @JeisonFort - @GuillermoGu
-          </Typography>
+          <Box sx={{ display: "flex", justifyContent: "center" }}>
+            <Typography fontSize="10pt" color="white">
+              {"Desarrollado por: @"}
+            </Typography>
+            <Link
+              to={"https://github.com/joferrer"}
+              style={{ color: "inherit", textDecoration: "none" }}
+            >
+              <Typography fontSize="10pt" color="white">
+                Jeisonfort
+              </Typography>
+            </Link>
+            <Link
+              to={"https://github.com/GuillermoGU24"}
+              style={{ color: "inherit", textDecoration: "none" }}
+            >
+              <Typography fontSize="10pt" color="white">
+                -@GuillermoGu
+              </Typography>
+            </Link>
+          </Box>
         </Box>
       </Box>
     </Drawer>
@@ -404,7 +420,7 @@ const Footer = ({ linkSocial }) => {
               sx={{ color: "white", width: 40, height: 40 }}
             />
           </a>
-          <a href={"https://wa.me/c/" + linkSocial.whatsapp} target="_blank">
+          <a href={"https://wa.me/+57" + linkSocial.whatsapp} target="_blank">
             <WhatsAppIcon sx={{ color: "white", width: 40, height: 40 }} />
           </a>
           <a href={"mailto:" + linkSocial.email} target="_blank">
@@ -429,7 +445,7 @@ const Footer = ({ linkSocial }) => {
         >
           <Grid item>
             <Link
-              to={"https://wa.me/c/" + linkSocial.whatsapp}
+              to={"https://wa.me/+57" + linkSocial.whatsapp}
               style={{ color: "inherit", textDecoration: "none" }}
             >
               <Typography> Contactanos</Typography>
@@ -463,9 +479,27 @@ const Footer = ({ linkSocial }) => {
       <Typography sx={{ marginTop: 1, color: "white" }}>
         2023 © All Rights Reserved
       </Typography>
-      <Typography fontSize="10pt" color="white">
-        Desarrollado por: @Jeisonfort - @GuillermoGu
-      </Typography>
+      <Box sx={{ display: "flex", justifyContent: "center" }}>
+        <Typography fontSize="10pt" color="white">
+          {"Desarrollado por: @"}
+        </Typography>
+        <Link
+          to={"https://github.com/joferrer"}
+          style={{ color: "inherit", textDecoration: "none" }}
+        >
+          <Typography fontSize="10pt" color="white">
+            Jeisonfort
+          </Typography>
+        </Link>
+        <Link
+          to={"https://github.com/GuillermoGU24"}
+          style={{ color: "inherit", textDecoration: "none" }}
+        >
+          <Typography fontSize="10pt" color="white">
+            -@GuillermoGu
+          </Typography>
+        </Link>
+      </Box>
     </Box>
   );
 };
@@ -530,7 +564,7 @@ const Layout = ({ children }) => {
         drawerOpen={drawerOpen}
         handleDrawerClose={handleDrawerClose}
       />
-      <FloatingButton link={"https://wa.me/c/" + linkSocial.whatsapp} />
+      <FloatingButton link={"https://wa.me/+57" + linkSocial.whatsapp} />
       <Box
         sx={{
           flex: 1,
