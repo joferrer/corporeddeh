@@ -27,7 +27,7 @@ export const SendMessageForm = () => {
     <form onSubmit={handleSubmit(onSubmit)} style={{ flexGrow: 1, minWidth: '320px' }}>
       <Grid container sx={{ justifyContent: 'center', flexDirection: 'column', padding: '10px' }}>
 
-        <Typography variant='h5' sx={{ justifySelf: 'center' }}>Escribenos</Typography>
+        <Typography variant='h5' sx={{ justifySelf: 'center' }}>Escríbenos</Typography>
         <Controller
           name='username'
           control={control}

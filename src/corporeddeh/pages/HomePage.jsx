@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { Grid, Paper, Typography } from '@mui/material'
+import { CircularProgress, Grid, Paper, Typography } from '@mui/material'
 import Layout from './layout/Layout'
 import {
   PrincipalImgComponent,
@@ -9,8 +9,10 @@ import {
 import { useWindowSize } from '../../hooks'
 import { useDate } from '../../theme'
 import { startLoadHomeDocumment } from '../../backend/home/HomeThunks'
-import { useEffect, useState } from 'react'
+import { Suspense, lazy, useEffect, useState } from 'react'
 import { startLoadCountEvents } from '../../backend/Events/EventsThunks'
+
+const LazyCarrousel = lazy(() => import('./components/CarouselComponet'))
 
 const CounterComponent = ({ counter = 1000, mes = 'Enero' }) => {
   return (
@@ -56,7 +58,7 @@ const VideosComponent = ({ list }) => {
       }}
     >
       {list?.map((video, index) => (
-        <iframe key={index} src={video} style={videoStyle} allowFullScreen />
+        <iframe key={index} src={video} style={videoStyle} loading='lazy' allowFullScreen />
       ))}
     </Grid>
   )
@@ -98,7 +100,12 @@ export const HomePage = () => {
           justifyContent: 'center'
         }}
       >
+
         <PrincipalImgComponent events={events} />
+
+        <Typography variant='h1' sx={{ textAlign: 'center', marginTop: '10px', fontSize: '2rem' }}>
+          Corporación Departamentar de derechos Humanos CORPOREDDEH
+        </Typography>
         <NavegationComponent windowSize={windowSize} />
         <CounterComponent mes={month()} counter={data?.counter} />
         <Grid
@@ -124,6 +131,7 @@ export const HomePage = () => {
               height='450'
               style={{ border: 0, pointerEvents: 'none' }}
               allowFullScreen
+              loading='lazy'
             />
           </Paper>
           <SendMessageForm />

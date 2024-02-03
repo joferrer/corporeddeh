@@ -1,17 +1,16 @@
 /* eslint-disable react/prop-types */
-import { Box, Grid, Paper, Typography } from '@mui/material'
+import { Box, CircularProgress, Grid, Paper, Typography } from '@mui/material'
 import Carousel from 'react-material-ui-carousel'
 
-export const PrincipalImgComponent = ({ events }) => {
+export const PrincipalImgComponent = ({ events = [] }) => {
   return (
     <Grid>
-      <CarouselComponent events={events} />
+      {events.length !== 0 ? <CarouselComponent events={events} /> : <CircularProgress />}
     </Grid>
   )
 }
 
 function CarouselComponent({ events }) {
-  console.log(events)
   const eventl = events || []
   const updatedEvents = eventl?.map((event) => {
     const filteredImagen = event.imagen.filter(
@@ -20,20 +19,6 @@ function CarouselComponent({ events }) {
     return { ...event, imagen: filteredImagen }
   })
     .filter((event) => event.imagen.length > 0)
-
-  const items = [
-    {
-      name: 'Random Name #1',
-      description:
-        'Gira territorial de paz, escenarios de diálogo con organizaciones sociales, liderazgos comunales, campesinos, rurales y procesos de ciudad. Gira territorial de paz, escenarios de diálogo con organizaciones sociales, liderazgos comunales, campesinos, rurales y procesos de ciudad.',
-      img: 'https://pbs.twimg.com/media/FCVslvrXoAAIzS7.jpg:large'
-    },
-    {
-      name: 'Random Name #2',
-      description: 'Hello World!',
-      img: 'https://pbs.twimg.com/media/FCVslvrXoAAIzS7.jpg:large'
-    }
-  ]
 
   return (
     <Carousel interval={10000} sx={{ width: '100%' }}>
@@ -72,6 +57,7 @@ function Item(props) {
         style={{ display: 'none' }}
         src={props.item.imagen[0]}
         alt={props.item.titulo}
+        loading='lazy'
       />
       <Box
         sx={{
