@@ -102,7 +102,7 @@ export const HomePage = () => {
         <PrincipalImgComponent events={events} />
 
         <Typography variant='h1' sx={{ textAlign: 'center', marginTop: '10px', fontSize: '2rem' }}>
-          Corporación Departamentar de derechos Humanos CORPOREDDEH
+          Corporación Red Departamental de Defensores de DDHH CORPOREDDEH
         </Typography>
         <NavegationComponent windowSize={windowSize} />
         <CounterComponent mes={month()} counter={data?.counter} />
