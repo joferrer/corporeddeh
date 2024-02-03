@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { CircularProgress, Grid, Paper, Typography } from '@mui/material'
+import { Grid, Paper, Typography } from '@mui/material'
 import Layout from './layout/Layout'
 import {
   PrincipalImgComponent,
@@ -9,10 +9,8 @@ import {
 import { useWindowSize } from '../../hooks'
 import { useDate } from '../../theme'
 import { startLoadHomeDocumment } from '../../backend/home/HomeThunks'
-import { Suspense, lazy, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { startLoadCountEvents } from '../../backend/Events/EventsThunks'
-
-const LazyCarrousel = lazy(() => import('./components/CarouselComponet'))
 
 const CounterComponent = ({ counter = 1000, mes = 'Enero' }) => {
   return (

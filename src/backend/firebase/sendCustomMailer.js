@@ -1,17 +1,18 @@
-import { addDoc, collection } from 'firebase/firestore/lite'
+import { addDoc, collection, getDocs } from 'firebase/firestore/lite'
 import { FireBaseDB } from './firebaseConfig'
 
 const db = FireBaseDB
 
-const successSendMail = {
-  message: {
-    subject: 'Correo recibido',
-    text: 'Su correo ha sido recibido correctamente, nos pondremos en contacto con usted lo antes posible',
-    html: '<p>Su correo ha sido recibido correctamente, nos pondremos en contacto con usted lo antes posible</p>'
-  }
-
+const getCorporationEmail = async () => {
+  // Get the email from the collection home
+  const collectionRef = collection(db, 'home')
+  const querySnapshot = await getDocs(collectionRef)
+  const email = querySnapshot.docs[0].data().socialNetworks.email
+  console.log(email)
+  return email
 }
-const messageGenerator = (name, email, message, subject) => {
+
+const messageGenerator = (name, email, message, subject, corporationEmail) => {
   return {
     to: corporationEmail,
     message: {
@@ -35,13 +36,12 @@ const responseMessageGenerator = (name, email) => {
   }
 }
 
-const corporationEmail = 'ferrerjeison7@gmail.com'
-
 export const sendCustomMailer = async (email, subject, message, name) => {
   try {
     console.log(email, subject, message)
     const collectionRef = collection(db, 'email')
-    const emailContent = messageGenerator(name, email, message, subject)
+    const corporationEmail = await getCorporationEmail()
+    const emailContent = messageGenerator(name, email, message, subject, corporationEmail)
     console.log(emailContent)
     const resp = await addDoc(collectionRef, emailContent)
     console.log(resp)

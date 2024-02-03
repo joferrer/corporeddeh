@@ -58,6 +58,8 @@ function Item(props) {
         src={props.item.imagen[0]}
         alt={props.item.titulo}
         loading='lazy'
+        decoding='async'
+
       />
       <Box
         sx={{
